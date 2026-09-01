@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neves Store</title>
+  <link rel="stylesheet" href="nevesStore.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="index.html"><img src="imgs tenis\logoneves store.jpg" alt="Neves Store"></a>
+      </div>
+      <div class="search-bar">
+        <form id="searchForm">
+          <input type="text" id="searchInput" placeholder="Buscar produtos..." />
+          <button type="submit"><i class="fa-solid fa-search"></i></button>
+        </form>
+      </div>
+      <div class="header-icons">
+        <a href="perfil.html" title="Minha Conta"><i class="fa-solid fa-user"></i></a>
+        <a href="contato.html" title="Contato"><i class="fa-solid fa-envelope"></i></a>
+        <a href="carrinho.html" id="cart-button" title="Carrinho"><i class="fa-solid fa-cart-shopping"></i> (<span id="cart-count">0</span>)</a>
+        <span class="menu-toggle" id="menu-toggle"><i class="fa-solid fa-bars"></i></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navbar Secundária -->
+  <nav class="navbar-categorias">
+    <ul class="navbar-nav" id="nav-links">
+      <li class="nav-item"><a href="tenis.html" class="nav-link">Tenis</a></li>
+      <li class="nav-item"><a href="camisetas.html" class="nav-link">Camisetas</a></li>
+      <li class="nav-item"><a href="blusasecnjs.html" class="nav-link">Blusas e Conjuntos</a></li>
+      <li class="nav-item"><a href="acesorrios.html" class="nav-link">Acessórios</a></li>
+    </ul>
+  </nav>
+
+  <!-- Carrossel -->
+  <section class="promo-carousel">
+    <h2 class="carousel-title">🔥 SUPER OFERTAS - CLIQUE E APROVEITE!</h2>
+    <div class="carousel-container">
+      <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
+      <div class="carousel" id="carousel">
+        <!-- Tênis Nike Dunk -->
+        <div class="product-details" data-nome="Tênis Nike Dunk" data-preco="299.90" data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]' data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+          <h3>Tênis Nike Dunk 🔥</h3>
+          <img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis Nike Dunk" class="product-image" />
+          <p class="description">Estilo clássico com muito comfort!</p>
+          <p class="price">De <span class="old-price">R$ 499,90</span> por <span class="new-price">R$ 299,90</span></p>
+          <p class="promotion-info">⏰ OFERTA IMPERDÍVEL - ÚLTIMAS UNIDADES!</p>
+          <button class="cta-button">Adicionar ao Carrinho</button>
+          <button class="abrir-produto">Visualizar Detalhes</button>
+          <div class="countdown" data-time="2025-12-31T23:59:59">Oferta termina em: <span class="timer">--:--:--</span></div>
+        </div>
+        <!-- Tênis Mizuno -->
+        <div class="product-details" data-nome="Tênis Mizuno Pro 8" data-preco="299.90" data-imagens='["imgs tenis/mizunopro8roxo.jfif"]' data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+          <h3>Tênis Mizuno Pro 8 💜</h3>
+          <img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis Mizuno" class="product-image" />
+          <p class="description">Tecnologia japonesa em seus pés!</p>
+          <p class="price">De <span class="old-price">R$ 499,90</span> por <span class="new-price">R$ 299,90</span></p>
+          <p class="promotion-info">⏰ 30% OFF - Aproveite agora!</p>
+          <button class="cta-button">Adicionar ao Carrinho</button>
+          <button class="abrir-produto">Visualizar Detalhes</button>
+          <div class="countdown" data-time="2025-12-31T23:59:59">Oferta termina em: <span class="timer">--:--:--</span></div>
+        </div>
+        <!-- Tênis LV Skate -->
+        <div class="product-details" data-nome="Tênis LV Skate" data-preco="299.90" data-imagens='["imgs tenis/tenislvskate.jfif"]' data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+          <h3>Tênis LV Skate 👟</h3>
+          <img src="imgs tenis\tenislvskate.jfif" alt="Tênis LV Skate" class="product-image" />
+          <p class="description">Estilo urbano e descontraído!</p>
+          <p class="price">De <span class="old-price">R$ 499,90</span> por <span class="new-price">R$ 299,90</span></p>
+          <p class="promotion-info">⏰ SUPER DESCONTO!</p>
+          <button class="cta-button">Adicionar ao Carrinho</button>
+          <button class="abrir-produto">Visualizar Detalhes</button>
+          <div class="countdown" data-time="2025-12-31T23:59:59">Oferta termina em: <span class="timer">--:--:--</span></div>
+        </div>
+        <!-- Tênis Court Vision -->
+        <div class="product-details" data-nome="Tênis Court Vision" data-preco="299.90" data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]' data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+          <h3>Tênis Court Vision ⚫</h3>
+          <img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis Court Vision" class="product-image" />
+          <p class="description">Clássico que nunca sai de moda!</p>
+          <p class="price">De <span class="old-price">R$ 499,90</span> por <span class="new-price">R$ 299,90</span></p>
+          <p class="promotion-info">⏰ Frete grátis em cidades selecionadas!</p>
+          <button class="cta-button">Adicionar ao Carrinho</button>
+          <button class="abrir-produto">Visualizar Detalhes</button>
+          <div class="countdown" data-time="2025-12-31T23:59:59">Oferta termina em: <span class="timer">--:--:--</span></div>
+        </div>
+        <!-- Tênis Balmain -->
+        <div class="product-details" data-nome="Tênis Balmain" data-preco="299.90" data-imagens='["imgs tenis/tenisbalmain.jfif"]' data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+          <h3>Tênis Balmain ✨</h3>
+          <img src="imgs tenis\tenisbalmain.jfif" alt="Tênis Balmain" class="product-image" />
+          <p class="description">Luxo e conforto em um só lugar!</p>
+          <p class="price">De <span class="old-price">R$ 499,90</span> por <span class="new-price">R$ 299,90</span></p>
+          <p class="promotion-info">⏰ PREMIUM COM PREÇO DE OUTLET!</p>
+          <button class="cta-button">Adicionar ao Carrinho</button>
+          <button class="abrir-produto">Visualizar Detalhes</button>
+          <div class="countdown" data-time="2025-12-31T23:59:59">Oferta termina em: <span class="timer">--:--:--</span></div>
+        </div>
+      </div>
+      <button class="carousel-btn next" id="nextBtn">&#10095;</button>
+    </div>
+  </section>
+
+  <section class="promocoes">
+    <h2>Promoções do Mês</h2>
+    <div class="produtos-grid">
+
+      <div class="produto"
+      data-nome="Tênis mizuno"
+      data-preco="299.90"
+      data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+      data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+   <img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+   <h3>Tênis mizuno</h3>
+   <p>Preço: R$ 299,90</p>
+   <button class="abrir-produto">Visualizar</button>
+ </div>
+ 
+ <div class="produto"
+ data-nome="Tênis Balmain"
+ data-preco="299.90"
+ data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+ data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+      data-nome="Tênis court vision"
+      data-preco="299.90"
+      data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+      data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+   <img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+   <h3>Tênis court vision</h3>
+   <p>Preço: R$ 299,90</p>
+   <button class="abrir-produto">Visualizar</button>
+ </div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+      data-nome="Tênis Tn"
+      data-preco="299.90"
+      data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+      data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+   <img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+   <h3>Tênis nike tn</h3>
+   <p>Preço: R$ 299,90</p>
+   <button class="abrir-produto">Visualizar</button>
+ </div>
+
+ <div class="produto"
+ data-nome="Tênis Nike Dunk"
+ data-preco="299.90"
+ data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+ data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto" 
+  data-nome=" moletom chuva de nike" 
+  data-preco="129.90" 
+  data-imagens='["imgs blusas/chuvadenikepreto.jfif"]'
+  data-tamanhos='["P","M","G","GG"]'
+  data-cores='["Preta","Branca","Azul","Vermelha"]'>
+<img src="imgs blusas\chuvadenikepreto.jfif" alt="moletom chuva de nike">
+<h3>moletom Chuva de nike</h3>
+<p>Preço: R$ 129,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto" 
+  data-nome="dry fit ajax" 
+  data-preco="129.90" 
+  data-imagens='["imgs blusas\drifitajax.jfif"]'
+  data-tamanhos='["P","M","G","GG"]'
+  data-cores='["Preta","Branca","Azul","Vermelha"]'>
+<img src="imgs blusas\drifitajax.jfif" alt="dry fit ajax">
+<h3>dry fit ajax</h3>
+<p>Preço: R$ 129,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto" 
+  data-nome="moletom lakers" 
+  data-preco="129.90" 
+  data-imagens='["imgs blusas/lakers.jfif"]'
+  data-tamanhos='["P","M","G","GG"]'
+  data-cores='["Preta","Branca","Azul","Vermelha"]'>
+<img src="imgs blusas/lakers.jfif" alt="moletom lakers">
+<h3>moletom lakers</h3>
+<p>Preço: R$ 129,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto" 
+  data-nome="moletom airphorize" 
+  data-preco="129.90" 
+  data-imagens='["imgs blusas/nikeairpohbranco.jfif"]'
+  data-tamanhos='["P","M","G","GG"]'
+  data-cores='["Preta","Branca","Azul","Vermelha"]'>
+<img src="imgs blusas\nikeairpohbranco.jfif" alt="moletom airphorize">
+<h3>moletom airphorize</h3>
+<p>Preço: R$ 129,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto" 
+  data-nome="dry fit espanha" 
+  data-preco="129.90" 
+  data-imagens='["imgs blusas\drifitespanha.jfif"]'
+  data-tamanhos='["P","M","G","GG"]'
+  data-cores='["Preta","Branca","Azul","Vermelha"]'>
+<img src="imgs blusas\drifitespanha.jfif" alt="dry fit espanha">
+<h3>dry fit espanha</h3>
+<p>Preço: R$ 129,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto" 
+  data-nome="moletom nike swooch" 
+  data-preco="129.90" 
+  data-imagens='["imgs blusas\nikeswoshpreto.jfif"]'
+  data-tamanhos='["P","M","G","GG"]'
+  data-cores='["Preta","Branca","Azul","Vermelha"]'>
+<img src="imgs blusas\nikeswoshpreto.jfif" alt="moletom nike swooch">
+<h3>moletom nike swooch</h3>
+<p>Preço: R$ 129,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+</div>
+</section>
+
+
+  <!-- Banner Promocional -->
+  <section class="banner-promo">
+    <div class="banner-content">
+      <h2>🎉 BEM-VINDO À NEVES STORE</h2>
+      <p>As melhores marcas com os melhores preços do mercado!</p>
+      <a href="#promocoes" class="banner-btn">VER TODAS AS OFERTAS</a>
+    </div>
+  </section>
+
+  <!-- Seção de Vantagens -->
+  <section class="vantagens">
+    <h2>Por que comprar com a gente?</h2>
+    <div class="vantagens-grid">
+      <div class="vantagem">
+        <i class="fas fa-truck"></i>
+        <h3>Frete Rápido</h3>
+        <p>Entregamos em todo o Brasil com agilidade</p>
+      </div>
+      <div class="vantagem">
+        <i class="fas fa-shield-alt"></i>
+        <h3>100% Seguro</h3>
+        <p>Suas compras protegidas com total segurança</p>
+      </div>
+      <div class="vantagem">
+        <i class="fas fa-undo"></i>
+        <h3>Fácil Devolução</h3>
+        <p>Devolva em até 30 dias sem complicações</p>
+      </div>
+      <div class="vantagem">
+        <i class="fas fa-headset"></i>
+        <h3>Suporte 24/7</h3>
+        <p>Sempre disponível para ajudar você</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção de Categorias em Destaque -->
+  <section class="categorias-destaque">
+    <h2>NOSSAS CATEGORIAS</h2>
+    <div class="categorias-grid">
+      <div class="categoria-card">
+        <i class="fas fa-shoe-prints"></i>
+        <h3>TÊNIS</h3>
+        <p>Estilos variados para todo tipo de atividade</p>
+        <a href="tenis.html" class="categoria-btn">EXPLORAR</a>
+      </div>
+      <div class="categoria-card">
+        <i class="fas fa-shirt"></i>
+        <h3>CAMISETAS</h3>
+        <p>Conforto e estilo em perfeita harmonia</p>
+        <a href="camisetas.html" class="categoria-btn">EXPLORAR</a>
+      </div>
+      <div class="categoria-card">
+        <i class="fas fa-gem"></i>
+        <h3>BLUSAS E CONJUNTOS</h3>
+        <p>Looks completos para você brilhar</p>
+        <a href="blusasecnjs.html" class="categoria-btn">EXPLORAR</a>
+      </div>
+      <div class="categoria-card">
+        <i class="fas fa-ring"></i>
+        <h3>ACESSÓRIOS</h3>
+        <p>Detalhe que faz toda a diferença</p>
+        <a href="acesorrios.html" class="categoria-btn">EXPLORAR</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-main">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>SOBRE NEVES STORE</h4>
+        <p>Somos a sua loja online de confiança, oferecendo produtos de qualidade com os melhores preços do mercado!</p>
+        <div class="redes-sociais">
+          <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h4>INFORMAÇÕES</h4>
+        <ul>
+          <li><a href="#">Sobre nós</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
+          <li><a href="#">Termos de Uso</a></li>
+          <li><a href="#">Rastreamento de Pedido</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>CATEGORIAS</h4>
+        <ul>
+          <li><a href="tenis.html">Tênis</a></li>
+          <li><a href="camisetas.html">Camisetas</a></li>
+          <li><a href="blusasecnjs.html">Blusas e Conjuntos</a></li>
+          <li><a href="acesorrios.html">Acessórios</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>CONTATO</h4>
+        <p>📧 Email: contato@nevesstore.com</p>
+        <p>📱 WhatsApp: (19) 99997-2899</p>
+        <p>📍 São Paulo, SP - Brasil</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2024 <strong>NEVES STORE</strong> - Todos os direitos reservados.</p>
+      <p>Desenvolvido com ❤️ para você</p>
+    </div>
+  </footer>
+
+  <script src="anuncio.js"></script>
+
+  <script>
+    // Checar login ao entrar no site
+    (function verificarLoginAoEntrar() {
+      const logado = localStorage.getItem("logado");
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+  
+      // Se não tiver informação nenhuma → manda para login
+      if (logado === null || (logado !== "true" && logado !== "false")) {
+        window.location.href = "login.html";
+      }
+  
+      // Atualizar ícone
+      const userIcon = document.querySelector(".fa-user");
+      if (logado === "true" && usuario) {
+        userIcon.outerHTML = `<a href="perfil.html" class="user-nome">👤 ${usuario.nome}</a>`;
+      }
+    })();
+  </script>
+  
+</body>
+</html>
+

@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neves Store</title>
+  <link rel="stylesheet" href="nevesStore.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="index.html"><img src="imgs tenis\logoneves store.jpg" alt="Neves Store"></a>
+      </div>
+      <div class="search-bar">
+        <form id="searchForm">
+          <input type="text" id="searchInput" placeholder="Buscar produtos..." />
+          <button type="submit"><i class="fa-solid fa-search"></i></button>
+        </form>
+      </div>
+      <div class="header-icons">
+        <a href="perfil.html" title="Minha Conta"><i class="fa-solid fa-user"></i></a>
+        <a href="contato.html" title="Contato"><i class="fa-solid fa-envelope"></i></a>
+        <a href="carrinho.html" id="cart-button" title="Carrinho"><i class="fa-solid fa-cart-shopping"></i> (<span id="cart-count">0</span>)</a>
+        <span class="menu-toggle" id="menu-toggle"><i class="fa-solid fa-bars"></i></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navbar Secundária -->
+  <nav class="navbar-categorias">
+    <ul class="navbar-nav" id="nav-links">
+      <li class="nav-item"><a href="tenis.html" class="nav-link">Tenis</a></li>
+      <li class="nav-item"><a href="camisetas.html" class="nav-link">Camisetas</a></li>
+      <li class="nav-item"><a href="blusasecnjs.html" class="nav-link">Blusas e Conjuntos</a></li>
+      <li class="nav-item"><a href="acesorrios.html" class="nav-link">Acessórios</a></li>
+    </ul>
+  </nav>
+
+
+
+  <section class="promocoes">
+    <h2>Promoções do Mês</h2>
+    <div class="produtos-grid">
+
+      <div class="produto"
+      data-nome="Tênis mizuno"
+      data-preco="299.90"
+      data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+      data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+   <img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+   <h3>Tênis mizuno</h3>
+   <p>Preço: R$ 299,90</p>
+   <button class="abrir-produto">Visualizar</button>
+ </div>
+ 
+ <div class="produto"
+ data-nome="Tênis Balmain"
+ data-preco="299.90"
+ data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+ data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+      data-nome="Tênis court vision"
+      data-preco="299.90"
+      data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+      data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+   <img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+   <h3>Tênis court vision</h3>
+   <p>Preço: R$ 299,90</p>
+   <button class="abrir-produto">Visualizar</button>
+ </div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+      data-nome="Tênis Tn"
+      data-preco="299.90"
+      data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+      data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+   <img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+   <h3>Tênis nike tn</h3>
+   <p>Preço: R$ 299,90</p>
+   <button class="abrir-produto">Visualizar</button>
+ </div>
+
+ <div class="produto"
+ data-nome="Tênis Nike Dunk"
+ data-preco="299.90"
+ data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+ data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis mizuno"
+data-preco="299.90"
+data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis mizuno</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Balmain"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis court vision"
+data-preco="299.90"
+data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis court vision</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Tn"
+data-preco="299.90"
+data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis nike tn</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Nike Dunk"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis mizuno"
+data-preco="299.90"
+data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis mizuno</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Balmain"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis court vision"
+data-preco="299.90"
+data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis court vision</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Tn"
+data-preco="299.90"
+data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis nike tn</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Nike Dunk"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis mizuno"
+data-preco="299.90"
+data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis mizuno</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Balmain"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis court vision"
+data-preco="299.90"
+data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis court vision</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Tn"
+data-preco="299.90"
+data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis nike tn</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Nike Dunk"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis mizuno"
+data-preco="299.90"
+data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis mizuno</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Balmain"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis court vision"
+data-preco="299.90"
+data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis court vision</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Tn"
+data-preco="299.90"
+data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis nike tn</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Nike Dunk"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis mizuno"
+data-preco="299.90"
+data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis mizuno</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Balmain"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis court vision"
+data-preco="299.90"
+data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis court vision</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Tn"
+data-preco="299.90"
+data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis nike tn</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Nike Dunk"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis mizuno"
+data-preco="299.90"
+data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis mizuno</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Balmain"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis court vision"
+data-preco="299.90"
+data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis court vision</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Tn"
+data-preco="299.90"
+data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis nike tn</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Nike Dunk"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis mizuno"
+data-preco="299.90"
+data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis mizuno</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Balmain"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis court vision"
+data-preco="299.90"
+data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis court vision</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Tn"
+data-preco="299.90"
+data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis nike tn</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Nike Dunk"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis mizuno"
+data-preco="299.90"
+data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis mizuno</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Balmain"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis court vision"
+data-preco="299.90"
+data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis court vision</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Tn"
+data-preco="299.90"
+data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis nike tn</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Nike Dunk"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis mizuno"
+data-preco="299.90"
+data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis mizuno</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Balmain"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis court vision"
+data-preco="299.90"
+data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis court vision</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Tn"
+data-preco="299.90"
+data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis nike tn</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Nike Dunk"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis mizuno"
+data-preco="299.90"
+data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis mizuno</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Balmain"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis court vision"
+data-preco="299.90"
+data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis court vision</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Tn"
+data-preco="299.90"
+data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis nike tn</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Nike Dunk"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis mizuno"
+data-preco="299.90"
+data-imagens='["imgs tenis/mizunopro8roxo.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\mizunopro8roxo.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis mizuno</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Balmain"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisbalmain.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisbalmain.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Balmain</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis court vision"
+data-preco="299.90"
+data-imagens='["imgs tenis/teniscourtvisionpreto.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\teniscourtvisionpreto.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis court vision</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis LV"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenislvskate.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenislvskate.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis LV Skate</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Tn"
+data-preco="299.90"
+data-imagens='["imgs tenis/tnbarcelona.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tnbarcelona.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis nike tn</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+<div class="produto"
+data-nome="Tênis Nike Dunk"
+data-preco="299.90"
+data-imagens='["imgs tenis/tenisdunkvermelho.jfif"]'
+data-tamanhos='["36","37","38","39","40","41","42","43"]'>
+<img src="imgs tenis\tenisdunkvermelho.jfif" alt="Tênis mizuno pro 8 roxo">
+<h3>Tênis Nike Dunk</h3>
+<p>Preço: R$ 299,90</p>
+<button class="abrir-produto">Visualizar</button>
+</div>
+
+
+</div>
+</section>
+
+
+  <!-- Sobre -->
+  <section id="sobre" class="info-section">
+    <h3>Sobre a Relapango</h3>
+    <p>Relapango é uma loja online focada em trazer as melhores promoções relâmpago para você economizar de verdade!</p>
+  </section>
+
+  <footer>
+    <p>© 2025 Relapango - Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="categorias.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrinho - Neves Store</title>
+  <link rel="stylesheet" href="carrinho.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="NevesStore.html"><img src="imgs tenis\logoneves store.jpg" alt="Neves Store"></a>
+      </div>
+      <div class="search-bar">
+        <form id="searchForm">
+          <input type="text" id="searchInput" placeholder="Buscar produtos..." />
+          <button type="submit"><i class="fa-solid fa-search"></i></button>
+        </form>
+      </div>
+      <div class="header-icons">
+        <a href="perfil.html" title="Minha Conta"><i class="fa-solid fa-user"></i></a>
+        <a href="contato.html" title="Contato"><i class="fa-solid fa-envelope"></i></a>
+        <a href="carrinho.html" id="cart-button" title="Carrinho"><i class="fa-solid fa-cart-shopping"></i> (<span id="cart-count">0</span>)</a>
+        <span class="menu-toggle" id="menu-toggle"><i class="fa-solid fa-bars"></i></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navbar Secundária -->
+  <nav class="navbar-categorias">
+    <ul class="navbar-nav" id="nav-links">
+      <li class="nav-item"><a href="tenis.html" class="nav-link">Tênis</a></li>
+      <li class="nav-item"><a href="camisetas.html" class="nav-link">Camisetas</a></li>
+      <li class="nav-item"><a href="blusasecnjs.html" class="nav-link">Blusas e Conjuntos</a></li>
+      <li class="nav-item"><a href="acesorrios.html" class="nav-link">Acessórios</a></li>
+    </ul>
+  </nav>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <h2>🛒 Seu Carrinho</h2>
+    <div id="carrinho-container"></div>
+    
+    <h3 id="total">Total: R$ 0,00</h3>
+
+    <!-- Formulário do comprador -->
+    <section class="checkout-form">
+      <h3>📦 Dados para entrega</h3>
+      <form id="checkoutForm">
+        <input type="text" id="nome" placeholder="Nome completo" required>
+        <input type="email" id="email" placeholder="E-mail" required>
+        <input type="tel" id="telefone" placeholder="Telefone/WhatsApp" required>
+        <input type="text" id="endereco" placeholder="Endereço completo" required>
+      </form>
+    </section>
+
+    <button id="finalizar-compra" class="btn-finalizar">✓ Finalizar Pedido</button>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; 2024 Neves Store. Todos os direitos reservados.</p>
+    <p>Entre em contato conosco para dúvidas sobre sua compra.</p>
+  </footer>
+
+  <script src="carrinho.js"></script>
+  <script>
+    // Menu responsivo
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('nav-links').classList.toggle('show');
+    });
+  </script>

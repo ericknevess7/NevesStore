@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil - Neves Store</title>
+  <link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+  <div class="perfil-container">
+    <h2>Minha Conta</h2>
+
+    <form id="perfil-form">
+      <input type="text" id="nome" placeholder="Nome" required>
+      <input type="text" id="sobrenome" placeholder="Sobrenome" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="senha" placeholder="Senha" required>
+      <input type="text" id="cep" placeholder="CEP" required>
+      <input type="text" id="endereco" placeholder="Endereço" required>
+      <input type="text" id="cidade" placeholder="Cidade" required>
+      <input type="text" id="estado" placeholder="Estado" required>
+
+      <button type="submit">Salvar Alterações</button>
+    </form>
+
+    <button class="logout" onclick="logout()">Sair da Conta</button>
+  </div>
+
+  <script src="perfil.js"></script>
+</body>
+</html>

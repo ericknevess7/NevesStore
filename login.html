@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Neves Store</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="login-container">
+    <h2>Bem-vindo à Neves Store</h2>
+
+    <div class="tabs">
+      <button id="btn-login" class="active">Entrar</button>
+      <button id="btn-register">Criar Conta</button>
+    </div>
+
+    <!-- Formulário Login -->
+    <form id="form-login" class="active">
+      <input type="email" id="login-email" placeholder="Email" required>
+      <input type="password" id="login-senha" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+      <button type="button" class="later" onclick="entrarMaisTarde()">Entrar mais tarde</button>
+    </form>
+
+    <!-- Formulário Cadastro -->
+    <form id="form-register">
+      <input type="text" id="nome" placeholder="Nome" required>
+      <input type="text" id="sobrenome" placeholder="Sobrenome" required>
+      <input type="email" id="register-email" placeholder="Email" required>
+      <input type="password" id="register-senha" placeholder="Senha" required>
+      <input type="text" id="cep" placeholder="CEP" required>
+      <input type="text" id="endereco" placeholder="Endereço" required>
+      <input type="text" id="cidade" placeholder="Cidade" required>
+      <input type="text" id="estado" placeholder="Estado" required>
+      <button type="submit">Criar Conta</button>
+    </form>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>
