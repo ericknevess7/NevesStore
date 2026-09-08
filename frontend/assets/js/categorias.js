@@ -15,6 +15,8 @@ painel.innerHTML = `
 `;
 document.body.appendChild(painel);
 
+let imagemSelecionada = "";
+
 // Abrir painel
 function abrirPainel(produto) {
   const { nome, preco, imagens, tipos } = produto;
@@ -27,8 +29,9 @@ function abrirPainel(produto) {
   const labelCor = document.getElementById("label-cor");
 
   panelNome.innerText = nome;
-  panelPreco.innerText = "Preço: R$ " + preco.toFixed(2);
+  panelPreco.innerText = "Preço: R$ " + preco.toFixed(2).replace('.', ',');
   panelImg.src = imagens[0];
+  imagemSelecionada = imagens[0];
 
   // Miniaturas
   panelMiniaturas.innerHTML = "";
@@ -38,6 +41,7 @@ function abrirPainel(produto) {
     if (i === 0) img.classList.add("active");
     img.addEventListener("click", () => {
       panelImg.src = src;
+      imagemSelecionada = src;
       panelMiniaturas.querySelectorAll("img").forEach(el => el.classList.remove("active"));
       img.classList.add("active");
     });
@@ -46,14 +50,16 @@ function abrirPainel(produto) {
 
   // Tamanhos
   selectTamanho.innerHTML = "";
-  tipos.tamanhos.forEach(t => {
-    const option = document.createElement("option");
-    option.value = t;
-    option.innerText = t;
-    selectTamanho.appendChild(option);
-  });
+  if (tipos.tamanhos && tipos.tamanhos.length > 0) {
+    tipos.tamanhos.forEach(t => {
+      const option = document.createElement("option");
+      option.value = t;
+      option.innerText = t;
+      selectTamanho.appendChild(option);
+    });
+  }
 
-  // Cores (só se houver)
+  // Cores
   if (tipos.cores && tipos.cores.length > 0) {
     labelCor.style.display = "block";
     selectCor.style.display = "block";
@@ -74,8 +80,8 @@ function abrirPainel(produto) {
   // Botão adicionar
   document.getElementById("adicionar-panel").onclick = () => {
     const tamanhoSelecionado = selectTamanho.value;
-    const corSelecionada = selectCor.value || null;
-    adicionarAoCarrinho(nome, preco, corSelecionada, tamanhoSelecionado);
+    const corSelecionada = selectCor.style.display !== "none" ? selectCor.value : null;
+    adicionarAoCarrinho(nome, preco, imagemSelecionada, corSelecionada, tamanhoSelecionado);
     painel.classList.remove("active");
   };
 }
@@ -85,19 +91,28 @@ document.getElementById("fechar-panel").onclick = () => painel.classList.remove(
 
 // Eventos dos botões "Visualizar"
 document.querySelectorAll(".produto").forEach(produtoEl => {
-  produtoEl.querySelector(".abrir-produto").addEventListener("click", () => {
-    const nome = produtoEl.dataset.nome;
-    const preco = parseFloat(produtoEl.dataset.preco);
-    const imagens = JSON.parse(produtoEl.dataset.imagens);
+  const btn = produtoEl.querySelector(".abrir-produto");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      const nome = produtoEl.dataset.nome;
+      const preco = parseFloat(produtoEl.dataset.preco);
+      
+      // Converte a string de imagens ou pega o src direto da img
+      let imagens = [];
+      try {
+        imagens = JSON.parse(produtoEl.dataset.imagens);
+      } catch(e) {
+        const imgTag = produtoEl.querySelector("img");
+        if (imgTag) imagens = [imgTag.src];
+      }
 
-    // Lê diretamente do HTML
-    const tamanhos = produtoEl.dataset.tamanhos ? JSON.parse(produtoEl.dataset.tamanhos) : [];
-    const cores = produtoEl.dataset.cores ? JSON.parse(produtoEl.dataset.cores) : [];
+      const tamanhos = produtoEl.dataset.tamanhos ? JSON.parse(produtoEl.dataset.tamanhos) : [];
+      const cores = produtoEl.dataset.cores ? JSON.parse(produtoEl.dataset.cores) : [];
 
-    abrirPainel({ nome, preco, imagens, tipos: { tamanhos, cores } });
-  });
+      abrirPainel({ nome, preco, imagens, tipos: { tamanhos, cores } });
+    });
+  }
 });
-
 
 // ===== Carrinho com LocalStorage =====
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
@@ -108,17 +123,30 @@ function atualizarContadorCarrinho() {
 }
 atualizarContadorCarrinho();
 
-function adicionarAoCarrinho(nome, preco, cor = null, tamanho = null) {
+function adicionarAoCarrinho(nome, preco, imagem, cor = null, tamanho = null) {
   const precoFormatado = `R$ ${preco.toFixed(2).replace('.', ',')}`;
-  const produto = { nome, preco: precoFormatado, valorNumerico: preco, cor, tamanho };
+  const produto = { 
+    nome, 
+    preco: precoFormatado, 
+    valorNumerico: preco, 
+    imagem: imagem || '', 
+    cor, 
+    tamanho 
+  };
+  
   carrinho.push(produto);
   localStorage.setItem('carrinho', JSON.stringify(carrinho));
   atualizarContadorCarrinho();
-  alert(`${nome} foi adicionado ao carrinho!`);
+  alert(`✅ ${nome} foi adicionado ao carrinho!`);
 }
 
 // ===== Botão carrinho =====
 document.getElementById('cart-button')?.addEventListener('click', (e) => {
   e.preventDefault();
   window.location.href = 'carrinho.html';
+});
+
+// ===== Menu Toggle Mobile =====
+document.getElementById('menu-toggle')?.addEventListener('click', () => {
+  document.getElementById('nav-links')?.classList.toggle('show');
 });

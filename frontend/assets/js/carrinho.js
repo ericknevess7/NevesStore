@@ -2,9 +2,6 @@
 const container = document.getElementById('carrinho-container');
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-// CONFIGURAÇÃO: Coloque seu número de WhatsApp aqui (com DDD)
-const NUMERO_WHATSAPP = "19999728998"; // Seu número configurado
-
 function formatarPreco(preco) {
   const valor = parseFloat(preco.toString().replace('R$', '').replace(',', '.'));
   return `R$ ${valor.toFixed(2).replace('.', ',')}`;
@@ -12,7 +9,8 @@ function formatarPreco(preco) {
 
 function calcularTotal() {
   return carrinho.reduce((acc, item) => {
-    const valor = parseFloat(item.preco.replace('R$', '').replace(',', '.')) || 0;
+    // Tenta pegar de valorNumerico ou extrai da string preco
+    const valor = item.valorNumerico || parseFloat(item.preco.replace('R$', '').replace(',', '.')) || 0;
     return acc + valor;
   }, 0);
 }
@@ -38,7 +36,7 @@ function renderCarrinho() {
     const div = document.createElement('div');
     div.classList.add('cart-item');
 
-    const img = `<img src="${item.imagem}" alt="${item.nome}" onerror="this.src='https://via.placeholder.com/100'" />`;
+    const img = `<img src="${item.imagem || ''}" alt="${item.nome}" onerror="this.src='https://via.placeholder.com/100'" />`;
     const info = `
       <div class="cart-item-info">
         <strong>${item.nome}</strong>
@@ -70,8 +68,8 @@ function removerItem(index) {
   console.log(`${itemRemovido} removido do carrinho`);
 }
 
-// ===== FINALIZAR COMPRA - REDIRECIONAR PARA WHATSAPP =====
-document.getElementById('finalizar-compra').addEventListener('click', () => {
+// ===== FINALIZAR COMPRA - INTEGRADO AO BACKEND =====
+document.getElementById('finalizar-compra').addEventListener('click', async () => {
   if (carrinho.length === 0) {
     alert("Seu carrinho está vazio. Adicione produtos antes de finalizar a compra.");
     return;
@@ -102,36 +100,41 @@ document.getElementById('finalizar-compra').addEventListener('click', () => {
     return;
   }
 
-  const totalCompra = calcularTotal();
-  
-  // Monta mensagem para WhatsApp
-  const listaProdutos = carrinho
-    .map(item => `${item.nome} - ${item.preco}${item.tamanho ? ` (Tam: ${item.tamanho})` : ''}`)
-    .join('%0A');
+  // Prepara os itens garantindo que valorNumerico existe
+  const itensFormatados = carrinho.map(item => ({
+    ...item,
+    valorNumerico: item.valorNumerico || parseFloat(item.preco.replace('R$', '').replace(',', '.')) || 0
+  }));
 
-  const mensagem = 
-    `*NOVO PEDIDO - NEVES STORE*%0A%0A` +
-    `👤 *Nome:* ${nome}%0A` +
-    `📧 *E-mail:* ${email}%0A` +
-    `📱 *Telefone:* ${telefone}%0A` +
-    `📍 *Endereço:* ${endereco}%0A%0A` +
-    `*Produtos:*%0A${listaProdutos}%0A%0A` +
-    `💰 *Total:* R$ ${totalCompra.toFixed(2).replace('.', ',')}`;
+  try {
+    const response = await fetch('http://localhost:3000/api/checkout/processar-pagamento', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        itens: itensFormatados,
+        comprador: {
+          nome,
+          email,
+          telefone,
+          endereco
+        }
+      })
+    });
 
-  // Redireciona para WhatsApp
-  const urlWhatsApp = `https://wa.me/${NUMERO_WHATSAPP}?text=${mensagem}`;
-  
-  console.log('Abrindo WhatsApp com mensagem:', urlWhatsApp);
-  
-  // Abre WhatsApp em nova aba
-  window.open(urlWhatsApp, '_blank');
-  
-  // Limpa o carrinho e o formulário
-  alert('✅ Redirecionando para WhatsApp...\n\nSeu pedido foi preparado e será enviado via WhatsApp.');
-  carrinho = [];
-  localStorage.setItem('carrinho', JSON.stringify(carrinho));
-  document.getElementById('checkoutForm').reset();
-  renderCarrinho();
+    const data = await response.json();
+
+    if (data.init_point) {
+      // Redireciona o cliente para o Checkout Transparente / Mercado Pago
+      window.location.href = data.init_point;
+    } else {
+      alert("❌ Ocorreu um erro ao gerar o pagamento. Tente novamente.");
+    }
+  } catch (error) {
+    console.error('Erro na integração com o backend:', error);
+    alert("⚠️ Não foi possível conectar ao servidor de pagamentos. Verifique se o backend Node.js está rodando.");
+  }
 });
 
 // Renderizar carrinho ao carregar a página
