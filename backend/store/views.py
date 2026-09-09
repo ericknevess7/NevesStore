@@ -1,6 +1,7 @@
 import os
 import json
 import mercadopago
+from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
@@ -9,6 +10,39 @@ from django.contrib.auth.models import User
 # Configuração do Mercado Pago
 ACCESS_TOKEN = os.environ.get("MERCADOPAGO_ACCESS_TOKEN", "TEST-1234567890-SIMULACAO")
 sdk = mercadopago.SDK(ACCESS_TOKEN)
+
+# ==========================================
+# VIEWS DE RENDERIZAÇÃO DO FRONTEND (HTML)
+# ==========================================
+
+def index_view(request):
+    return render(request, 'index.html')
+
+def login_view(request):
+    return render(request, 'login.html')
+
+def tenis_view(request):
+    return render(request, 'tenis.html')
+
+def camisetas_view(request):
+    return render(request, 'camisetas.html')
+
+def blusas_view(request):
+    return render(request, 'blusasecnjs.html')
+
+def acessorios_view(request):
+    return render(request, 'acesorrios.html')
+
+def carrinho_view(request):
+    return render(request, 'carrinho.html')
+
+def perfil_view(request):
+    return render(request, 'perfil.html')
+
+
+# ==========================================
+# ENDPOINTS DA API (AUTENTICAÇÃO E PAGAMENTO)
+# ==========================================
 
 @csrf_exempt
 def create_preference(request):
@@ -42,6 +76,7 @@ def create_preference(request):
             
     return JsonResponse({"error": "Método não permitido"}, status=405)
 
+
 @csrf_exempt
 def api_login(request):
     if request.method == 'POST':
@@ -68,6 +103,7 @@ def api_login(request):
 
     return JsonResponse({'error': 'Método não permitido.'}, status=405)
 
+
 @csrf_exempt
 def api_cadastro(request):
     if request.method == 'POST':
@@ -91,11 +127,3 @@ def api_cadastro(request):
             return JsonResponse({'error': str(e)}, status=400)
 
     return JsonResponse({'error': 'Método não permitido.'}, status=405)
-
-from django.shortcuts import render
-
-def index_view(request):
-    return render(request, 'index.html')
-
-def login_view(request):
-    return render(request, 'login.html')

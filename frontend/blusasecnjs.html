@@ -3,844 +3,177 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Neves Store</title>
+  <title>Blusas & Conjuntos — Neves Store</title>
   <link rel="stylesheet" href="assets/css/nevesStore.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
-  <!-- Cabeçalho -->
+
+  <!-- Header -->
   <header class="header">
     <div class="header-container">
       <div class="logo">
         <a href="index.html"><img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store"></a>
       </div>
+
       <div class="search-bar">
         <form id="searchForm">
-          <input type="text" id="searchInput" placeholder="Buscar produtos..." />
-          <button type="submit"><i class="fa-solid fa-search"></i></button>
+          <input type="text" id="searchInput" placeholder="Buscar tênis, moletons, marcas..." />
+          <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
       </div>
+
       <div class="header-icons">
-        <a href="perfil.html" title="Minha Conta"><i class="fa-solid fa-user"></i></a>
-        <a href="contato.html" title="Contato"><i class="fa-solid fa-envelope"></i></a>
-        <a href="carrinho.html" id="cart-button" title="Carrinho"><i class="fa-solid fa-cart-shopping"></i> (<span id="cart-count">0</span>)</a>
-        <span class="menu-toggle" id="menu-toggle"><i class="fa-solid fa-bars"></i></span>
+        <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Modo Claro/Escuro">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+        <a href="perfil.html" id="user-profile-link" title="Minha Conta"><i class="fa-solid fa-user"></i></a>
+        <a href="carrinho.html" id="cart-button">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-count">0</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- Navbar Secundária -->
+  <!-- Navegação Categorias -->
   <nav class="navbar-categorias">
-    <ul class="navbar-nav" id="nav-links">
-      <li class="nav-item"><a href="tenis.html" class="nav-link">Tenis</a></li>
-      <li class="nav-item"><a href="camisetas.html" class="nav-link">Camisetas</a></li>
-      <li class="nav-item"><a href="blusasecnjs.html" class="nav-link">Blusas e Conjuntos</a></li>
-      <li class="nav-item"><a href="acesorrios.html" class="nav-link">Acessórios</a></li>
+    <ul class="navbar-nav">
+      <li><a href="tenis.html" class="nav-link">Tênis</a></li>
+      <li><a href="camisetas.html" class="nav-link">Camisetas</a></li>
+      <li><a href="blusasecnjs.html" class="nav-link">Blusas & Conjuntos</a></li>
+      <li><a href="acesorrios.html" class="nav-link">Acessórios</a></li>
     </ul>
   </nav>
 
-  <section class="promocoes">
-    <h2>Promoções do Mês</h2>
+  <!-- Catálogo Blusas e Conjuntos -->
+  <section class="products-section">
+    <div class="section-title">
+      <h2>Blusas & Conjuntos</h2>
+      <p>Moletons e conjuntos streetwear das melhores marcas</p>
+    </div>
+
     <div class="produtos-grid">
 
-      <div class="produto" 
-      data-nome=" moletom chuva de nike" 
-      data-preco="129.90" 
-      data-imagens=["assets/imgs blusas/chuvadenikepreto.jfif"]'
-      data-tamanhos='["P","M","G","GG"]'
-      data-cores='["Preta","Branca","Azul","Vermelha"]'>
-    <img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="moletom chuva de nike">
-    <h3>moletom Chuva de nike</h3>
-    <p>Preço: R$ 129,90</p>
-    <button class="abrir-produto">Visualizar</button>
-    </div>
-    
-    <div class="produto" 
-      data-nome="dry fit ajax" 
-      data-preco="129.90" 
-      data-imagens='["assets/imgs blusas/drifitajax.jfif"]'
-      data-tamanhos='["P","M","G","GG"]'
-      data-cores='["Preta","Branca","Azul","Vermelha"]'>
-    <img src="assets/imgs blusas/drifitajax.jfif" alt="dry fit ajax">
-    <h3>dry fit ajax</h3>
-    <p>Preço: R$ 129,90</p>
-    <button class="abrir-produto">Visualizar</button>
-    </div>
-    
-    <div class="produto" 
-      data-nome="moletom lakers" 
-      data-preco="129.90" 
-      data-imagens=["assets/imgs blusas/lakers.jfif"]'
-      data-tamanhos='["P","M","G","GG"]'
-      data-cores='["Preta","Branca","Azul","Vermelha"]'>
-    <img src="assets/imgs blusas/lakers.jfif" alt="moletom lakers">
-    <h3>moletom lakers</h3>
-    <p>Preço: R$ 129,90</p>
-    <button class="abrir-produto">Visualizar</button>
-    </div>
-    
-    <div class="produto" 
-      data-nome="moletom airphorize" 
-      data-preco="129.90" 
-      data-imagens=["assets/imgs blusas/nikeairpohbranco.jfif"]'
-      data-tamanhos='["P","M","G","GG"]'
-      data-cores='["Preta","Branca","Azul","Vermelha"]'>
-    <img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="moletom airphorize">
-    <h3>moletom airphorize</h3>
-    <p>Preço: R$ 129,90</p>
-    <button class="abrir-produto">Visualizar</button>
-    </div>
-    
-    <div class="produto" 
-      data-nome="dry fit espanha" 
-      data-preco="129.90" 
-      data-imagens='["assets/imgs blusas/drifitespanha.jfif"]'
-      data-tamanhos='["P","M","G","GG"]'
-      data-cores='["Preta","Branca","Azul","Vermelha"]'>
-    <img src="assets/imgs blusas/drifitespanha.jfif" alt="dry fit espanha">
-    <h3>dry fit espanha</h3>
-    <p>Preço: R$ 129,90</p>
-    <button class="abrir-produto">Visualizar</button>
-    </div>
-    
-    <div class="produto" 
-      data-nome="moletom nike swooch" 
-      data-preco="129.90" 
-      data-imagens='["assets/imgs blusas/nikeswoshpreto.jfif"]'
-      data-tamanhos='["P","M","G","GG"]'
-      data-cores='["Preta","Branca","Azul","Vermelha"]'>
-    <img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="moletom nike swooch">
-    <h3>moletom nike swooch</h3>
-    <p>Preço: R$ 129,90</p>
-    <button class="abrir-produto">Visualizar</button>
-    </div>
+      <div class="product-card">
+        <span class="badge-discount">-35%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="Moletom Chuva de Nike">
+        </div>
+        <div class="product-info">
+          <h3>Moletom Chuva de Nike Black</h3>
+          <div class="prices">
+            <span class="old-price">R$ 199,90</span>
+            <span class="current-price">R$ 129,90</span>
+          </div>
+        </div>
+        <button class="btn-buy">Ver Detalhes</button>
+      </div>
 
-    <div class="produto" 
-  data-nome=" moletom chuva de nike" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/chuvadenikepreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="moletom chuva de nike">
-<h3>moletom Chuva de nike</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
+      <div class="product-card">
+        <span class="badge-discount">-35%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs blusas/lakers.jfif" alt="Moletom Lakers">
+        </div>
+        <div class="product-info">
+          <h3>Moletom NBA Lakers Purple</h3>
+          <div class="prices">
+            <span class="old-price">R$ 199,90</span>
+            <span class="current-price">R$ 129,90</span>
+          </div>
+        </div>
+        <button class="btn-buy">Ver Detalhes</button>
+      </div>
 
-<div class="produto" 
-  data-nome="dry fit ajax" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitajax.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitajax.jfif" alt="dry fit ajax">
-<h3>dry fit ajax</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
+      <div class="product-card">
+        <span class="badge-discount">-35%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="Moletom Airphorize">
+        </div>
+        <div class="product-info">
+          <h3>Moletom Nike Airphorize White</h3>
+          <div class="prices">
+            <span class="old-price">R$ 199,90</span>
+            <span class="current-price">R$ 129,90</span>
+          </div>
+        </div>
+        <button class="btn-buy">Ver Detalhes</button>
+      </div>
 
-<div class="produto" 
-  data-nome="moletom lakers" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/lakers.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/lakers.jfif" alt="moletom lakers">
-<h3>moletom lakers</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom airphorize" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/nikeairpohbranco.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="moletom airphorize">
-<h3>moletom airphorize</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit espanha" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitespanha.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitespanha.jfif" alt="dry fit espanha">
-<h3>dry fit espanha</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom nike swooch" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/nikeswoshpreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="moletom nike swooch">
-<h3>moletom nike swooch</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome=" moletom chuva de nike" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/chuvadenikepreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="moletom chuva de nike">
-<h3>moletom Chuva de nike</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit ajax" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitajax.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitajax.jfif" alt="dry fit ajax">
-<h3>dry fit ajax</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom lakers" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/lakers.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/lakers.jfif" alt="moletom lakers">
-<h3>moletom lakers</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom airphorize" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/nikeairpohbranco.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="moletom airphorize">
-<h3>moletom airphorize</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit espanha" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitespanha.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitespanha.jfif" alt="dry fit espanha">
-<h3>dry fit espanha</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom nike swooch" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/nikeswoshpreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="moletom nike swooch">
-<h3>moletom nike swooch</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome=" moletom chuva de nike" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/chuvadenikepreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="moletom chuva de nike">
-<h3>moletom Chuva de nike</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit ajax" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitajax.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitajax.jfif" alt="dry fit ajax">
-<h3>dry fit ajax</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom lakers" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/lakers.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/lakers.jfif" alt="moletom lakers">
-<h3>moletom lakers</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom airphorize" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/nikeairpohbranco.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="moletom airphorize">
-<h3>moletom airphorize</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit espanha" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitespanha.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitespanha.jfif" alt="dry fit espanha">
-<h3>dry fit espanha</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom nike swooch" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/nikeswoshpreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="moletom nike swooch">
-<h3>moletom nike swooch</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome=" moletom chuva de nike" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/chuvadenikepreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="moletom chuva de nike">
-<h3>moletom Chuva de nike</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit ajax" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitajax.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitajax.jfif" alt="dry fit ajax">
-<h3>dry fit ajax</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom lakers" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/lakers.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/lakers.jfif" alt="moletom lakers">
-<h3>moletom lakers</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom airphorize" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/nikeairpohbranco.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="moletom airphorize">
-<h3>moletom airphorize</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit espanha" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitespanha.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitespanha.jfif" alt="dry fit espanha">
-<h3>dry fit espanha</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom nike swooch" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/nikeswoshpreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="moletom nike swooch">
-<h3>moletom nike swooch</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome=" moletom chuva de nike" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/chuvadenikepreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="moletom chuva de nike">
-<h3>moletom Chuva de nike</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit ajax" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitajax.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitajax.jfif" alt="dry fit ajax">
-<h3>dry fit ajax</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom lakers" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/lakers.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/lakers.jfif" alt="moletom lakers">
-<h3>moletom lakers</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom airphorize" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/nikeairpohbranco.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="moletom airphorize">
-<h3>moletom airphorize</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit espanha" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitespanha.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitespanha.jfif" alt="dry fit espanha">
-<h3>dry fit espanha</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom nike swooch" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/nikeswoshpreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="moletom nike swooch">
-<h3>moletom nike swooch</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome=" moletom chuva de nike" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/chuvadenikepreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="moletom chuva de nike">
-<h3>moletom Chuva de nike</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit ajax" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitajax.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitajax.jfif" alt="dry fit ajax">
-<h3>dry fit ajax</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom lakers" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/lakers.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/lakers.jfif" alt="moletom lakers">
-<h3>moletom lakers</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom airphorize" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/nikeairpohbranco.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="moletom airphorize">
-<h3>moletom airphorize</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit espanha" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitespanha.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitespanha.jfif" alt="dry fit espanha">
-<h3>dry fit espanha</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom nike swooch" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/nikeswoshpreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="moletom nike swooch">
-<h3>moletom nike swooch</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome=" moletom chuva de nike" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/chuvadenikepreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="moletom chuva de nike">
-<h3>moletom Chuva de nike</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit ajax" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitajax.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitajax.jfif" alt="dry fit ajax">
-<h3>dry fit ajax</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom lakers" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/lakers.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/lakers.jfif" alt="moletom lakers">
-<h3>moletom lakers</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom airphorize" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/nikeairpohbranco.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="moletom airphorize">
-<h3>moletom airphorize</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit espanha" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitespanha.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitespanha.jfif" alt="dry fit espanha">
-<h3>dry fit espanha</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom nike swooch" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/nikeswoshpreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="moletom nike swooch">
-<h3>moletom nike swooch</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome=" moletom chuva de nike" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/chuvadenikepreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="moletom chuva de nike">
-<h3>moletom Chuva de nike</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit ajax" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitajax.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitajax.jfif" alt="dry fit ajax">
-<h3>dry fit ajax</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom lakers" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/lakers.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/lakers.jfif" alt="moletom lakers">
-<h3>moletom lakers</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom airphorize" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/nikeairpohbranco.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="moletom airphorize">
-<h3>moletom airphorize</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit espanha" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitespanha.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitespanha.jfif" alt="dry fit espanha">
-<h3>dry fit espanha</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom nike swooch" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/nikeswoshpreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="moletom nike swooch">
-<h3>moletom nike swooch</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome=" moletom chuva de nike" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/chuvadenikepreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="moletom chuva de nike">
-<h3>moletom Chuva de nike</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit ajax" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitajax.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitajax.jfif" alt="dry fit ajax">
-<h3>dry fit ajax</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom lakers" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/lakers.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/lakers.jfif" alt="moletom lakers">
-<h3>moletom lakers</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom airphorize" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/nikeairpohbranco.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="moletom airphorize">
-<h3>moletom airphorize</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit espanha" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitespanha.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitespanha.jfif" alt="dry fit espanha">
-<h3>dry fit espanha</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom nike swooch" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/nikeswoshpreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="moletom nike swooch">
-<h3>moletom nike swooch</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome=" moletom chuva de nike" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/chuvadenikepreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="moletom chuva de nike">
-<h3>moletom Chuva de nike</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit ajax" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitajax.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitajax.jfif" alt="dry fit ajax">
-<h3>dry fit ajax</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom lakers" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/lakers.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/lakers.jfif" alt="moletom lakers">
-<h3>moletom lakers</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom airphorize" 
-  data-preco="129.90" 
-  data-imagens=["assets/imgs blusas/nikeairpohbranco.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeairpohbranco.jfif" alt="moletom airphorize">
-<h3>moletom airphorize</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="dry fit espanha" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/drifitespanha.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/drifitespanha.jfif" alt="dry fit espanha">
-<h3>dry fit espanha</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
-<div class="produto" 
-  data-nome="moletom nike swooch" 
-  data-preco="129.90" 
-  data-imagens='["assets/imgs blusas/nikeswoshpreto.jfif"]'
-  data-tamanhos='["P","M","G","GG"]'
-  data-cores='["Preta","Branca","Azul","Vermelha"]'>
-<img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="moletom nike swooch">
-<h3>moletom nike swooch</h3>
-<p>Preço: R$ 129,90</p>
-<button class="abrir-produto">Visualizar</button>
-</div>
-
+      <div class="product-card">
+        <span class="badge-discount">-35%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs blusas/nikeswoshpreto.jfif" alt="Moletom Nike Swoosh">
+        </div>
+        <div class="product-info">
+          <h3>Moletom Nike Swoosh Essential</h3>
+          <div class="prices">
+            <span class="old-price">R$ 199,90</span>
+            <span class="current-price">R$ 129,90</span>
+          </div>
+        </div>
+        <button class="btn-buy">Ver Detalhes</button>
+      </div>
 
     </div>
   </section>
-  <script src="assets/js/categorias.js"></script>
 
-    
+  <!-- Rodapé -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>NEVES STORE</h4>
+        <p>A sua loja referência em sneakers e moda streetwear. Qualidade máxima e preços acessíveis.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Categorias</h4>
+        <ul>
+          <li><a href="tenis.html">Tênis</a></li>
+          <li><a href="camisetas.html">Camisetas</a></li>
+          <li><a href="blusasecnjs.html">Blusas & Conjuntos</a></li>
+          <li><a href="acesorrios.html">Acessórios</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Atendimento</h4>
+        <p>E-mail: contato@nevesstore.com</p>
+        <p>WhatsApp: (19) 99997-2899</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 NEVES STORE — Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    if (themeToggleBtn && themeIcon) {
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-theme');
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+      }
+
+      themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        if (document.body.classList.contains('light-theme')) {
+          themeIcon.classList.replace('fa-moon', 'fa-sun');
+          localStorage.setItem('theme', 'light');
+        } else {
+          themeIcon.classList.replace('fa-sun', 'fa-moon');
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      const userLink = document.getElementById("user-profile-link");
+      if (usuario && usuario.nome && userLink) {
+        userLink.innerHTML = `<span style="font-size: 13px; font-weight: 700; color: var(--accent);">👤 ${usuario.nome}</span>`;
+      }
+    });
+  </script>
 </body>
 </html>
-
