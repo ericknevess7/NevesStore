@@ -91,3 +91,11 @@ def api_cadastro(request):
             return JsonResponse({'error': str(e)}, status=400)
 
     return JsonResponse({'error': 'Método não permitido.'}, status=405)
+
+from django.shortcuts import render
+
+def index_view(request):
+    return render(request, 'index.html')
+
+def login_view(request):
+    return render(request, 'login.html')

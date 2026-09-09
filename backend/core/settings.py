@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,7 +49,8 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # Mapeia a pasta frontend na raiz do projeto para renderizar os arquivos HTML
+        'DIRS': [BASE_DIR.parent / 'frontend'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -100,7 +102,12 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
+STATIC_URL = 'assets/'
+
+# Mapeia a pasta de arquivos estáticos (CSS, JS, imagens) do seu frontend
+STATICFILES_DIRS = [
+    BASE_DIR.parent / 'frontend' / 'assets',
+]
 
 
 # Email
