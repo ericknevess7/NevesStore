@@ -367,24 +367,25 @@ data-tamanhos='["36","37","38","39","40","41","42","43"]'>
 
   <script src="assets/js/anuncio.js"></script>
 
-  <script>
-    // Checar login ao entrar no site
-    (function verificarLoginAoEntrar() {
-      const logado = localStorage.getItem("logado");
-      const usuario = JSON.parse(localStorage.getItem("usuario"));
-  
-      // Se não tiver informação nenhuma → manda para login
-      if (logado === null || (logado !== "true" && logado !== "false")) {
-        window.location.href = "login.html";
-      }
-  
-      // Atualizar ícone
-      const userIcon = document.querySelector(".fa-user");
-      if (logado === "true" && usuario) {
-        userIcon.outerHTML = `<a href="perfil.html" class="user-nome">👤 ${usuario.nome}</a>`;
-      }
-    })();
-  </script>
+ <script>
+  // Checar login ao entrar no site
+  (function verificarLoginAoEntrar() {
+    const token = localStorage.getItem("token");
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    // Se NÃO tiver token gravado, redireciona para o login
+    if (!token) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    // Se estiver logado, exibe o nome no ícone do usuário
+    const userIcon = document.querySelector(".fa-user");
+    if (usuario && usuario.nome && userIcon) {
+      userIcon.parentElement.innerHTML = `<a href="perfil.html" class="user-nome">👤 ${usuario.nome}</a>`;
+    }
+  })();
+</script>
   
 </body>
 </html>

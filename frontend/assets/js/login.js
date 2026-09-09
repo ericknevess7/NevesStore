@@ -31,7 +31,7 @@ formLogin?.addEventListener('submit', async (e) => {
   }
 
   try {
-    const response = await fetch('http://localhost:3000/api/auth/login', {
+    const response = await fetch('http://127.0.0.1:8000/api/auth/login/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -42,12 +42,11 @@ formLogin?.addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-      // Salva o Token e os dados do usuário no LocalStorage
       localStorage.setItem('token', data.token);
       localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
       alert('✅ Login realizado com sucesso!');
-      window.location.href = 'index.html';
+      window.location.href = 'index.html'; 
     } else {
       alert(`❌ ${data.error || 'Erro ao realizar login.'}`);
     }
@@ -72,14 +71,13 @@ formRegister?.addEventListener('submit', async (e) => {
     estado: document.getElementById('estado').value.trim()
   };
 
-  // Validação básica
   if (!dados.nome || !dados.email || !dados.senha) {
     alert('⚠️ Preencha os campos obrigatórios!');
     return;
   }
 
   try {
-    const response = await fetch('http://localhost:3000/api/auth/cadastro', {
+    const response = await fetch('http://127.0.0.1:8000/api/auth/cadastro/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -91,8 +89,6 @@ formRegister?.addEventListener('submit', async (e) => {
 
     if (response.ok) {
       alert('🎉 Conta criada com sucesso! Faça login para continuar.');
-      
-      // Limpa os campos do cadastro e volta para a aba de login
       formRegister.reset();
       btnLogin.click();
     } else {
