@@ -1,31 +1,204 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perfil - Neves Store</title>
-  <link rel="stylesheet" href="assets/css/perfil.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minha Conta — Neves Store</title>
+  <link rel="stylesheet" href="assets/css/nevesStore.css" />
+  <link rel="stylesheet" href="assets/css/perfil.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
-  <div class="perfil-container">
-    <h2>Minha Conta</h2>
 
-    <form id="perfil-form">
-      <input type="text" id="nome" placeholder="Nome" required>
-      <input type="text" id="sobrenome" placeholder="Sobrenome" required>
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="senha" placeholder="Senha" required>
-      <input type="text" id="cep" placeholder="CEP" required>
-      <input type="text" id="endereco" placeholder="Endereço" required>
-      <input type="text" id="cidade" placeholder="Cidade" required>
-      <input type="text" id="estado" placeholder="Estado" required>
+  <!-- Header Simplificado -->
+  <header class="header">
+    <div class="header-container" style="justify-content: space-between;">
+      <div class="logo">
+        <a href="index.html"><img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store"></a>
+      </div>
 
-      <button type="submit">Salvar Alterações</button>
-    </form>
+      <div class="header-icons">
+        <a href="index.html" title="Voltar à Loja" style="font-size: 14px; font-weight: 700; color: var(--text-main);">
+          <i class="fa-solid fa-store"></i> Voltar à Loja
+        </a>
+        <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Modo Claro/Escuro">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
 
-    <button class="logout" onclick="logout()">Sair da Conta</button>
-  </div>
+  <!-- Container do Perfil -->
+  <main class="perfil-container">
+    <div class="perfil-card">
+      <div class="perfil-avatar-section">
+        <div class="avatar-circle">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <h2 id="display-nome">Carregando...</h2>
+        <span id="display-email" class="badge-email">carregando...</span>
+      </div>
 
-  <script src="assets/js/perfil.js"></script>
+      <div class="perfil-form-section">
+        <h3><i class="fa-solid fa-user-gear"></i> Meus Dados Cadastrados</h3>
+        
+        <form id="form-perfil">
+          <div class="form-grid">
+            <div class="input-box">
+              <label><i class="fa-solid fa-font"></i> Nome</label>
+              <input type="text" id="input-nome" required />
+            </div>
+
+            <div class="input-box">
+              <label><i class="fa-solid fa-envelope"></i> E-mail (Não editável)</label>
+              <input type="email" id="input-email" readonly disabled />
+            </div>
+
+            <div class="input-box">
+              <label><i class="fa-solid fa-phone"></i> Telefone / WhatsApp</label>
+              <input type="tel" id="input-telefone" placeholder="(19) 99999-9999" />
+            </div>
+
+            <div class="input-box">
+              <label><i class="fa-solid fa-map-pin"></i> CEP (Busca Automática)</label>
+              <input type="text" id="input-cep" placeholder="00000-000" maxlength="9" />
+            </div>
+
+            <div class="input-box" style="grid-column: span 2;">
+              <label><i class="fa-solid fa-road"></i> Rua / Avenida</label>
+              <input type="text" id="input-rua" placeholder="Nome da rua" />
+            </div>
+
+            <div class="input-box">
+              <label><i class="fa-solid fa-hashtag"></i> Número</label>
+              <input type="text" id="input-numero" placeholder="Nº da casa/apto" />
+            </div>
+
+            <div class="input-box">
+              <label><i class="fa-solid fa-building"></i> Bairro</label>
+              <input type="text" id="input-bairro" placeholder="Bairro" />
+            </div>
+
+            <div class="input-box">
+              <label><i class="fa-solid fa-city"></i> Cidade</label>
+              <input type="text" id="input-cidade" placeholder="Cidade" />
+            </div>
+
+            <div class="input-box">
+              <label><i class="fa-solid fa-flag"></i> Estado (UF)</label>
+              <input type="text" id="input-estado" placeholder="UF" maxlength="2" />
+            </div>
+          </div>
+
+          <div class="actions-group">
+            <button type="submit" class="btn-save"><i class="fa-solid fa-check"></i> Salvar Alterações</button>
+            <button type="button" id="btn-logout" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Sair da Conta</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Carregar Dados da Conta Ativa
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+      if (!usuario || !usuario.email) {
+        alert("Você precisa estar logado para acessar seu perfil.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      document.getElementById("display-nome").innerText = usuario.nome || "Usuário";
+      document.getElementById("display-email").innerText = usuario.email;
+      document.getElementById("input-nome").value = usuario.nome || "";
+      document.getElementById("input-email").value = usuario.email;
+      document.getElementById("input-telefone").value = usuario.telefone || "";
+      document.getElementById("input-cep").value = usuario.cep || "";
+      document.getElementById("input-rua").value = usuario.rua || "";
+      document.getElementById("input-numero").value = usuario.numero || "";
+      document.getElementById("input-bairro").value = usuario.bairro || "";
+      document.getElementById("input-cidade").value = usuario.cidade || "";
+      document.getElementById("input-estado").value = usuario.estado || "";
+    });
+
+    // Busca de CEP Automática no Perfil
+    document.getElementById("input-cep").addEventListener("keyup", async (e) => {
+      const cep = e.target.value.replace(/\D/g, "");
+      if (cep.length === 8) {
+        try {
+          const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+          const data = await res.json();
+          if (!data.erro) {
+            document.getElementById("input-rua").value = data.logradouro || "";
+            document.getElementById("input-bairro").value = data.bairro || "";
+            document.getElementById("input-cidade").value = data.localidade || "";
+            document.getElementById("input-estado").value = data.uf || "";
+            document.getElementById("input-numero").focus();
+          }
+        } catch (err) {
+          console.error("Erro ao buscar CEP:", err);
+        }
+      }
+    });
+
+    // Salvar Dados do Perfil (Persistência na Conta)
+    document.getElementById("form-perfil").addEventListener("submit", (e) => {
+      e.preventDefault();
+      let usuario = JSON.parse(localStorage.getItem("usuario")) || {};
+
+      usuario.nome = document.getElementById("input-nome").value.trim();
+      usuario.telefone = document.getElementById("input-telefone").value.trim();
+      usuario.cep = document.getElementById("input-cep").value.trim();
+      usuario.rua = document.getElementById("input-rua").value.trim();
+      usuario.numero = document.getElementById("input-numero").value.trim();
+      usuario.bairro = document.getElementById("input-bairro").value.trim();
+      usuario.cidade = document.getElementById("input-cidade").value.trim();
+      usuario.estado = document.getElementById("input-estado").value.trim();
+
+      // Salva a sessão ativa
+      localStorage.setItem("usuario", JSON.stringify(usuario));
+
+      // Atualiza o banco persistente de contas do navegador
+      if (usuario.email) {
+        const contasSalvas = JSON.parse(localStorage.getItem("contas_nevesstore")) || {};
+        contasSalvas[usuario.email] = usuario;
+        localStorage.setItem("contas_nevesstore", JSON.stringify(contasSalvas));
+      }
+
+      document.getElementById("display-nome").innerText = usuario.nome;
+      alert("✅ Perfil e endereço salvos com sucesso!");
+    });
+
+    // Logout
+    document.getElementById("btn-logout").addEventListener("click", () => {
+      localStorage.removeItem("usuario");
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    });
+
+    // Alternar Tema
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    if (themeToggleBtn && themeIcon) {
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-theme');
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+      }
+
+      themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        if (document.body.classList.contains('light-theme')) {
+          themeIcon.classList.replace('fa-moon', 'fa-sun');
+          localStorage.setItem('theme', 'light');
+        } else {
+          themeIcon.classList.replace('fa-sun', 'fa-moon');
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    }
+  </script>
 </body>
 </html>

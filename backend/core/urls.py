@@ -4,6 +4,7 @@ from store.views import (
     create_preference, 
     api_login, 
     api_cadastro, 
+    api_atualizar_perfil,
     index_view, 
     login_view,
     tenis_view,
@@ -36,4 +37,5 @@ urlpatterns = [
     path('api/create-preference/', create_preference, name='create_preference'),
     path('api/auth/login/', api_login, name='api_login'),
     path('api/auth/cadastro/', api_cadastro, name='api_cadastro'),
+    path('api/auth/perfil/', api_atualizar_perfil, name='api_atualizar_perfil'),
 ]

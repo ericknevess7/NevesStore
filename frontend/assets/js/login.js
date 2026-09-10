@@ -1,4 +1,4 @@
-// ===== CONTROLE DAS ABAS DE LOGIN E CADASTRO =====
+// Alternar Abas
 const btnLogin = document.getElementById('btn-login');
 const btnRegister = document.getElementById('btn-register');
 const formLogin = document.getElementById('form-login');
@@ -18,89 +18,100 @@ btnRegister?.addEventListener('click', () => {
   formLogin.classList.remove('active');
 });
 
-// ===== ENVIO DO FORMULÁRIO DE LOGIN =====
+// Busca CEP Automática no Cadastro
+document.getElementById('cep')?.addEventListener('keyup', async (e) => {
+  const cep = e.target.value.replace(/\D/g, '');
+  if (cep.length === 8) {
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = await response.json();
+
+      if (!data.erro) {
+        document.getElementById('rua').value = data.logradouro || '';
+        document.getElementById('bairro').value = data.bairro || '';
+        document.getElementById('cidade').value = data.localidade || '';
+        document.getElementById('estado').value = data.uf || '';
+        document.getElementById('numero').focus();
+      } else {
+        alert('⚠️ CEP não encontrado!');
+      }
+    } catch (err) {
+      console.error('Erro ao buscar CEP:', err);
+    }
+  }
+});
+
+// Login Submit (Carrega os dados salvos da conta)
 formLogin?.addEventListener('submit', async (e) => {
   e.preventDefault();
-
   const email = document.getElementById('login-email').value.trim();
   const senha = document.getElementById('login-senha').value.trim();
 
-  if (!email || !senha) {
-    alert('⚠️ Preencha todos os campos!');
-    return;
-  }
-
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/auth/login/', {
+    const response = await fetch('/api/auth/login/', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, senha })
     });
 
     const data = await response.json();
 
     if (response.ok) {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('usuario', JSON.stringify(data.usuario));
+      // Recupera os dados completos salvos no cadastro ou perfil
+      const contasSalvas = JSON.parse(localStorage.getItem('contas_nevesstore')) || {};
+      const usuarioCompleto = contasSalvas[email] || data.usuario;
+
+      localStorage.setItem('token', data.token || 'token-ativo');
+      localStorage.setItem('usuario', JSON.stringify(usuarioCompleto));
 
       alert('✅ Login realizado com sucesso!');
-      window.location.href = 'index.html'; 
+      window.location.href = 'index.html';
     } else {
       alert(`❌ ${data.error || 'Erro ao realizar login.'}`);
     }
   } catch (error) {
-    console.error('Erro de conexão:', error);
-    alert('⚠️ Não foi possível conectar ao servidor. Verifique se o backend está rodando.');
+    alert('⚠️ Erro ao conectar com o servidor.');
   }
 });
 
-// ===== ENVIO DO FORMULÁRIO DE CADASTRO =====
+// Cadastro Submit (Guarda os dados no registro)
 formRegister?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const dados = {
     nome: document.getElementById('nome').value.trim(),
-    sobrenome: document.getElementById('sobrenome').value.trim(),
     email: document.getElementById('register-email').value.trim(),
     senha: document.getElementById('register-senha').value.trim(),
     cep: document.getElementById('cep').value.trim(),
-    endereco: document.getElementById('endereco').value.trim(),
+    rua: document.getElementById('rua').value.trim(),
+    numero: document.getElementById('numero').value.trim(),
+    bairro: document.getElementById('bairro').value.trim(),
     cidade: document.getElementById('cidade').value.trim(),
     estado: document.getElementById('estado').value.trim()
   };
 
-  if (!dados.nome || !dados.email || !dados.senha) {
-    alert('⚠️ Preencha os campos obrigatórios!');
-    return;
-  }
-
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/auth/cadastro/', {
+    const response = await fetch('/api/auth/cadastro/', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dados)
     });
 
     const data = await response.json();
 
     if (response.ok) {
-      alert('🎉 Conta criada com sucesso! Faça login para continuar.');
-      formRegister.reset();
-      btnLogin.click();
+      // Grava no banco de dados local por e-mail
+      const contasSalvas = JSON.parse(localStorage.getItem('contas_nevesstore')) || {};
+      contasSalvas[dados.email] = dados;
+      localStorage.setItem('contas_nevesstore', JSON.stringify(contasSalvas));
+
+      localStorage.setItem('usuario', JSON.stringify(dados));
+      alert('🎉 Conta criada com sucesso!');
+      window.location.href = 'index.html';
     } else {
       alert(`❌ ${data.error || 'Erro ao criar conta.'}`);
     }
   } catch (error) {
-    console.error('Erro de conexão:', error);
-    alert('⚠️ Não foi possível conectar ao servidor. Verifique se o backend está rodando.');
+    alert('⚠️ Erro ao conectar com o servidor.');
   }
 });
-
-// ===== BOTÃO ENTRAR MAIS TARDE =====
-function entrarMaisTarde() {
-  window.location.href = 'index.html';
-}

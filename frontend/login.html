@@ -3,37 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Neves Store</title>
+  <title>Login — Neves Store</title>
+  <link rel="stylesheet" href="assets/css/nevesStore.css">
   <link rel="stylesheet" href="assets/css/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
-<body>
-  <div class="login-container">
-    <h2>Bem-vindo à Neves Store</h2>
+<body class="login-body">
 
-    <div class="tabs">
-      <button id="btn-login" class="active">Entrar</button>
-      <button id="btn-register">Criar Conta</button>
+  <div class="login-card">
+    <div class="login-header">
+      <a href="index.html"><img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store" class="login-logo"></a>
+      <h2>NEVES STORE</h2>
+      <p>Acesse sua conta para continuar</p>
     </div>
 
-    <!-- Formulário Login -->
-    <form id="form-login" class="active">
-      <input type="email" id="login-email" placeholder="Email" required>
-      <input type="password" id="login-senha" placeholder="Senha" required>
-      <button type="submit">Entrar</button>
-      <button type="button" class="later" onclick="entrarMaisTarde()">Entrar mais tarde</button>
+    <div class="login-tabs">
+      <button id="btn-login" class="tab-btn active">Entrar</button>
+      <button id="btn-register" class="tab-btn">Criar Conta</button>
+    </div>
+
+    <!-- Login -->
+    <form id="form-login" class="auth-form active">
+      <div class="input-group">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="login-email" placeholder="Seu e-mail" required>
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="login-senha" placeholder="Sua senha" required>
+      </div>
+      <button type="submit" class="btn-submit">Entrar</button>
+      <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">Continuar sem login</button>
     </form>
 
-    <!-- Formulário Cadastro -->
-    <form id="form-register">
-      <input type="text" id="nome" placeholder="Nome" required>
-      <input type="text" id="sobrenome" placeholder="Sobrenome" required>
-      <input type="email" id="register-email" placeholder="Email" required>
-      <input type="password" id="register-senha" placeholder="Senha" required>
-      <input type="text" id="cep" placeholder="CEP" required>
-      <input type="text" id="endereco" placeholder="Endereço" required>
-      <input type="text" id="cidade" placeholder="Cidade" required>
-      <input type="text" id="estado" placeholder="Estado" required>
-      <button type="submit">Criar Conta</button>
+    <!-- Cadastro Completo -->
+    <form id="form-register" class="auth-form">
+      <div class="input-group">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="nome" placeholder="Nome completo" required>
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="register-email" placeholder="E-mail" required>
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="register-senha" placeholder="Senha" required>
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-map-pin"></i>
+        <input type="text" id="cep" placeholder="CEP (Busca Automática)" maxlength="9" required>
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-house"></i>
+        <input type="text" id="rua" placeholder="Rua / Avenida" required readonly>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <div class="input-group" style="flex: 1;">
+          <input type="text" id="numero" placeholder="Nº da Casa" required>
+        </div>
+        <div class="input-group" style="flex: 2;">
+          <input type="text" id="bairro" placeholder="Bairro" required readonly>
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <div class="input-group" style="flex: 2;">
+          <input type="text" id="cidade" placeholder="Cidade" required readonly>
+        </div>
+        <div class="input-group" style="flex: 1;">
+          <input type="text" id="estado" placeholder="UF" required readonly>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit">Criar Conta</button>
     </form>
   </div>
 

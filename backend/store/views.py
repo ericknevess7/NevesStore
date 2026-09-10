@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from .models import UserProfile
 
 # Configuração do Mercado Pago
 ACCESS_TOKEN = os.environ.get("MERCADOPAGO_ACCESS_TOKEN", "TEST-1234567890-SIMULACAO")
@@ -92,9 +93,22 @@ def api_login(request):
                 user = None
 
             if user is not None:
+                # Recupera o perfil ou cria se não existir
+                profile, _ = UserProfile.objects.get_or_create(user=user)
+
                 return JsonResponse({
                     'token': 'django-session-token',
-                    'usuario': {'nome': user.first_name or user.username, 'email': user.email}
+                    'usuario': {
+                        'nome': user.first_name or user.username,
+                        'email': user.email,
+                        'telefone': profile.telefone or '',
+                        'cep': profile.cep or '',
+                        'rua': profile.rua or '',
+                        'numero': profile.numero or '',
+                        'bairro': profile.bairro or '',
+                        'cidade': profile.cidade or '',
+                        'estado': profile.estado or ''
+                    }
                 })
             else:
                 return JsonResponse({'error': 'E-mail ou senha incorretos.'}, status=400)
@@ -122,7 +136,57 @@ def api_cadastro(request):
                 password=senha,
                 first_name=nome
             )
+
+            # Cria o perfil com os dados do endereço informados no formulário
+            UserProfile.objects.create(
+                user=user,
+                telefone=data.get('telefone', ''),
+                cep=data.get('cep', ''),
+                rua=data.get('rua', ''),
+                numero=data.get('numero', ''),
+                bairro=data.get('bairro', ''),
+                cidade=data.get('cidade', ''),
+                estado=data.get('estado', '')
+            )
+
             return JsonResponse({'message': 'Usuário cadastrado com sucesso!'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+    return JsonResponse({'error': 'Método não permitido.'}, status=405)
+
+
+@csrf_exempt
+def api_atualizar_perfil(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email')
+
+            if not email:
+                return JsonResponse({'error': 'E-mail é obrigatório.'}, status=400)
+
+            user = User.objects.get(email=email)
+            profile, _ = UserProfile.objects.get_or_create(user=user)
+
+            # Atualiza o nome do usuário
+            if 'nome' in data:
+                user.first_name = data['nome']
+                user.save()
+
+            # Atualiza o endereço e dados no UserProfile
+            profile.telefone = data.get('telefone', profile.telefone)
+            profile.cep = data.get('cep', profile.cep)
+            profile.rua = data.get('rua', profile.rua)
+            profile.numero = data.get('numero', profile.numero)
+            profile.bairro = data.get('bairro', profile.bairro)
+            profile.cidade = data.get('cidade', profile.cidade)
+            profile.estado = data.get('estado', profile.estado)
+            profile.save()
+
+            return JsonResponse({'message': 'Perfil atualizado com sucesso no banco!'})
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'Usuário não encontrado.'}, status=404)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
 

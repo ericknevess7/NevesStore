@@ -3,73 +3,170 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Carrinho - Neves Store</title>
+  <title>Carrinho — Neves Store</title>
+  <link rel="stylesheet" href="assets/css/nevesStore.css" />
   <link rel="stylesheet" href="assets/css/carrinho.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
-  <!-- Cabeçalho -->
+
   <header class="header">
     <div class="header-container">
       <div class="logo">
-        <a href="NevesStore.html"><img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store"></a>
+        <a href="index.html"><img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store"></a>
       </div>
+
       <div class="search-bar">
         <form id="searchForm">
           <input type="text" id="searchInput" placeholder="Buscar produtos..." />
-          <button type="submit"><i class="fa-solid fa-search"></i></button>
+          <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
       </div>
+
       <div class="header-icons">
-        <a href="perfil.html" title="Minha Conta"><i class="fa-solid fa-user"></i></a>
-        <a href="contato.html" title="Contato"><i class="fa-solid fa-envelope"></i></a>
-        <a href="carrinho.html" id="cart-button" title="Carrinho"><i class="fa-solid fa-cart-shopping"></i> (<span id="cart-count">0</span>)</a>
-        <span class="menu-toggle" id="menu-toggle"><i class="fa-solid fa-bars"></i></span>
+        <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Modo Claro/Escuro">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+        <a href="perfil.html" id="user-profile-link" title="Minha Conta"><i class="fa-solid fa-user"></i></a>
+        <a href="carrinho.html" id="cart-button">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-count">0</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- Navbar Secundária -->
   <nav class="navbar-categorias">
-    <ul class="navbar-nav" id="nav-links">
-      <li class="nav-item"><a href="tenis.html" class="nav-link">Tênis</a></li>
-      <li class="nav-item"><a href="camisetas.html" class="nav-link">Camisetas</a></li>
-      <li class="nav-item"><a href="blusasecnjs.html" class="nav-link">Blusas e Conjuntos</a></li>
-      <li class="nav-item"><a href="acesorrios.html" class="nav-link">Acessórios</a></li>
+    <ul class="navbar-nav">
+      <li><a href="tenis.html" class="nav-link">Tênis</a></li>
+      <li><a href="camisetas.html" class="nav-link">Camisetas</a></li>
+      <li><a href="blusasecnjs.html" class="nav-link">Blusas & Conjuntos</a></li>
+      <li><a href="acesorrios.html" class="nav-link">Acessórios</a></li>
     </ul>
   </nav>
 
-  <!-- Conteúdo principal -->
-  <main>
-    <h2>🛒 Seu Carrinho</h2>
-    <div id="carrinho-container"></div>
-    
-    <h3 id="total">Total: R$ 0,00</h3>
+  <main class="cart-main">
+    <div class="cart-header-title">
+      <h2><i class="fa-solid fa-cart-shopping"></i> Seu Carrinho</h2>
+    </div>
 
-    <!-- Formulário do comprador -->
-    <section class="checkout-form">
-      <h3>📦 Dados para entrega</h3>
-      <form id="checkoutForm">
-        <input type="text" id="nome" placeholder="Nome completo" required>
-        <input type="email" id="email" placeholder="E-mail" required>
-        <input type="tel" id="telefone" placeholder="Telefone/WhatsApp" required>
-        <input type="text" id="endereco" placeholder="Endereço completo" required>
+    <div id="carrinho-container" class="carrinho-card"></div>
+
+    <div class="total-bar">
+      <h3 id="total">Total: R$ 0,00</h3>
+    </div>
+
+    <!-- Opções de Endereço de Entrega -->
+    <section class="checkout-form-card">
+      <h3><i class="fa-solid fa-truck-fast"></i> Endereço de Entrega</h3>
+      
+      <div class="endereco-options" style="display: flex; gap: 20px; margin-bottom: 20px;">
+        <label style="cursor: pointer; font-weight: 700; color: var(--text-main);">
+          <input type="radio" name="opcao-endereco" value="cadastrado" checked id="radio-cadastrado"> Usar Endereço Cadastrado
+        </label>
+        <label style="cursor: pointer; font-weight: 700; color: var(--text-main);">
+          <input type="radio" name="opcao-endereco" value="novo" id="radio-novo"> Usar Outro Endereço
+        </label>
+      </div>
+
+      <!-- Endereço Cadastrado -->
+      <div id="box-endereco-cadastrado" style="background: var(--search-bg); padding: 15px; border-radius: 10px; border: 1px solid var(--card-border);">
+        <p id="texto-endereco-cadastrado" style="color: var(--text-main); font-weight: 600;">Carregando endereço...</p>
+      </div>
+
+      <!-- Formulário de Outro Endereço -->
+      <form id="form-novo-endereco" style="display: none; margin-top: 15px;">
+        <div class="input-grid">
+          <input type="text" id="novo-cep" placeholder="CEP (Busca Automática)" maxlength="9">
+          <input type="text" id="novo-rua" placeholder="Rua / Avenida">
+          <input type="text" id="novo-numero" placeholder="Número da casa/apto">
+          <input type="text" id="novo-bairro" placeholder="Bairro">
+          <input type="text" id="novo-cidade" placeholder="Cidade">
+          <input type="text" id="novo-estado" placeholder="Estado (UF)" maxlength="2">
+        </div>
       </form>
     </section>
 
-    <button id="finalizar-compra" class="btn-finalizar">✓ Finalizar Pedido</button>
+    <button id="finalizar-compra" class="btn-finalizar">Finalizar Pedido via Mercado Pago</button>
   </main>
-
-  <!-- Rodapé -->
-  <footer>
-    <p>&copy; 2024 Neves Store. Todos os direitos reservados.</p>
-    <p>Entre em contato conosco para dúvidas sobre sua compra.</p>
-  </footer>
 
   <script src="assets/js/carrinho.js"></script>
   <script>
-    // Menu responsivo
-    document.getElementById('menu-toggle').addEventListener('click', () => {
-      document.getElementById('nav-links').classList.toggle('show');
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuario = JSON.parse(localStorage.getItem("usuario")) || {};
+      const boxCadastrado = document.getElementById("box-endereco-cadastrado");
+      const formNovo = document.getElementById("form-novo-endereco");
+      const radioCadastrado = document.getElementById("radio-cadastrado");
+      const radioNovo = document.getElementById("radio-novo");
+
+      // Monta o endereço cadastrado se houver partes
+      let endCompleto = "";
+      if (usuario.rua) {
+        endCompleto = `${usuario.rua}, Nº ${usuario.numero || ''}, ${usuario.bairro || ''} - ${usuario.cidade || ''}/${usuario.estado || ''} (CEP: ${usuario.cep || ''})`;
+      } else if (usuario.endereco) {
+        endCompleto = usuario.endereco;
+      }
+
+      if (endCompleto) {
+        document.getElementById("texto-endereco-cadastrado").innerText = `📍 ${endCompleto}`;
+      } else {
+        document.getElementById("texto-endereco-cadastrado").innerText = "⚠️ Nenhum endereço cadastrado no perfil.";
+      }
+
+      radioCadastrado.addEventListener("change", () => {
+        boxCadastrado.style.display = "block";
+        formNovo.style.display = "none";
+      });
+
+      radioNovo.addEventListener("change", () => {
+        boxCadastrado.style.display = "none";
+        formNovo.style.display = "block";
+      });
     });
+
+    // Busca de CEP Automática para Novo Endereço no Carrinho
+    document.getElementById("novo-cep")?.addEventListener("keyup", async (e) => {
+      const cep = e.target.value.replace(/\D/g, "");
+      if (cep.length === 8) {
+        try {
+          const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+          const data = await res.json();
+          if (!data.erro) {
+            document.getElementById("novo-rua").value = data.logradouro || "";
+            document.getElementById("novo-bairro").value = data.bairro || "";
+            document.getElementById("novo-cidade").value = data.localidade || "";
+            document.getElementById("novo-estado").value = data.uf || "";
+            document.getElementById("novo-numero").focus();
+          } else {
+            alert("⚠️ CEP não encontrado!");
+          }
+        } catch (err) {
+          console.error("Erro ao buscar CEP:", err);
+        }
+      }
+    });
+
+    // Tema
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    if (themeToggleBtn && themeIcon) {
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-theme');
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+      }
+
+      themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        if (document.body.classList.contains('light-theme')) {
+          themeIcon.classList.replace('fa-moon', 'fa-sun');
+          localStorage.setItem('theme', 'light');
+        } else {
+          themeIcon.classList.replace('fa-sun', 'fa-moon');
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    }
   </script>
+</body>
+</html>
