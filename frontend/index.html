@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <!-- Header Header -->
+  <!-- Header -->
   <header class="header">
     <div class="header-container">
       <div class="logo">
@@ -24,6 +24,9 @@
       </div>
 
       <div class="header-icons">
+        <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Modo Claro/Escuro">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
         <a href="perfil.html" id="user-profile-link" title="Minha Conta"><i class="fa-solid fa-user"></i></a>
         <a href="carrinho.html" id="cart-button">
           <i class="fa-solid fa-bag-shopping"></i>
@@ -43,32 +46,58 @@
     </ul>
   </nav>
 
-  <!-- Banner Principal -->
-  <section class="hero-banner">
+  <!-- Hero Section -->
+  <section class="hero-section">
     <div class="hero-content">
-      <span class="hero-tag">Coleção Exclusiva 2026</span>
+      <span class="hero-tag">COLEÇÃO EXCLUSIVA 2026</span>
       <h1>DRIP & STREETWEAR PREMIUM</h1>
       <p>A melhor seleção de sneakers e vestuário importado com entrega rápida e garantia de qualidade.</p>
-      <a href="#catalogo" class="hero-btn">EXPLORAR CATÁLOGO</a>
+      <button id="btn-open-catalog" class="btn-hero" type="button">EXPLORAR CATÁLOGO</button>
     </div>
   </section>
 
-  <!-- Catálogo de Produtos -->
-  <section class="products-section" id="catalogo">
-    <div class="section-header">
-      <div class="section-title">
-        <h2>Destaques em Alta</h2>
-        <p>Os itens mais desejados da loja com desconto por tempo limitado</p>
+  <!-- Modal Seleção de Categorias -->
+  <div id="catalog-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-store"></i> Escolha uma Categoria</h3>
+        <button id="btn-close-modal" class="modal-close" type="button">&times;</button>
       </div>
+      <p class="modal-subtitle">Selecione o que você deseja explorar no catálogo:</p>
+      <div class="category-options-grid">
+        <a href="tenis.html" class="category-card-item">
+          <i class="fa-solid fa-socks"></i>
+          <span>Tênis & Sneakers</span>
+        </a>
+        <a href="camisetas.html" class="category-card-item">
+          <i class="fa-solid fa-shirt"></i>
+          <span>Camisetas</span>
+        </a>
+        <a href="blusasecnjs.html" class="category-card-item">
+          <i class="fa-solid fa-mitten"></i>
+          <span>Blusas & Conjuntos</span>
+        </a>
+        <a href="acesorrios.html" class="category-card-item">
+          <i class="fa-solid fa-glasses"></i>
+          <span>Acessórios</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Destaques em Alta -->
+  <section class="products-section">
+    <div class="section-title">
+      <h2>Destaques em Alta</h2>
+      <p>Os itens mais desejados da loja com desconto por tempo limitado</p>
     </div>
 
     <div class="produtos-grid">
 
-      <!-- Produto 1 -->
       <div class="product-card">
         <span class="badge-discount">-40%</span>
         <div class="product-image-box">
-          <img src="assets/imgs tenis/tenisdunkvermelho.jfif" alt="Nike Dunk Low Red">
+          <img src="assets/imgs tenis/tenisdunkvermelho.jfif" alt="Nike Dunk Low">
         </div>
         <div class="product-info">
           <h3>Tênis Nike Dunk Low Red</h3>
@@ -77,30 +106,28 @@
             <span class="current-price">R$ 299,90</span>
           </div>
         </div>
-        <button class="btn-buy">Ver Detalhes</button>
+        <button class="btn-buy" type="button">Ver Detalhes</button>
       </div>
 
-      <!-- Produto 2 -->
       <div class="product-card">
         <span class="badge-discount">-40%</span>
         <div class="product-image-box">
-          <img src="assets/imgs tenis/mizunopro8roxo.jfif" alt="Mizuno Wave Pro 8">
+          <img src="assets/imgs tenis/mizunopro8roxo.jfif" alt="Mizuno Pro 8">
         </div>
         <div class="product-info">
-          <h3>Tênis Mizuno Wave Pro 8</h3>
+          <h3>Tênis Mizuno Pro 8 Roxo</h3>
           <div class="prices">
             <span class="old-price">R$ 499,90</span>
             <span class="current-price">R$ 299,90</span>
           </div>
         </div>
-        <button class="btn-buy">Ver Detalhes</button>
+        <button class="btn-buy" type="button">Ver Detalhes</button>
       </div>
 
-      <!-- Produto 3 -->
       <div class="product-card">
         <span class="badge-discount">-35%</span>
         <div class="product-image-box">
-          <img src="assets/imgs tenis/tenislvskate.jfif" alt="LV Skate Sneaker">
+          <img src="assets/imgs tenis/tenislvskate.jfif" alt="LV Skate">
         </div>
         <div class="product-info">
           <h3>Tênis LV Skate Sneaker</h3>
@@ -109,59 +136,28 @@
             <span class="current-price">R$ 299,90</span>
           </div>
         </div>
-        <button class="btn-buy">Ver Detalhes</button>
+        <button class="btn-buy" type="button">Ver Detalhes</button>
       </div>
 
-      <!-- Produto 4 -->
       <div class="product-card">
         <span class="badge-discount">-40%</span>
         <div class="product-image-box">
-          <img src="assets/imgs tenis/tenisbalmain.jfif" alt="Tênis Balmain B-Bold">
+          <img src="assets/imgs tenis/tenisbalmain.jfif" alt="Tênis Balmain">
         </div>
         <div class="product-info">
-          <h3>Tênis Balmain B-Bold</h3>
+          <h3>Tênis Balmain Luxury</h3>
           <div class="prices">
             <span class="old-price">R$ 499,90</span>
             <span class="current-price">R$ 299,90</span>
           </div>
         </div>
-        <button class="btn-buy">Ver Detalhes</button>
-      </div>
-
-      <!-- Produto 5 -->
-      <div class="product-card">
-        <div class="product-image-box">
-          <img src="assets/imgs blusas/chuvadenikepreto.jfif" alt="Moletom Nike Oversized">
-        </div>
-        <div class="product-info">
-          <h3>Moletom Nike Oversized Black</h3>
-          <div class="prices">
-            <span class="old-price">R$ 199,90</span>
-            <span class="current-price">R$ 129,90</span>
-          </div>
-        </div>
-        <button class="btn-buy">Ver Detalhes</button>
-      </div>
-
-      <!-- Produto 6 -->
-      <div class="product-card">
-        <div class="product-image-box">
-          <img src="assets/imgs blusas/drifitajax.jfif" alt="Camisa Dry Fit Ajax">
-        </div>
-        <div class="product-info">
-          <h3>Kit Dry Fit Ajax Special Edition</h3>
-          <div class="prices">
-            <span class="old-price">R$ 189,90</span>
-            <span class="current-price">R$ 129,90</span>
-          </div>
-        </div>
-        <button class="btn-buy">Ver Detalhes</button>
+        <button class="btn-buy" type="button">Ver Detalhes</button>
       </div>
 
     </div>
   </section>
 
-  <!-- Rodapé Institucional -->
+  <!-- Rodapé -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-col">
@@ -181,7 +177,6 @@
         <h4>Atendimento</h4>
         <p>E-mail: contato@nevesstore.com</p>
         <p>WhatsApp: (19) 99997-2899</p>
-        <p>Atendimento de Seg. à Sáb.</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -190,14 +185,37 @@
   </footer>
 
   <script>
-    // Carrega o nome do usuário logado no Header
-    (function carregarUsuario() {
+    // Alternar Tema Claro/Escuro
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    if (themeToggleBtn && themeIcon) {
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-theme');
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+      }
+
+      themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        if (document.body.classList.contains('light-theme')) {
+          themeIcon.classList.replace('fa-moon', 'fa-sun');
+          localStorage.setItem('theme', 'light');
+        } else {
+          themeIcon.classList.replace('fa-sun', 'fa-moon');
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    }
+
+    // Nome no Header
+    document.addEventListener("DOMContentLoaded", () => {
       const usuario = JSON.parse(localStorage.getItem("usuario"));
       const userLink = document.getElementById("user-profile-link");
       if (usuario && usuario.nome && userLink) {
-        userLink.innerHTML = `<span style="font-size: 13px; font-weight: 700; color: #7c3aed;">👤 ${usuario.nome}</span>`;
+        userLink.innerHTML = `<span style="font-size: 13px; font-weight: 700; color: var(--accent);">👤 ${usuario.nome}</span>`;
       }
-    })();
+    });
   </script>
+  <script src="assets/js/produtos.js"></script>
 </body>
 </html>
