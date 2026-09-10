@@ -42,143 +42,66 @@
       <div class="perfil-form-section">
         <h3><i class="fa-solid fa-user-gear"></i> Meus Dados Cadastrados</h3>
         
-        <form id="form-perfil">
+        <form id="perfil-form">
           <div class="form-grid">
             <div class="input-box">
               <label><i class="fa-solid fa-font"></i> Nome</label>
-              <input type="text" id="input-nome" required />
+              <input type="text" id="nome" required />
             </div>
 
             <div class="input-box">
               <label><i class="fa-solid fa-envelope"></i> E-mail (Não editável)</label>
-              <input type="email" id="input-email" readonly disabled />
+              <input type="email" id="email" readonly disabled />
             </div>
 
             <div class="input-box">
               <label><i class="fa-solid fa-phone"></i> Telefone / WhatsApp</label>
-              <input type="tel" id="input-telefone" placeholder="(19) 99999-9999" />
+              <input type="tel" id="telefone" placeholder="(19) 99999-9999" />
             </div>
 
             <div class="input-box">
               <label><i class="fa-solid fa-map-pin"></i> CEP (Busca Automática)</label>
-              <input type="text" id="input-cep" placeholder="00000-000" maxlength="9" />
+              <input type="text" id="cep" placeholder="00000-000" maxlength="9" />
             </div>
 
             <div class="input-box" style="grid-column: span 2;">
               <label><i class="fa-solid fa-road"></i> Rua / Avenida</label>
-              <input type="text" id="input-rua" placeholder="Nome da rua" />
+              <input type="text" id="rua" placeholder="Nome da rua" />
             </div>
 
             <div class="input-box">
               <label><i class="fa-solid fa-hashtag"></i> Número</label>
-              <input type="text" id="input-numero" placeholder="Nº da casa/apto" />
+              <input type="text" id="numero" placeholder="Nº da casa/apto" />
             </div>
 
             <div class="input-box">
               <label><i class="fa-solid fa-building"></i> Bairro</label>
-              <input type="text" id="input-bairro" placeholder="Bairro" />
+              <input type="text" id="bairro" placeholder="Bairro" />
             </div>
 
             <div class="input-box">
               <label><i class="fa-solid fa-city"></i> Cidade</label>
-              <input type="text" id="input-cidade" placeholder="Cidade" />
+              <input type="text" id="cidade" placeholder="Cidade" />
             </div>
 
             <div class="input-box">
               <label><i class="fa-solid fa-flag"></i> Estado (UF)</label>
-              <input type="text" id="input-estado" placeholder="UF" maxlength="2" />
+              <input type="text" id="estado" placeholder="UF" maxlength="2" />
             </div>
           </div>
 
           <div class="actions-group">
             <button type="submit" class="btn-save"><i class="fa-solid fa-check"></i> Salvar Alterações</button>
-            <button type="button" id="btn-logout" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Sair da Conta</button>
+            <button type="button" id="btn-logout" class="btn-logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Sair da Conta</button>
           </div>
         </form>
       </div>
     </div>
   </main>
 
+  <script src="assets/js/perfil.js"></script>
   <script>
-    // Carregar Dados da Conta Ativa
-    document.addEventListener("DOMContentLoaded", () => {
-      const usuario = JSON.parse(localStorage.getItem("usuario"));
-
-      if (!usuario || !usuario.email) {
-        alert("Você precisa estar logado para acessar seu perfil.");
-        window.location.href = "login.html";
-        return;
-      }
-
-      document.getElementById("display-nome").innerText = usuario.nome || "Usuário";
-      document.getElementById("display-email").innerText = usuario.email;
-      document.getElementById("input-nome").value = usuario.nome || "";
-      document.getElementById("input-email").value = usuario.email;
-      document.getElementById("input-telefone").value = usuario.telefone || "";
-      document.getElementById("input-cep").value = usuario.cep || "";
-      document.getElementById("input-rua").value = usuario.rua || "";
-      document.getElementById("input-numero").value = usuario.numero || "";
-      document.getElementById("input-bairro").value = usuario.bairro || "";
-      document.getElementById("input-cidade").value = usuario.cidade || "";
-      document.getElementById("input-estado").value = usuario.estado || "";
-    });
-
-    // Busca de CEP Automática no Perfil
-    document.getElementById("input-cep").addEventListener("keyup", async (e) => {
-      const cep = e.target.value.replace(/\D/g, "");
-      if (cep.length === 8) {
-        try {
-          const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-          const data = await res.json();
-          if (!data.erro) {
-            document.getElementById("input-rua").value = data.logradouro || "";
-            document.getElementById("input-bairro").value = data.bairro || "";
-            document.getElementById("input-cidade").value = data.localidade || "";
-            document.getElementById("input-estado").value = data.uf || "";
-            document.getElementById("input-numero").focus();
-          }
-        } catch (err) {
-          console.error("Erro ao buscar CEP:", err);
-        }
-      }
-    });
-
-    // Salvar Dados do Perfil (Persistência na Conta)
-    document.getElementById("form-perfil").addEventListener("submit", (e) => {
-      e.preventDefault();
-      let usuario = JSON.parse(localStorage.getItem("usuario")) || {};
-
-      usuario.nome = document.getElementById("input-nome").value.trim();
-      usuario.telefone = document.getElementById("input-telefone").value.trim();
-      usuario.cep = document.getElementById("input-cep").value.trim();
-      usuario.rua = document.getElementById("input-rua").value.trim();
-      usuario.numero = document.getElementById("input-numero").value.trim();
-      usuario.bairro = document.getElementById("input-bairro").value.trim();
-      usuario.cidade = document.getElementById("input-cidade").value.trim();
-      usuario.estado = document.getElementById("input-estado").value.trim();
-
-      // Salva a sessão ativa
-      localStorage.setItem("usuario", JSON.stringify(usuario));
-
-      // Atualiza o banco persistente de contas do navegador
-      if (usuario.email) {
-        const contasSalvas = JSON.parse(localStorage.getItem("contas_nevesstore")) || {};
-        contasSalvas[usuario.email] = usuario;
-        localStorage.setItem("contas_nevesstore", JSON.stringify(contasSalvas));
-      }
-
-      document.getElementById("display-nome").innerText = usuario.nome;
-      alert("✅ Perfil e endereço salvos com sucesso!");
-    });
-
-    // Logout
-    document.getElementById("btn-logout").addEventListener("click", () => {
-      localStorage.removeItem("usuario");
-      localStorage.removeItem("token");
-      window.location.href = "login.html";
-    });
-
-    // Alternar Tema
+    // Alternar Tema Claro/Escuro
     const themeToggleBtn = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
 

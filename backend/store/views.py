@@ -93,13 +93,13 @@ def api_login(request):
                 user = None
 
             if user is not None:
-                # Recupera o perfil ou cria se não existir
                 profile, _ = UserProfile.objects.get_or_create(user=user)
 
                 return JsonResponse({
                     'token': 'django-session-token',
                     'usuario': {
                         'nome': user.first_name or user.username,
+                        'sobrenome': user.last_name or '',
                         'email': user.email,
                         'telefone': profile.telefone or '',
                         'cep': profile.cep or '',
@@ -134,10 +134,10 @@ def api_cadastro(request):
                 username=email,
                 email=email,
                 password=senha,
-                first_name=nome
+                first_name=nome,
+                last_name=data.get('sobrenome', '')
             )
 
-            # Cria o perfil com os dados do endereço informados no formulário
             UserProfile.objects.create(
                 user=user,
                 telefone=data.get('telefone', ''),
@@ -158,7 +158,31 @@ def api_cadastro(request):
 
 @csrf_exempt
 def api_atualizar_perfil(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
+        email = request.GET.get('email')
+        if not email:
+            return JsonResponse({'error': 'E-mail não fornecido.'}, status=400)
+
+        try:
+            user = User.objects.get(email=email)
+            profile, _ = UserProfile.objects.get_or_create(user=user)
+
+            return JsonResponse({
+                'nome': user.first_name,
+                'sobrenome': user.last_name,
+                'email': user.email,
+                'telefone': profile.telefone or '',
+                'cep': profile.cep or '',
+                'rua': profile.rua or '',
+                'numero': profile.numero or '',
+                'bairro': profile.bairro or '',
+                'cidade': profile.cidade or '',
+                'estado': profile.estado or ''
+            })
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'Usuário não encontrado.'}, status=404)
+
+    elif request.method == 'POST':
         try:
             data = json.loads(request.body)
             email = data.get('email')
@@ -169,15 +193,15 @@ def api_atualizar_perfil(request):
             user = User.objects.get(email=email)
             profile, _ = UserProfile.objects.get_or_create(user=user)
 
-            # Atualiza o nome do usuário
             if 'nome' in data:
                 user.first_name = data['nome']
-                user.save()
+            if 'sobrenome' in data:
+                user.last_name = data['sobrenome']
+            user.save()
 
-            # Atualiza o endereço e dados no UserProfile
             profile.telefone = data.get('telefone', profile.telefone)
             profile.cep = data.get('cep', profile.cep)
-            profile.rua = data.get('rua', profile.rua)
+            profile.rua = data.get('rua', profile.rua or data.get('endereco', profile.rua))
             profile.numero = data.get('numero', profile.numero)
             profile.bairro = data.get('bairro', profile.bairro)
             profile.cidade = data.get('cidade', profile.cidade)
