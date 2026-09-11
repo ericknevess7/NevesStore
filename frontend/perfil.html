@@ -10,18 +10,20 @@
 </head>
 <body>
 
-  <!-- Header Simplificado -->
+  <!-- Header Simplificado com Logo Redimensionada -->
   <header class="header">
     <div class="header-container" style="justify-content: space-between;">
       <div class="logo">
-        <a href="index.html"><img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store"></a>
+        <a href="index.html">
+          <img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store" class="logo-img">
+        </a>
       </div>
 
       <div class="header-icons">
-        <a href="index.html" title="Voltar à Loja" style="font-size: 14px; font-weight: 700; color: var(--text-main);">
-          <i class="fa-solid fa-store"></i> Voltar à Loja
+        <a href="index.html" title="Voltar à Loja" style="font-size: 14px; font-weight: 700; color: #ffffff; text-decoration: none;">
+          <i class="fa-solid fa-store" style="color: var(--accent-cyan);"></i> Voltar à Loja
         </a>
-        <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Modo Claro/Escuro">
+        <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Modo Claro/Escuro" type="button">
           <i class="fa-solid fa-moon" id="theme-icon"></i>
         </button>
       </div>
@@ -100,28 +102,5 @@
   </main>
 
   <script src="assets/js/perfil.js"></script>
-  <script>
-    // Alternar Tema Claro/Escuro
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-
-    if (themeToggleBtn && themeIcon) {
-      if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('light-theme');
-        themeIcon.classList.replace('fa-moon', 'fa-sun');
-      }
-
-      themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('light-theme');
-        if (document.body.classList.contains('light-theme')) {
-          themeIcon.classList.replace('fa-moon', 'fa-sun');
-          localStorage.setItem('theme', 'light');
-        } else {
-          themeIcon.classList.replace('fa-sun', 'fa-moon');
-          localStorage.setItem('theme', 'dark');
-        }
-      });
-    }
-  </script>
 </body>
 </html>

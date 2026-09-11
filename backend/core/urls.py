@@ -12,7 +12,8 @@ from store.views import (
     blusas_view,
     acessorios_view,
     carrinho_view,
-    perfil_view
+    perfil_view,
+    produtos_view
 )
 
 urlpatterns = [
@@ -22,13 +23,14 @@ urlpatterns = [
     path('login/', login_view, name='login_page'),
     path('login.html', login_view, name='login_html'),
 
-    # Páginas de Categorias e Navegação
+    # Páginas de Categorias e Navegação (Incluindo Produtos)
     path('tenis.html', tenis_view, name='tenis'),
     path('camisetas.html', camisetas_view, name='camisetas'),
     path('blusasecnjs.html', blusas_view, name='blusas'),
     path('acesorrios.html', acessorios_view, name='acessorios'),
     path('carrinho.html', carrinho_view, name='carrinho'),
     path('perfil.html', perfil_view, name='perfil'),
+    path('produtos.html', produtos_view, name='produtos'),
 
     # Painel Administrativo
     path('admin/', admin.site.urls),

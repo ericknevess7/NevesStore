@@ -40,6 +40,9 @@ def carrinho_view(request):
 def perfil_view(request):
     return render(request, 'perfil.html')
 
+def produtos_view(request):
+    return render(request, 'produtos.html')
+
 
 # ==========================================
 # ENDPOINTS DA API (AUTENTICAÇÃO E PAGAMENTO)

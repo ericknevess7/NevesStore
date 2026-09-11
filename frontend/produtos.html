@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catálogo Completo — Neves Store</title>
+  <link rel="stylesheet" href="assets/css/nevesStore.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Header Escuro -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/imgs%20tenis/logoneves%20store.jpg" alt="Neves Store" class="logo-img">
+        </a>
+      </div>
+
+      <div class="search-bar">
+        <form action="produtos.html" method="GET">
+          <input type="text" name="busca" placeholder="Buscar produtos, marcas..." />
+          <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+
+      <div class="header-icons">
+        <a href="perfil.html" id="user-profile-link" title="Minha Conta"><i class="fa-solid fa-user"></i></a>
+        <a href="carrinho.html" id="cart-button">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navegação de Categorias -->
+  <nav class="navbar-categorias">
+    <ul class="navbar-nav">
+      <li><a href="index.html" class="nav-link">Início</a></li>
+      <li><a href="tenis.html" class="nav-link">Tênis</a></li>
+      <li><a href="camisetas.html" class="nav-link">Camisetas</a></li>
+      <li><a href="blusasecnjs.html" class="nav-link">Conjuntos & Moletons</a></li>
+      <li><a href="acesorrios.html" class="nav-link">Acessórios</a></li>
+    </ul>
+  </nav>
+
+  <!-- Seção de Produtos (Catálogo Geral) -->
+  <section class="products-section">
+    <div class="section-title text-center">
+      <h2>TODOS OS PRODUTOS DA LOJA</h2>
+    </div>
+
+    <!-- Cole aqui dentro os cards de Tênis, Camisetas, Moletons e Acessórios -->
+    <div class="produtos-grid" id="produtos-container">
+
+      <!-- Exemplo Tênis Nike -->
+      <div class="product-card">
+        <span class="badge-discount">-20% OFF</span>
+        <div class="product-image-box">
+          <img src="assets/imgs%20tenis/12molabranco.jpg" alt="Nike Shox 12 Molas Branco">
+        </div>
+        <div class="product-info">
+          <h3>TÊNIS NIKE SHOX 12 MOLAS</h3>
+          <div class="prices">
+            <span class="old-price">R$ 899,90</span>
+            <span class="current-price">R$ 699,90</span>
+          </div>
+          <button class="btn-buy">Ver Detalhes</button>
+        </div>
+      </div>
+
+      <!-- Exemplo Tênis Adidas -->
+      <div class="product-card">
+        <span class="badge-discount">-15% OFF</span>
+        <div class="product-image-box">
+          <img src="assets/imgs%20tenis/adidascampuspreto.png" alt="Adidas Campus Preto">
+        </div>
+        <div class="product-info">
+          <h3>TÊNIS ADIDAS CAMPUS PRETO</h3>
+          <div class="prices">
+            <span class="old-price">R$ 450,00</span>
+            <span class="current-price">R$ 380,00</span>
+          </div>
+          <button class="btn-buy">Ver Detalhes</button>
+        </div>
+      </div>
+
+      <!-- Exemplo Tênis Mizuno -->
+      <div class="product-card">
+        <span class="badge-discount">-10% OFF</span>
+        <div class="product-image-box">
+          <img src="assets/imgs%20tenis/mizunopro14branco.jpg" alt="Mizuno Pro 14 Branco">
+        </div>
+        <div class="product-info">
+          <h3>TÊNIS MIZUNO PROPHECY 14</h3>
+          <div class="prices">
+            <span class="old-price">R$ 1.200,00</span>
+            <span class="current-price">R$ 1.050,00</span>
+          </div>
+          <button class="btn-buy">Ver Detalhes</button>
+        </div>
+      </div>
+
+      <!-- Exemplo Tênis Puma -->
+      <div class="product-card">
+        <span class="badge-discount">-25% OFF</span>
+        <div class="product-image-box">
+          <img src="assets/imgs%20tenis/pumaAMGpretoeverde.jpg" alt="Puma AMG Preto e Verde">
+        </div>
+        <div class="product-info">
+          <h3>TÊNIS PUMA AMG STREETWEAR</h3>
+          <div class="prices">
+            <span class="old-price">R$ 550,00</span>
+            <span class="current-price">R$ 410,00</span>
+          </div>
+          <button class="btn-buy">Ver Detalhes</button>
+        </div>
+      </div>
+
+      <!-- Aqui você também pode colar os cards de Camisetas, Moletons e Acessórios com as marcas no título ou alt -->
+
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 NEVES STORE — Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/produtos.js"></script>
+</body>
+</html>

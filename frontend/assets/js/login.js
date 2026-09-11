@@ -27,11 +27,11 @@ document.getElementById('cep')?.addEventListener('keyup', async (e) => {
       const data = await response.json();
 
       if (!data.erro) {
-        document.getElementById('rua').value = data.logradouro || '';
-        document.getElementById('bairro').value = data.bairro || '';
-        document.getElementById('cidade').value = data.localidade || '';
-        document.getElementById('estado').value = data.uf || '';
-        document.getElementById('numero').focus();
+        if (document.getElementById('rua')) document.getElementById('rua').value = data.logradouro || '';
+        if (document.getElementById('bairro')) document.getElementById('bairro').value = data.bairro || '';
+        if (document.getElementById('cidade')) document.getElementById('cidade').value = data.localidade || '';
+        if (document.getElementById('estado')) document.getElementById('estado').value = data.uf || '';
+        if (document.getElementById('numero')) document.getElementById('numero').focus();
       } else {
         alert('⚠️ CEP não encontrado!');
       }
@@ -41,7 +41,7 @@ document.getElementById('cep')?.addEventListener('keyup', async (e) => {
   }
 });
 
-// Login Submit (Carrega os dados salvos da conta)
+// Login Submit (Usa SEMPRE os dados oficiais retornados da API do Django)
 formLogin?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = document.getElementById('login-email').value.trim();
@@ -57,12 +57,10 @@ formLogin?.addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-      // Recupera os dados completos salvos no cadastro ou perfil
-      const contasSalvas = JSON.parse(localStorage.getItem('contas_nevesstore')) || {};
-      const usuarioCompleto = contasSalvas[email] || data.usuario;
-
-      localStorage.setItem('token', data.token || 'token-ativo');
-      localStorage.setItem('usuario', JSON.stringify(usuarioCompleto));
+      // Grava diretamente o usuário que veio da resposta da API (banco de dados)
+      localStorage.setItem('token', data.token || 'django-session-token');
+      localStorage.setItem('usuario', JSON.stringify(data.usuario));
+      localStorage.setItem('logado', 'true');
 
       alert('✅ Login realizado com sucesso!');
       window.location.href = 'index.html';
@@ -74,20 +72,21 @@ formLogin?.addEventListener('submit', async (e) => {
   }
 });
 
-// Cadastro Submit (Guarda os dados no registro)
+// Cadastro Submit (Guarda os dados no registro e envia para a API)
 formRegister?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const dados = {
-    nome: document.getElementById('nome').value.trim(),
-    email: document.getElementById('register-email').value.trim(),
-    senha: document.getElementById('register-senha').value.trim(),
-    cep: document.getElementById('cep').value.trim(),
-    rua: document.getElementById('rua').value.trim(),
-    numero: document.getElementById('numero').value.trim(),
-    bairro: document.getElementById('bairro').value.trim(),
-    cidade: document.getElementById('cidade').value.trim(),
-    estado: document.getElementById('estado').value.trim()
+    nome: document.getElementById('nome')?.value.trim() || '',
+    email: document.getElementById('register-email')?.value.trim() || '',
+    senha: document.getElementById('register-senha')?.value.trim() || '',
+    telefone: document.getElementById('telefone')?.value.trim() || '',
+    cep: document.getElementById('cep')?.value.trim() || '',
+    rua: document.getElementById('rua')?.value.trim() || '',
+    numero: document.getElementById('numero')?.value.trim() || '',
+    bairro: document.getElementById('bairro')?.value.trim() || '',
+    cidade: document.getElementById('cidade')?.value.trim() || '',
+    estado: document.getElementById('estado')?.value.trim() || ''
   };
 
   try {
@@ -100,12 +99,8 @@ formRegister?.addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-      // Grava no banco de dados local por e-mail
-      const contasSalvas = JSON.parse(localStorage.getItem('contas_nevesstore')) || {};
-      contasSalvas[dados.email] = dados;
-      localStorage.setItem('contas_nevesstore', JSON.stringify(contasSalvas));
-
       localStorage.setItem('usuario', JSON.stringify(dados));
+      localStorage.setItem('logado', 'true');
       alert('🎉 Conta criada com sucesso!');
       window.location.href = 'index.html';
     } else {

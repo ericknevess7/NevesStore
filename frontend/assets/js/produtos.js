@@ -109,4 +109,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+  // ===== 3. FILTRO DE BUSCA POR PARÂMETRO DA URL (?busca=marca) =====
+  const urlParams = new URLSearchParams(window.location.search);
+  const termoBusca = urlParams.get('busca');
+
+  if (termoBusca) {
+    const termoMin = termoBusca.toLowerCase();
+    
+    // Altera o título da página para mostrar a busca
+    const tituloPagina = document.querySelector('.section-title h2') || document.getElementById('page-title');
+    if (tituloPagina) {
+      tituloPagina.innerText = `RESULTADOS PARA "${termoBusca.toUpperCase()}"`;
+    }
+
+    // Filtra os cards de produto visíveis na tela (compara no nome e no alt da imagem)
+    const produtos = document.querySelectorAll('.product-card');
+    let encontrados = 0;
+
+    produtos.forEach(card => {
+      const nomeProduto = card.querySelector('h3')?.innerText.toLowerCase() || '';
+      const altImagem = card.querySelector('img')?.alt.toLowerCase() || '';
+
+      if (nomeProduto.includes(termoMin) || altImagem.includes(termoMin)) {
+        card.style.display = 'flex';
+        encontrados++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Exibe mensagem caso nenhum produto seja encontrado
+    if (encontrados === 0) {
+      const grid = document.querySelector('.produtos-grid') || document.getElementById('produtos-container');
+      if (grid) {
+        grid.innerHTML = `
+          <p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 50px 0; font-weight: 700;">
+            Nenhum produto encontrado para a marca <strong>"${termoBusca.toUpperCase()}"</strong>.
+          </p>`;
+      }
+    }
+  }
+
 });
