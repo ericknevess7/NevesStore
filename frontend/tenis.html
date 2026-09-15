@@ -61,13 +61,16 @@
           <img src="assets/imgs tenis/mizunopro8roxo.jfif" alt="Tênis Mizuno Pro 8 Roxo">
         </div>
         <div class="product-info">
-          <h3>Tênis Mizuno Pro 8 Roxo</h3>
+          <h3>Tênis Mizuno Pro 8</h3>
           <div class="prices">
             <span class="old-price">R$ 499,90</span>
             <span class="current-price">R$ 299,90</span>
           </div>
         </div>
-        <button class="btn-buy">Ver Detalhes</button>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Roxo", "img": "assets/imgs tenis/mizunopro8roxo.jfif"},
+          {"cor": "Branco", "img": "assets/imgs tenis/mizuno/mizunopro14branco.jpg"}
+        ]'>Ver Detalhes</button>
       </div>
 
       <div class="product-card">
@@ -82,7 +85,9 @@
             <span class="current-price">R$ 299,90</span>
           </div>
         </div>
-        <button class="btn-buy">Ver Detalhes</button>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Padrão", "img": "assets/imgs tenis/tenisbalmain.jfif"}
+        ]'>Ver Detalhes</button>
       </div>
 
       <div class="product-card">
@@ -91,13 +96,16 @@
           <img src="assets/imgs tenis/teniscourtvisionpreto.jfif" alt="Tênis Nike Court Vision Black">
         </div>
         <div class="product-info">
-          <h3>Tênis Nike Court Vision Black</h3>
+          <h3>Tênis Nike Court Vision</h3>
           <div class="prices">
             <span class="old-price">R$ 499,90</span>
             <span class="current-price">R$ 299,90</span>
           </div>
         </div>
-        <button class="btn-buy">Ver Detalhes</button>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Preto", "img": "assets/imgs tenis/teniscourtvisionpreto.jfif"},
+          {"cor": "Branco", "img": "assets/imgs tenis/nike/12molabranco.jpg"}
+        ]'>Ver Detalhes</button>
       </div>
 
       <div class="product-card">
@@ -112,7 +120,9 @@
             <span class="current-price">R$ 299,90</span>
           </div>
         </div>
-        <button class="btn-buy">Ver Detalhes</button>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Padrão", "img": "assets/imgs tenis/tenislvskate.jfif"}
+        ]'>Ver Detalhes</button>
       </div>
 
       <div class="product-card">
@@ -127,7 +137,10 @@
             <span class="current-price">R$ 299,90</span>
           </div>
         </div>
-        <button class="btn-buy">Ver Detalhes</button>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Barcelona", "img": "assets/imgs tenis/tnbarcelona.jfif"},
+          {"cor": "Vermelho", "img": "assets/imgs tenis/tenisdunkvermelho.jfif"}
+        ]'>Ver Detalhes</button>
       </div>
 
       <div class="product-card">
@@ -136,13 +149,16 @@
           <img src="assets/imgs tenis/tenisdunkvermelho.jfif" alt="Tênis Nike Dunk Low Red">
         </div>
         <div class="product-info">
-          <h3>Tênis Nike Dunk Low Red</h3>
+          <h3>Tênis Nike Dunk Low</h3>
           <div class="prices">
             <span class="old-price">R$ 499,90</span>
             <span class="current-price">R$ 299,90</span>
           </div>
         </div>
-        <button class="btn-buy">Ver Detalhes</button>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Vermelho", "img": "assets/imgs tenis/tenisdunkvermelho.jfif"},
+          {"cor": "Branco", "img": "assets/imgs tenis/nike/12molabranco.jpg"}
+        ]'>Ver Detalhes</button>
       </div>
 
     </div>
@@ -197,16 +213,9 @@
         }
       });
     }
-
-    // Carregar usuário logado
-    document.addEventListener("DOMContentLoaded", () => {
-      const usuario = JSON.parse(localStorage.getItem("usuario"));
-      const userLink = document.getElementById("user-profile-link");
-      if (usuario && usuario.nome && userLink) {
-        userLink.innerHTML = `<span style="font-size: 13px; font-weight: 700; color: var(--accent);">👤 ${usuario.nome}</span>`;
-      }
-    });
   </script>
+  
+  <!-- SCRIPT PRINCIPAL DOS PRODUTOS QUE FAZ TUDO FUNCIONAR -->
   <script src="assets/js/produtos.js"></script>
   
 </body>
