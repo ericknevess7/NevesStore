@@ -1,8 +1,8 @@
-console.log("✅ Arquivo produtos.js carregado com tamanhos dinâmicos (Roupas e Tênis)!");
+console.log("✅ Arquivo produtos.js carregado com tamanhos personalizados!");
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ===== 1. INJETAR O MODAL (Com a grade de tamanhos vazia para ser preenchida) =====
+  // ===== 1. INJETAR O MODAL =====
   if (!document.getElementById('product-details-modal')) {
     const modalHTML = `
       <div id="product-details-modal" class="modal-overlay">
@@ -33,9 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <!-- TAMANHOS DINÂMICOS -->
               <div id="size-selector-container" style="margin-bottom: 15px;">
                 <p style="font-size: 0.75rem; font-weight: 700; margin-bottom: 6px; color: var(--text-muted, #aaa);">TAMANHO:</p>
-                <div id="size-options-grid" style="display: flex; gap: 6px; flex-wrap: wrap;">
-                  <!-- Os botões de tamanho entram aqui pelo JS -->
-                </div>
+                <div id="size-options-grid" style="display: flex; gap: 6px; flex-wrap: wrap;"></div>
               </div>
 
               <button id="btn-add-to-cart" type="button" class="btn-hero" style="width: 100%; padding: 12px; border: none; cursor: pointer; font-weight: 700; border-radius: 6px;">
@@ -114,22 +112,35 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       });
 
-      // LÓGICA INTELIGENTE DOS TAMANHOS (Baseado na página atual)
+      // ==========================================
+      // LÓGICA INTELIGENTE DOS TAMANHOS (ATUALIZADA)
+      // ==========================================
       let productSizes = [];
       const pageUrl = window.location.pathname.toLowerCase();
       
-      if (pageUrl.includes('camisetas') || pageUrl.includes('blusas') || pageUrl.includes('moletom')) {
-        productSizes = ['P', 'M', 'G', 'GG']; // Roupas
-      } else if (pageUrl.includes('acessorios') || pageUrl.includes('acessorio')) {
-        productSizes = ['Único']; // Acessórios
-      } else {
-        productSizes = ['38', '39', '40', '41', '42', '43']; // Tênis (padrão)
+      // 1. Verifica se tem tamanhos personalizados escritos direto no botão HTML
+      const tamanhosPersonalizados = btnBuy.getAttribute('data-sizes');
+
+      if (tamanhosPersonalizados) {
+        // Se tiver, ele quebra a lista (Ex: "34, 35, 36" vira ['34', '35', '36'])
+        productSizes = tamanhosPersonalizados.split(',').map(tamanho => tamanho.trim());
+      } 
+      // 2. Se não tiver nada no botão, ele tenta adivinhar pela URL (Padrão)
+      else if (pageUrl.includes('camisetas') || pageUrl.includes('blusas') || pageUrl.includes('moletom')) {
+        productSizes = ['P', 'M', 'G', 'GG']; 
+      } 
+      else if (pageUrl.includes('acessorios') || pageUrl.includes('acessorio')) {
+        productSizes = ['Único']; 
+      } 
+      else {
+        // Se for na tela de Tênis e não tiver "data-sizes", ele assume o padrão masculino
+        productSizes = ['38', '39', '40', '41', '42', '43']; 
       }
 
       // Renderizar Grade de Tamanhos
       const sizeGrid = document.getElementById('size-options-grid');
       sizeGrid.innerHTML = '';
-      window.currentSize = null; // Reseta
+      window.currentSize = null; 
 
       productSizes.forEach(sz => {
         sizeGrid.innerHTML += `<button type="button" class="size-btn" data-size="${sz}" style="min-width: 38px; padding: 0 10px; height: 38px; background: #222; color: #fff; border: 2px solid transparent; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;">${sz}</button>`;
@@ -173,14 +184,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sizeBtn) {
       window.currentSize = sizeBtn.getAttribute('data-size');
       
-      // Reseta cores dos botões de tamanho
       document.querySelectorAll('.size-btn').forEach(btn => {
         btn.style.border = '2px solid transparent';
         btn.style.background = '#222';
         btn.style.color = '#fff';
       });
 
-      // Destaca o selecionado
       sizeBtn.style.border = '2px solid var(--accent, #a855f7)';
       sizeBtn.style.background = 'var(--accent, #a855f7)';
       sizeBtn.style.color = '#fff';
@@ -259,27 +268,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   } catch (err) {}
 
-  // Busca na URL
-  const termoBusca = new URLSearchParams(window.location.search).get('busca');
-  if (termoBusca) {
-    const termoMin = termoBusca.toLowerCase();
-    const titulo = document.querySelector('.section-title h2');
-    if (titulo) titulo.innerText = `RESULTADOS PARA "${termoBusca.toUpperCase()}"`;
-
-    let achou = 0;
-    document.querySelectorAll('.product-card').forEach(card => {
-      const t = card.querySelector('h3')?.innerText.toLowerCase() || '';
-      const a = card.querySelector('img')?.alt.toLowerCase() || '';
-      if (t.includes(termoMin) || a.includes(termoMin)) {
-        card.style.display = 'flex';
-        achou++;
-      } else {
-        card.style.display = 'none';
-      }
-    });
-    if (achou === 0) {
-      const grid = document.querySelector('.produtos-grid');
-      if (grid) grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#888;">Nenhum produto encontrado para <strong>"${termoBusca}"</strong>.</p>`;
-    }
-  }
 });
