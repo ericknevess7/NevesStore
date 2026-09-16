@@ -1,8 +1,8 @@
-console.log("✅ Arquivo produtos.js carregado limpo e com redirecionamento!");
+console.log("✅ Arquivo produtos.js carregado com tamanhos dinâmicos (Roupas e Tênis)!");
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ===== 1. INJETAR O MODAL (se não existir) =====
+  // ===== 1. INJETAR O MODAL (Com a grade de tamanhos vazia para ser preenchida) =====
   if (!document.getElementById('product-details-modal')) {
     const modalHTML = `
       <div id="product-details-modal" class="modal-overlay">
@@ -18,15 +18,26 @@ document.addEventListener('DOMContentLoaded', () => {
               <button id="next-img-btn" type="button" style="position: absolute; right: 10px; background: rgba(0,0,0,0.6); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1rem; z-index: 10;"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
             <div class="product-modal-info" style="flex: 1; min-width: 250px;">
-              <h2 id="modal-product-title" style="font-size: 1.3rem; font-weight: 800; margin-bottom: 10px;">Nome</h2>
-              <div class="prices" style="margin-bottom: 15px;">
+              <h2 id="modal-product-title" style="font-size: 1.3rem; font-weight: 800; margin-bottom: 5px;">Nome</h2>
+              <div class="prices" style="margin-bottom: 12px;">
                 <span id="modal-product-old-price" class="old-price" style="text-decoration: line-through; color: #888; margin-right: 10px; font-size: 0.9rem;"></span>
                 <span id="modal-product-price" class="current-price" style="font-size: 1.2rem; font-weight: 800; color: var(--accent, #a855f7);"></span>
               </div>
-              <div id="color-selector-container" style="margin-bottom: 15px;">
+              
+              <!-- CORES -->
+              <div id="color-selector-container" style="margin-bottom: 12px;">
                 <p style="font-size: 0.75rem; font-weight: 700; margin-bottom: 6px; color: var(--text-muted, #aaa);">VARIAÇÃO / COR SELECIONADA:</p>
                 <div id="color-options-grid" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
               </div>
+
+              <!-- TAMANHOS DINÂMICOS -->
+              <div id="size-selector-container" style="margin-bottom: 15px;">
+                <p style="font-size: 0.75rem; font-weight: 700; margin-bottom: 6px; color: var(--text-muted, #aaa);">TAMANHO:</p>
+                <div id="size-options-grid" style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <!-- Os botões de tamanho entram aqui pelo JS -->
+                </div>
+              </div>
+
               <button id="btn-add-to-cart" type="button" class="btn-hero" style="width: 100%; padding: 12px; border: none; cursor: pointer; font-weight: 700; border-radius: 6px;">
                 <i class="fa-solid fa-cart-plus"></i> Adicionar ao Carrinho
               </button>
@@ -42,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.currentProduct = null;
   window.activeVariants = [];
   window.currentIndex = 0;
+  window.currentSize = null;
 
   function updateModalImage(index) {
     if (window.activeVariants.length === 0) return;
@@ -54,13 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
       window.currentProduct.cor = variant.cor;
     }
 
-    // Atualiza a borda da miniatura selecionada
     document.querySelectorAll('.color-thumb-btn').forEach((thumb, idx) => {
       thumb.style.border = idx === index ? '2px solid var(--accent, #a855f7)' : '2px solid transparent';
     });
   }
 
-  // ===== DELEGAÇÃO DE EVENTOS GLOBAL (Trata todos os cliques da página) =====
+  // ===== DELEGAÇÃO DE EVENTOS GLOBAL =====
   document.addEventListener('click', (e) => {
     
     // --- CLIQUE: ABRIR MODAL ("Ver Detalhes") ---
@@ -74,39 +85,69 @@ document.addEventListener('DOMContentLoaded', () => {
       const oldPrice = card.querySelector('.old-price')?.innerText || '';
       const currentPrice = card.querySelector('.current-price')?.innerText || '';
 
+      // Descobrir as cores cadastradas
       try {
         const raw = btnBuy.getAttribute('data-variants');
         window.activeVariants = raw ? JSON.parse(raw) : [];
       } catch(err) {
         window.activeVariants = [];
       }
-
       if (window.activeVariants.length === 0) {
         window.activeVariants = [{ cor: "Padrão", img: defaultImg }];
       }
 
-      window.currentProduct = { 
-        title: title, 
-        imgSrc: window.activeVariants[0].img, 
-        price: currentPrice, 
-        cor: window.activeVariants[0].cor 
-      };
+      window.currentProduct = { title, imgSrc: window.activeVariants[0].img, price: currentPrice, cor: window.activeVariants[0].cor };
 
+      // Preencher Textos Principais
       document.getElementById('modal-product-title').innerText = title;
       document.getElementById('modal-product-old-price').innerText = oldPrice;
       document.getElementById('modal-product-price').innerText = currentPrice;
 
+      // Renderizar Grade de Cores
       const colorGrid = document.getElementById('color-options-grid');
       colorGrid.innerHTML = '';
       window.activeVariants.forEach((v, i) => {
-        // Sem o onerror para evitar aquele loop infinito no console!
         colorGrid.innerHTML += `
-          <div class="color-thumb-btn" data-index="${i}" style="width: 45px; height: 45px; border-radius: 8px; overflow: hidden; cursor: pointer; background: #222;">
+          <div class="color-thumb-btn" data-index="${i}" style="width: 42px; height: 42px; border-radius: 8px; overflow: hidden; cursor: pointer; background: #222;">
             <img src="${v.img}" alt="${v.cor}" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
         `;
       });
 
+      // LÓGICA INTELIGENTE DOS TAMANHOS (Baseado na página atual)
+      let productSizes = [];
+      const pageUrl = window.location.pathname.toLowerCase();
+      
+      if (pageUrl.includes('camisetas') || pageUrl.includes('blusas') || pageUrl.includes('moletom')) {
+        productSizes = ['P', 'M', 'G', 'GG']; // Roupas
+      } else if (pageUrl.includes('acessorios') || pageUrl.includes('acessorio')) {
+        productSizes = ['Único']; // Acessórios
+      } else {
+        productSizes = ['38', '39', '40', '41', '42', '43']; // Tênis (padrão)
+      }
+
+      // Renderizar Grade de Tamanhos
+      const sizeGrid = document.getElementById('size-options-grid');
+      sizeGrid.innerHTML = '';
+      window.currentSize = null; // Reseta
+
+      productSizes.forEach(sz => {
+        sizeGrid.innerHTML += `<button type="button" class="size-btn" data-size="${sz}" style="min-width: 38px; padding: 0 10px; height: 38px; background: #222; color: #fff; border: 2px solid transparent; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;">${sz}</button>`;
+      });
+
+      // Auto-selecionar se for Tamanho Único
+      if (productSizes.length === 1) {
+        window.currentSize = productSizes[0];
+        setTimeout(() => {
+          const onlyBtn = sizeGrid.querySelector('.size-btn');
+          if(onlyBtn) {
+            onlyBtn.style.border = '2px solid var(--accent, #a855f7)';
+            onlyBtn.style.background = 'var(--accent, #a855f7)';
+          }
+        }, 50);
+      }
+
+      // Botões de navegação da foto
       const prevBtn = document.getElementById('prev-img-btn');
       const nextBtn = document.getElementById('next-img-btn');
       if (window.activeVariants.length <= 1) {
@@ -121,10 +162,28 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('product-details-modal').classList.add('active');
     }
 
-    // --- CLIQUE: TROCAR COR (Miniaturas no Modal) ---
+    // --- CLIQUE: TROCAR COR ---
     const thumbBtn = e.target.closest('.color-thumb-btn');
     if (thumbBtn) {
       updateModalImage(parseInt(thumbBtn.getAttribute('data-index')));
+    }
+
+    // --- CLIQUE: ESCOLHER TAMANHO ---
+    const sizeBtn = e.target.closest('.size-btn');
+    if (sizeBtn) {
+      window.currentSize = sizeBtn.getAttribute('data-size');
+      
+      // Reseta cores dos botões de tamanho
+      document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.style.border = '2px solid transparent';
+        btn.style.background = '#222';
+        btn.style.color = '#fff';
+      });
+
+      // Destaca o selecionado
+      sizeBtn.style.border = '2px solid var(--accent, #a855f7)';
+      sizeBtn.style.background = 'var(--accent, #a855f7)';
+      sizeBtn.style.color = '#fff';
     }
 
     // --- CLIQUE: SETAS DO CARROSSEL ---
@@ -145,16 +204,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (modalOverlay) modalOverlay.classList.remove('active');
     }
 
-    // --- CLIQUE: ADICIONAR AO CARRINHO (Agora salva e redireciona!) ---
+    // --- CLIQUE: ADICIONAR AO CARRINHO ---
     if (e.target.closest('#btn-add-to-cart')) {
       e.preventDefault();
 
-      if (!window.currentProduct) {
-        console.log("Erro: Nenhum produto selecionado no modal.");
+      if (!window.currentProduct) return;
+
+      if (!window.currentSize) {
+        alert("⚠️ Por favor, selecione um TAMANHO antes de adicionar ao carrinho!");
         return;
       }
 
-      // 1. Puxa o carrinho do storage (se tiver quebrado, vira lista limpa)
       let carrinho = [];
       try {
         carrinho = JSON.parse(localStorage.getItem('carrinho'));
@@ -163,55 +223,43 @@ document.addEventListener('DOMContentLoaded', () => {
         carrinho = [];
       }
 
-      // 2. Prepara o produto exatamente do jeito que o carrinho gosta
       const itemCarrinho = {
         title: `${window.currentProduct.title} (${window.currentProduct.cor})`,
         imgSrc: window.currentProduct.imgSrc,
-        price: window.currentProduct.price
+        price: window.currentProduct.price,
+        tamanho: window.currentSize
       };
 
-      // 3. Salva no localStorage
       carrinho.push(itemCarrinho);
       localStorage.setItem('carrinho', JSON.stringify(carrinho));
 
-      console.log("Adicionado ao carrinho com sucesso:", itemCarrinho);
-
-      // 4. Te joga direto para a página do carrinho!
       window.location.href = "carrinho.html";
     }
   });
 
-  // ===== Atualizar contador do carrinho assim que a página carrega =====
+  // Atualizar contador da tela inicial
   let carrinhoAtual = [];
   try {
     carrinhoAtual = JSON.parse(localStorage.getItem('carrinho'));
     if (!Array.isArray(carrinhoAtual)) carrinhoAtual = [];
-  } catch(e) {
-    carrinhoAtual = [];
-  }
+  } catch(e) {}
   const cartCount = document.getElementById('cart-count');
   if (cartCount) cartCount.innerText = carrinhoAtual.length;
 
-  // ===== Renderizar o NOME DO USUÁRIO de forma blindada =====
+  // Renderizar o nome do usuário
   try {
     const userStr = localStorage.getItem("usuario");
     const userLink = document.getElementById("user-profile-link");
-    
-    // Evita ler se o localStorage tiver a string corrompida "undefined"
     if (userStr && userStr !== "undefined" && userStr !== "null") {
       const usuario = JSON.parse(userStr);
       const nomeUser = usuario?.nome || usuario?.name;
-      
-      // Só muda o HTML se realmente existir um nome
       if (nomeUser && userLink) {
         userLink.innerHTML = `<span style="font-size: 13px; font-weight: 700; color: var(--accent, #a855f7);">👤 ${nomeUser}</span>`;
       }
     }
-  } catch (err) {
-    console.error("Erro ao puxar o usuário. O site não vai quebrar por isso.");
-  }
+  } catch (err) {}
 
-  // ===== FILTRO DE BUSCA POR URL =====
+  // Busca na URL
   const termoBusca = new URLSearchParams(window.location.search).get('busca');
   if (termoBusca) {
     const termoMin = termoBusca.toLowerCase();

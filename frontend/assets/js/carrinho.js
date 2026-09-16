@@ -1,11 +1,11 @@
-console.log("✅ Arquivo carrinho.js carregado!");
+console.log("✅ Arquivo carrinho.js carregado com tamanhos!");
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('carrinho-container');
   const totalEl = document.getElementById('total');
   const cartCountEl = document.getElementById('cart-count');
 
-  // 1. CARREGAR CARRINHO COM SEGURANÇA
+  // 1. CARREGAR CARRINHO
   let carrinho = [];
   try {
     carrinho = JSON.parse(localStorage.getItem('carrinho'));
@@ -14,14 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     carrinho = [];
   }
 
-  // 2. FUNÇÃO SEGURA PARA CALCULAR O TOTAL
+  // 2. CALCULAR TOTAL
   function calcularTotal() {
     return carrinho.reduce((acc, item) => {
-      // Pega o preço não importa se foi salvo como 'price' ou 'preco'
       let p = item.price || item.preco || "0";
-      // Converte "R$ 299,90" para 299.90 matemático
       p = p.toString().replace('R$', '').replace(/\./g, '').replace(',', '.').trim();
-      
       let valor = parseFloat(p) || 0;
       return acc + valor;
     }, 0);
@@ -32,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!container) return;
     container.innerHTML = '';
     
-    // Se o carrinho estiver vazio
     if (carrinho.length === 0) {
       container.innerHTML = `
         <div style="text-align: center; padding: 60px 20px;">
@@ -49,12 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const total = calcularTotal();
 
-    // Desenha cada item do carrinho
     carrinho.forEach((item, index) => {
-      // Compatibilidade: lê do jeito antigo ou do jeito novo
       const img = item.imgSrc || item.imagem || 'https://via.placeholder.com/100';
       const name = item.title || item.nome || 'Produto';
       const price = item.price || item.preco || 'R$ 0,00';
+      
+      // AQUI ESTÁ A CORREÇÃO: Cria a linha do tamanho se ele existir
+      const tamanhoHTML = item.tamanho ? `<span style="display: block; color: #ccc; font-size: 0.9rem; margin-top: 5px;"><i class="fa-solid fa-ruler"></i> Tamanho: <strong>${item.tamanho}</strong></span>` : '';
 
       const div = document.createElement('div');
       div.className = 'cart-item';
@@ -64,8 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
           <img src="${img}" alt="${name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 2px solid #222;" onerror="this.src='https://via.placeholder.com/80'">
           <div>
-            <strong style="color: #fff; font-size: 1.1rem; display: block; margin-bottom: 5px;">${name}</strong>
+            <strong style="color: #fff; font-size: 1.1rem; display: block; margin-bottom: 3px;">${name}</strong>
             <span style="color: var(--accent, #a855f7); font-weight: 800; font-size: 1.15rem;">${price}</span>
+            ${tamanhoHTML}
           </div>
         </div>
         <button class="btn-remove" data-index="${index}" style="background: #dc2626; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: 0.2s;">
@@ -133,13 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let p = item.price || item.preco || "0";
         p = p.toString().replace('R$', '').replace(/\./g, '').replace(',', '.').trim();
         return {
-          title: item.title || item.nome,
+          // Agora o nome do produto no Mercado Pago vai com a cor e o tamanho!
+          title: `${item.title || item.nome} - Tam: ${item.tamanho || 'Único'}`,
           unit_price: parseFloat(p) || 0,
           quantity: 1
         };
       });
 
-      // Chama a sua API Node
       try {
         btnFinalizar.innerText = "Processando...";
         btnFinalizar.style.opacity = "0.7";
@@ -164,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } catch (error) {
         console.error('Erro na integração com o backend:', error);
-        alert("⚠️ Não foi possível conectar ao servidor de pagamentos. Verifique se o backend Node.js está rodando (npm start).");
+        alert("⚠️ Não foi possível conectar ao servidor de pagamentos. Verifique se o backend Node.js está rodando.");
         btnFinalizar.innerText = "Finalizar Compra";
         btnFinalizar.style.opacity = "1";
       }
