@@ -1,4 +1,4 @@
-console.log("✅ Arquivo produtos.js carregado com tamanhos personalizados!");
+console.log("✅ Arquivo produtos.js carregado com bloqueio de tamanhos por cor!");
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -24,13 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span id="modal-product-price" class="current-price" style="font-size: 1.2rem; font-weight: 800; color: var(--accent, #a855f7);"></span>
               </div>
               
-              <!-- CORES -->
               <div id="color-selector-container" style="margin-bottom: 12px;">
                 <p style="font-size: 0.75rem; font-weight: 700; margin-bottom: 6px; color: var(--text-muted, #aaa);">VARIAÇÃO / COR SELECIONADA:</p>
                 <div id="color-options-grid" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
               </div>
 
-              <!-- TAMANHOS DINÂMICOS -->
               <div id="size-selector-container" style="margin-bottom: 15px;">
                 <p style="font-size: 0.75rem; font-weight: 700; margin-bottom: 6px; color: var(--text-muted, #aaa);">TAMANHO:</p>
                 <div id="size-options-grid" style="display: flex; gap: 6px; flex-wrap: wrap;"></div>
@@ -47,12 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.insertAdjacentHTML('beforeend', modalHTML);
   }
 
-  // ===== Variáveis Globais do Modal =====
+  // ===== Variáveis Globais =====
   window.currentProduct = null;
   window.activeVariants = [];
   window.currentIndex = 0;
   window.currentSize = null;
 
+  // Lógica principal de atualização (Imagem, Cores e agora BLOQUEIO DE TAMANHOS)
   function updateModalImage(index) {
     if (window.activeVariants.length === 0) return;
     window.currentIndex = index;
@@ -64,8 +63,36 @@ document.addEventListener('DOMContentLoaded', () => {
       window.currentProduct.cor = variant.cor;
     }
 
+    // Borda na cor selecionada
     document.querySelectorAll('.color-thumb-btn').forEach((thumb, idx) => {
       thumb.style.border = idx === index ? '2px solid var(--accent, #a855f7)' : '2px solid transparent';
+    });
+
+    // MÁGICA: Verifica se a cor selecionada tem restrição de tamanho
+    const tamanhosPermitidos = variant.tamanhos ? variant.tamanhos.split(',').map(s => s.trim()) : null;
+
+    document.querySelectorAll('.size-btn').forEach(btn => {
+      const tamanhoDoBotao = btn.getAttribute('data-size');
+
+      if (tamanhosPermitidos && !tamanhosPermitidos.includes(tamanhoDoBotao)) {
+        // Desabilita e risca o botão
+        btn.style.opacity = '0.3';
+        btn.style.textDecoration = 'line-through';
+        btn.style.pointerEvents = 'none'; // Impede o clique
+        
+        // Se o cara tava com o 42 selecionado no Preto e mudou pro Rosa, reseta o tamanho
+        if (window.currentSize === tamanhoDoBotao) {
+          window.currentSize = null;
+          btn.style.border = '2px solid transparent';
+          btn.style.background = '#222';
+          btn.style.color = '#fff';
+        }
+      } else {
+        // Habilita normal
+        btn.style.opacity = '1';
+        btn.style.textDecoration = 'none';
+        btn.style.pointerEvents = 'auto';
+      }
     });
   }
 
@@ -83,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const oldPrice = card.querySelector('.old-price')?.innerText || '';
       const currentPrice = card.querySelector('.current-price')?.innerText || '';
 
-      // Descobrir as cores cadastradas
       try {
         const raw = btnBuy.getAttribute('data-variants');
         window.activeVariants = raw ? JSON.parse(raw) : [];
@@ -96,12 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       window.currentProduct = { title, imgSrc: window.activeVariants[0].img, price: currentPrice, cor: window.activeVariants[0].cor };
 
-      // Preencher Textos Principais
       document.getElementById('modal-product-title').innerText = title;
       document.getElementById('modal-product-old-price').innerText = oldPrice;
       document.getElementById('modal-product-price').innerText = currentPrice;
 
-      // Renderizar Grade de Cores
       const colorGrid = document.getElementById('color-options-grid');
       colorGrid.innerHTML = '';
       window.activeVariants.forEach((v, i) => {
@@ -112,32 +136,21 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       });
 
-      // ==========================================
-      // LÓGICA INTELIGENTE DOS TAMANHOS (ATUALIZADA)
-      // ==========================================
+      // LÓGICA DE TAMANHOS GERAIS DO PRODUTO
       let productSizes = [];
       const pageUrl = window.location.pathname.toLowerCase();
-      
-      // 1. Verifica se tem tamanhos personalizados escritos direto no botão HTML
       const tamanhosPersonalizados = btnBuy.getAttribute('data-sizes');
 
       if (tamanhosPersonalizados) {
-        // Se tiver, ele quebra a lista (Ex: "34, 35, 36" vira ['34', '35', '36'])
-        productSizes = tamanhosPersonalizados.split(',').map(tamanho => tamanho.trim());
-      } 
-      // 2. Se não tiver nada no botão, ele tenta adivinhar pela URL (Padrão)
-      else if (pageUrl.includes('camisetas') || pageUrl.includes('blusas') || pageUrl.includes('moletom')) {
+        productSizes = tamanhosPersonalizados.split(',').map(t => t.trim());
+      } else if (pageUrl.includes('camisetas') || pageUrl.includes('blusas') || pageUrl.includes('moletom')) {
         productSizes = ['P', 'M', 'G', 'GG']; 
-      } 
-      else if (pageUrl.includes('acessorios') || pageUrl.includes('acessorio')) {
+      } else if (pageUrl.includes('acessorios') || pageUrl.includes('acessorio')) {
         productSizes = ['Único']; 
-      } 
-      else {
-        // Se for na tela de Tênis e não tiver "data-sizes", ele assume o padrão masculino
+      } else {
         productSizes = ['38', '39', '40', '41', '42', '43']; 
       }
 
-      // Renderizar Grade de Tamanhos
       const sizeGrid = document.getElementById('size-options-grid');
       sizeGrid.innerHTML = '';
       window.currentSize = null; 
@@ -146,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sizeGrid.innerHTML += `<button type="button" class="size-btn" data-size="${sz}" style="min-width: 38px; padding: 0 10px; height: 38px; background: #222; color: #fff; border: 2px solid transparent; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;">${sz}</button>`;
       });
 
-      // Auto-selecionar se for Tamanho Único
       if (productSizes.length === 1) {
         window.currentSize = productSizes[0];
         setTimeout(() => {
@@ -158,7 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 50);
       }
 
-      // Botões de navegação da foto
       const prevBtn = document.getElementById('prev-img-btn');
       const nextBtn = document.getElementById('next-img-btn');
       if (window.activeVariants.length <= 1) {
@@ -169,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(nextBtn) nextBtn.style.display = 'flex';
       }
 
+      // Atualiza a imagem E checa os bloqueios de tamanho da primeira cor!
       updateModalImage(0);
       document.getElementById('product-details-modal').classList.add('active');
     }
@@ -246,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Atualizar contador da tela inicial
+  // Atualizar contador
   let carrinhoAtual = [];
   try {
     carrinhoAtual = JSON.parse(localStorage.getItem('carrinho'));
@@ -255,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartCount = document.getElementById('cart-count');
   if (cartCount) cartCount.innerText = carrinhoAtual.length;
 
-  // Renderizar o nome do usuário
+  // Nome do usuário
   try {
     const userStr = localStorage.getItem("usuario");
     const userLink = document.getElementById("user-profile-link");
