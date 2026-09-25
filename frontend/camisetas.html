@@ -18,7 +18,7 @@
 
       <div class="search-bar">
         <form id="searchForm">
-          <input type="text" id="searchInput" placeholder="Buscar tênis, moletons, marcas..." />
+          <input type="text" id="searchInput" placeholder="Buscar tênis, marcas..." />
           <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
       </div>
@@ -36,64 +36,56 @@
     </div>
   </header>
 
-  <!-- Navegação Categorias -->
-  <nav class="navbar-categorias">
-    <ul class="navbar-nav">
-      <li><a href="tenis.html" class="nav-link">Tênis</a></li>
-      <li><a href="camisetas.html" class="nav-link">Camisetas</a></li>
-      <li><a href="blusasecnjs.html" class="nav-link">Blusas & Conjuntos</a></li>
-      <li><a href="acesorrios.html" class="nav-link">Acessórios</a></li>
-    </ul>
-  </nav>
-
-  <!-- Catálogo Camisetas -->
-  <section class="products-section">
+ <section class="products-section">
     <div class="section-title">
       <h2>Coleção de Camisetas</h2>
-      <p>Camisetas Dry Fit e peças exclusivas de alta performance</p>
+      <p>Nova coleção a caminho. Fique ligado no próximo drop.</p>
     </div>
 
-    <div class="produtos-grid">
-
-      <div class="product-card">
-        <span class="badge-discount">-30%</span>
-        <div class="product-image-box">
-          <img src="assets/imgs blusas/drifitajax.jfif" alt="Camiseta Dry Fit Ajax">
+    <div class="locked-grid">
+      <div class="locked-card">
+        <div class="locked-content">
+          <span class="lock-icon">🔒</span>
+          <h3>Camisetas Dry Fit</h3>
+          <p>Em breve...</p>
         </div>
-        <div class="product-info">
-          <h3>Camiseta Dry Fit Ajax Special</h3>
-          <div class="prices">
-            <span class="old-price">R$ 189,90</span>
-            <span class="current-price">R$ 129,90</span>
-          </div>
-        </div>
-        <button class="btn-buy">Ver Detalhes</button>
       </div>
 
-      <div class="product-card">
-        <span class="badge-discount">-30%</span>
-        <div class="product-image-box">
-          <img src="assets/imgs blusas/drifitespanha.jfif" alt="Camiseta Dry Fit Espanha">
+      <div class="locked-card">
+        <div class="locked-content">
+          <span class="lock-icon">🔒</span>
+          <h3>Camisetas Oversized</h3>
+          <p>Aguarde o lançamento.</p>
         </div>
-        <div class="product-info">
-          <h3>Camiseta Dry Fit Espanha Red</h3>
-          <div class="prices">
-            <span class="old-price">R$ 189,90</span>
-            <span class="current-price">R$ 129,90</span>
-          </div>
-        </div>
-        <button class="btn-buy">Ver Detalhes</button>
       </div>
 
+      <div class="locked-card">
+        <div class="locked-content">
+          <span class="lock-icon">🔒</span>
+          <h3>Peças Exclusivas</h3>
+          <p>Loading...</p>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- Mensagem de Redirecionamento -->
+    <div style="text-align: center; margin-top: 50px; padding: 20px;">
+      <p style="color: #b3b3b3; font-size: 18px; line-height: 1.5; margin-bottom: 20px;">
+        Estamos trazendo as melhores peças de streetwear para você. Aguarde o drop em 2027... <br>
+        <span style="color: #fff; font-weight: bold;">Por enquanto, aproveite nossas promoções exclusivas de tênis!</span>
+      </p>
+      <a href="tenis.html" class="btn-buy" style="display: inline-block; padding: 15px 40px; text-decoration: none; font-size: 16px; border-radius: 8px;">
+        🔥 Ver Promoções de Tênis
+      </a>
+    </div>
 
   <!-- Rodapé -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-col">
         <h4>NEVES STORE</h4>
-        <p>A sua loja referência em sneakers e moda streetwear. Qualidade máxima e preços acessíveis.</p>
+        <p>A sua loja referência em sneakers e moda streetwear.</p>
       </div>
       <div class="footer-col">
         <h4>Categorias</h4>
@@ -107,7 +99,7 @@
       <div class="footer-col">
         <h4>Atendimento</h4>
         <p>E-mail: contato@nevesstore.com</p>
-        <p>WhatsApp: (19) 99997-2899</p>
+        <p>WhatsApp: (19) 999972-8998</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -115,36 +107,6 @@
     </div>
   </footer>
 
-  <script>
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-
-    if (themeToggleBtn && themeIcon) {
-      if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('light-theme');
-        themeIcon.classList.replace('fa-moon', 'fa-sun');
-      }
-
-      themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('light-theme');
-        if (document.body.classList.contains('light-theme')) {
-          themeIcon.classList.replace('fa-moon', 'fa-sun');
-          localStorage.setItem('theme', 'light');
-        } else {
-          themeIcon.classList.replace('fa-sun', 'fa-moon');
-          localStorage.setItem('theme', 'dark');
-        }
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const usuario = JSON.parse(localStorage.getItem("usuario"));
-      const userLink = document.getElementById("user-profile-link");
-      if (usuario && usuario.nome && userLink) {
-        userLink.innerHTML = `<span style="font-size: 13px; font-weight: 700; color: var(--accent);">👤 ${usuario.nome}</span>`;
-      }
-    });
-  </script>
   <script src="assets/js/produtos.js"></script>
 </body>
 </html>
