@@ -1,4 +1,4 @@
-console.log("✅ Arquivo produtos.js carregado com bloqueio de tamanhos por cor!");
+console.log("✅ Arquivo produtos.js carregado com bloqueio de tamanhos por cor e filtro de marcas!");
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.currentIndex = 0;
   window.currentSize = null;
 
-  // Lógica principal de atualização (Imagem, Cores e agora BLOQUEIO DE TAMANHOS)
+  // Lógica principal de atualização (Imagem, Cores e BLOQUEIO DE TAMANHOS)
   function updateModalImage(index) {
     if (window.activeVariants.length === 0) return;
     window.currentIndex = index;
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- CLIQUE: ABRIR MODAL ("Ver Detalhes") ---
     const btnBuy = e.target.closest('.btn-buy');
-    if (btnBuy) {
+    if (btnBuy && !btnBuy.hasAttribute('data-filtro')) { // Impede erro se for botão de filtro
       const card = btnBuy.closest('.product-card');
       if (!card) return;
 
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Atualizar contador
+  // Atualizar contador do carrinho
   let carrinhoAtual = [];
   try {
     carrinhoAtual = JSON.parse(localStorage.getItem('carrinho'));
@@ -280,4 +280,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   } catch (err) {}
 
-});
+ // ===== NOVO: LÓGICA DE FILTRO DE MARCAS (CORRIGIDO E TURBINADO) =====
+  function filtrarPorMarca() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const termoBusca = urlParams.get('busca');
+    const cardsProdutos = document.querySelectorAll('.product-card');
+
+    if (termoBusca && cardsProdutos.length > 0) {
+      cardsProdutos.forEach(card => {
+        const marcaCard = card.getAttribute('data-marca');
+        
+        if (marcaCard && marcaCard.toLowerCase() === termoBusca.toLowerCase()) {
+          card.style.display = 'block'; 
+        } else {
+          card.style.display = 'none'; 
+        }
+      });
+    } else {
+      // Se não tiver '?busca=' na URL (ex: acessou tenis.html direto), mostra todos!
+      cardsProdutos.forEach(card => card.style.display = 'block');
+    }
+  }
+
+  // Roda a função assim que a página abre
+  filtrarPorMarca();
+
+  // (Opcional, mas recomendado): Se tiveres botões de marca DENTRO da própria página de ténis, 
+  // escuta se o usuário clica neles para filtrar sem ter que recarregar a página
+ // (Opcional, mas recomendado): Atualiza sem refresh APENAS se já estiver na página de tênis!
+  document.querySelectorAll('a[href^="tenis.html?busca="]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      
+      // Verifica se o usuário JÁ ESTÁ na página tenis.html
+      if (window.location.pathname.includes('tenis.html')) {
+        e.preventDefault(); // Impede o refresh SÓ AQUI
+        
+        const url = new URL(this.href, window.location.origin);
+        const novaBusca = url.searchParams.get('busca');
+        
+        window.history.pushState({}, '', `tenis.html?busca=${novaBusca}`);
+        filtrarPorMarca();
+      }
+      // Se ele estiver na index.html, o código ignora esse if e deixa o link funcionar normalmente!
+    });
+  });
