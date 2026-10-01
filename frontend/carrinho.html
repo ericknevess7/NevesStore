@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho — Neves Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0b0b0f;
+            --card-bg: #14141c;
+            --border-color: #272735;
+            --purple-primary: #8b5cf6;
+            --purple-hover: #7c3aed;
+            --whatsapp-green: #22c55e;
+            --whatsapp-hover: #16a34a;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding-bottom: 50px;
+        }
+
+        header {
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-box {
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            padding: 3px;
+            background: #14141c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            overflow: hidden;
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--purple-primary);
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .user-actions a {
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cart-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .cart-grid {
+                grid-template-columns: 1.4fr 1fr;
+            }
+        }
+
+        .card-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #1c1c28;
+        }
+
+        .item-details h4 {
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+        }
+
+        .item-details p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .item-price {
+            color: var(--purple-primary);
+            font-weight: bold;
+            margin-top: 5px !important;
+        }
+
+        .btn-remove {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+        }
+
+        .info-box {
+            background: #1c1c28;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .shipping-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1c1c28;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .summary-line.total {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            font-weight: bold;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+
+        .checkout-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn-mp { background-color: var(--purple-primary); color: white; }
+        .btn-mp:hover { background-color: var(--purple-hover); }
+
+        .btn-zap { background-color: var(--whatsapp-green); color: white; }
+        .btn-zap:hover { background-color: var(--whatsapp-hover); }
+
+        /* Estilo do Modal de Conferência */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" style="text-decoration: none;">
+            <div class="logo-box">
+                <img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store">
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a href="tenis.html">TÊNIS</a>
+            <a href="camisetas.html">CAMISETAS</a>
+            <a href="blusasecnjs.html">BLUSAS & CONJUNTOS</a>
+            <a href="acesorrios.html">ACESSÓRIOS</a>
+        </nav>
+        <div class="user-actions">
+            <a href="#"><i class="fa-solid fa-moon"></i></a>
+            <a href="perfil.html" id="user-profile-link"><i class="fa-solid fa-user"></i> Entrar</a>
+            <a href="carrinho.html" style="color: var(--purple-primary); position: relative;">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-badge" style="background: var(--purple-primary); color: white; font-size: 0.65rem; padding: 2px 6px; border-radius: 50%; position: absolute; top: -8px; right: -10px;">0</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2><i class="fa-solid fa-cart-shopping"></i> Seu Carrinho</h2>
+
+        <div class="cart-grid">
+            <div>
+                <div class="card-box">
+                    <div class="section-title"><i class="fa-solid fa-box"></i> Itens Selecionados</div>
+                    <div id="cart-items-container">
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">A carregar produtos...</p>
+                    </div>
+                </div>
+
+                <div class="card-box">
+                    <div class="section-title"><i class="fa-solid fa-phone"></i> Telefone Cadastrado</div>
+                    <div class="info-box" id="display-telefone-salvo">
+                        <i class="fa-solid fa-mobile-screen" style="color: var(--purple-primary);"></i> A carregar telefone...
+                    </div>
+
+                    <div class="section-title"><i class="fa-solid fa-location-dot"></i> Endereço de Entrega</div>
+                    <div class="info-box" id="display-endereco-salvo">
+                        <i class="fa-solid fa-location-dot" style="color: var(--purple-primary);"></i> A carregar endereço...
+                    </div>
+
+                    <div class="section-title" style="margin-top: 20px;"><i class="fa-solid fa-truck-fast"></i> Opção de Frete</div>
+                    <div class="shipping-options">
+                        <div class="shipping-option">
+                            <div>
+                                <i class="fa-solid fa-gift" style="color: var(--purple-primary);"></i>
+                                <span style="font-weight: bold; margin-left: 5px;">Frete Padrão (Enviado de SP)</span><br>
+                                <small style="color: var(--text-muted); margin-left: 20px;">Prazo estimado: <strong>2 a 4 dias úteis</strong></small>
+                            </div>
+                            <strong style="color: var(--whatsapp-green);">Grátis</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="card-box">
+                    <div class="section-title"><i class="fa-solid fa-receipt"></i> Resumo do Pedido</div>
+                    
+                    <div class="summary-line">
+                        <span>Subtotal</span>
+                        <span id="subtotal-val">R$ 0,00</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Frete</span>
+                        <span id="frete-val" style="color: var(--whatsapp-green); font-weight: bold;">Grátis</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Total</span>
+                        <span id="total-val">R$ 0,00</span>
+                    </div>
+
+                    <div class="checkout-buttons">
+                        <button class="btn-checkout btn-mp" onclick="abrirModalConferencia('mp')">
+                            <i class="fa-solid fa-credit-card"></i> Pagar via Mercado Pago
+                        </button>
+                        <button class="btn-checkout btn-zap" onclick="abrirModalConferencia('zap')">
+                            <i class="fa-brands fa-whatsapp"></i> Finalizar via WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFERÊNCIA DE DADOS ANTES DE FINALIZAR -->
+    <div id="modal-conferencia" class="modal-overlay">
+        <div class="modal-content">
+            <h3 style="margin-top: 0; display: flex; align-items: center; gap: 10px; color: var(--purple-primary);">
+                <i class="fa-solid fa-clipboard-check"></i> Conferir Dados do Pedido
+            </h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Por favor, confira se as informações abaixo estão corretas antes de avançar:</p>
+            
+            <div style="background: #111116; padding: 12px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 15px; border: 1px solid var(--border-color);">
+                <p style="margin: 5px 0;"><strong>Telefone:</strong> <span id="conf-tel" style="color: #fff;">-</span></p>
+                <p style="margin: 5px 0;"><strong>Endereço:</strong> <span id="conf-end" style="color: #fff;">-</span></p>
+                <p style="margin: 5px 0;"><strong>Total a Pagar:</strong> <span id="conf-tot" style="color: var(--purple-primary); font-weight: bold;">-</span></p>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button type="button" onclick="fecharModalConferencia()" style="flex: 1; padding: 10px; background: #272735; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Corrigir Dados</button>
+                <button type="button" id="btn-confirmar-checkout" style="flex: 1; padding: 10px; background: var(--purple-primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Tudo Certo, Avançar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let metodoDestino = '';
+
+        document.addEventListener("DOMContentLoaded", () => {
+            verificarSessaoECarrinho();
+        });
+
+        function verificarSessaoECarrinho() {
+            const usuarioLocalStr = localStorage.getItem("usuario");
+            const userLink = document.getElementById("user-profile-link");
+
+            let usuarioData = null;
+            try { usuarioData = JSON.parse(usuarioLocalStr); } catch (e) { usuarioData = null; }
+
+            if (usuarioData && (usuarioData.email || usuarioData.nome)) {
+                let nomeUser = usuarioData.nome || usuarioData.email.split('@')[0];
+                if (userLink) userLink.innerHTML = `<i class="fa-solid fa-user"></i> ${nomeUser}`;
+                carregarCarrinho();
+                carregarDadosPerfil(usuarioData.email);
+            } else {
+                localStorage.removeItem("carrinho");
+                localStorage.removeItem("cart");
+                if (userLink) userLink.innerHTML = `<i class="fa-solid fa-user"></i> Entrar`;
+
+                document.getElementById("cart-items-container").innerHTML = `
+                    <div style="text-align: center; padding: 25px; color: var(--text-muted);">
+                        <i class="fa-solid fa-lock" style="font-size: 2.2rem; margin-bottom: 10px; color: #ef4444;"></i>
+                        <p style="margin: 0 0 10px 0;">Tens de iniciar sessão para ver o carrinho.</p>
+                        <a href="login.html" style="color: var(--purple-primary); text-decoration: none; font-weight: bold;">Fazer Login</a>
+                    </div>
+                `;
+                document.getElementById("display-endereco-salvo").innerHTML = "Nenhum endereço associado (Faça login).";
+                document.getElementById("display-telefone-salvo").innerHTML = "Nenhum telefone associado.";
+                document.getElementById("subtotal-val").innerText = "R$ 0,00";
+                document.getElementById("cart-badge").innerText = "0";
+                calcularTotal();
+            }
+        }
+
+        function carregarCarrinho() {
+            const container = document.getElementById("cart-items-container");
+            let carrinho = JSON.parse(localStorage.getItem("carrinho")) || JSON.parse(localStorage.getItem("cart")) || [];
+
+            if (carrinho.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 25px; color: var(--text-muted);">
+                        <i class="fa-solid fa-cart-arrow-down" style="font-size: 2.2rem; margin-bottom: 10px; color: var(--purple-primary);"></i>
+                        <p style="margin: 0 0 10px 0;">O seu carrinho está vazio.</p>
+                        <a href="tenis.html" style="color: var(--purple-primary); text-decoration: none; font-weight: bold;">Ir para a Loja</a>
+                    </div>
+                `;
+                document.getElementById("subtotal-val").innerText = "R$ 0,00";
+                document.getElementById("cart-badge").innerText = "0";
+                calcularTotal();
+                return;
+            }
+
+            let html = "";
+            let subtotal = 0;
+
+            carrinho.forEach((item, index) => {
+                let precoStr = String(item.price || "0").replace("R$", "").replace(".", "").replace(",", ".").trim();
+                let preco = parseFloat(precoStr) || 0;
+                let qtd = parseInt(item.quantity) || 1;
+                subtotal += preco * qtd;
+
+                let imagemProduto = item.imgSrc || item.image || "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=300";
+                let tamanhoProduto = item.tamanho || item.size || 'Único';
+
+                html += `
+                    <div class="cart-item">
+                        <img src="${imagemProduto}" alt="${item.title}">
+                        <div class="item-details" style="flex: 1;">
+                            <h4>${item.title || "Produto"}</h4>
+                            <p>Tamanho: ${tamanhoProduto} | Qtd: ${qtd}</p>
+                            <p class="item-price">R$ ${(preco * qtd).toFixed(2).replace('.', ',')}</p>
+                            <button class="btn-remove" onclick="removerItem(${index})">
+                                <i class="fa-solid fa-trash"></i> Remover
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            document.getElementById("subtotal-val").innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+            document.getElementById("cart-badge").innerText = carrinho.length;
+            calcularTotal();
+        }
+
+        function removerItem(index) {
+            let carrinho = JSON.parse(localStorage.getItem("carrinho")) || JSON.parse(localStorage.getItem("cart")) || [];
+            carrinho.splice(index, 1);
+            localStorage.setItem("carrinho", JSON.stringify(carrinho));
+            carregarCarrinho();
+        }
+
+        function calcularTotal() {
+            let subtotalText = document.getElementById("subtotal-val").innerText;
+            let subtotal = parseFloat(subtotalText.replace("R$", "").replace(".", "").replace(",", ".").trim()) || 0;
+            document.getElementById("total-val").innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+        }
+
+        async function carregarDadosPerfil(emailUser) {
+            const enderecoBox = document.getElementById("display-endereco-salvo");
+            const telefoneBox = document.getElementById("display-telefone-salvo");
+            try {
+                const response = await fetch(`/api/auth/perfil/?email=${encodeURIComponent(emailUser)}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.rua) {
+                        enderecoBox.innerHTML = `<i class="fa-solid fa-location-dot" style="color: var(--purple-primary);"></i> ${data.rua}, Nº ${data.numero || 'S/N'}, ${data.bairro || ''} - ${data.cidade || ''}/${data.estado || ''} (CEP: ${data.cep || ''})`;
+                    } else {
+                        enderecoBox.innerHTML = `<span style="color: #ef4444;">Preencha o seu endereço no perfil!</span>`;
+                    }
+                    if (data.telefone) {
+                        telefoneBox.innerHTML = `<i class="fa-solid fa-mobile-screen" style="color: var(--purple-primary);"></i> ${data.telefone}`;
+                    } else {
+                        telefoneBox.innerHTML = `<span style="color: #ef4444;">Preencha o seu telefone no perfil!</span>`;
+                    }
+                }
+            } catch (error) {
+                enderecoBox.innerHTML = "Erro ao carregar endereço.";
+                telefoneBox.innerHTML = "Erro ao carregar telefone.";
+            }
+        }
+
+        function abrirModalConferencia(metodo) {
+            let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+            if (carrinho.length === 0) {
+                alert("O seu carrinho está vazio.");
+                return;
+            }
+
+            metodoDestino = metodo;
+            document.getElementById("conf-tel").innerText = document.getElementById("display-telefone-salvo").innerText;
+            document.getElementById("conf-end").innerText = document.getElementById("display-endereco-salvo").innerText;
+            document.getElementById("conf-tot").innerText = document.getElementById("total-val").innerText;
+            
+            document.getElementById("modal-conferencia").classList.add("active");
+        }
+
+        function fecharModalConferencia() {
+            document.getElementById("modal-conferencia").classList.remove("active");
+        }
+
+        document.getElementById("btn-confirmar-checkout").addEventListener("click", () => {
+            fecharModalConferencia();
+            if (metodoDestino === 'mp') {
+                finalizarMercadoPagoReal();
+            } else if (metodoDestino === 'zap') {
+                finalizarWhatsAppReal();
+            }
+        });
+
+        async function finalizarMercadoPagoReal() {
+            let totalText = document.getElementById("total-val").innerText;
+            let totalVal = parseFloat(totalText.replace("R$", "").replace(".", "").replace(",", ".").trim()) || 0;
+
+            try {
+                const response = await fetch('/api/create-preference/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: "Compra - Neves Store", quantity: 1, price: totalVal })
+                });
+                const data = await response.json();
+                if (data.init_point) {
+                    window.location.href = data.init_point;
+                } else {
+                    alert("A redirecionar para o pagamento...");
+                }
+            } catch (err) {
+                alert("Erro de ligação com o servidor de pagamento.");
+            }
+        }
+
+        function finalizarWhatsAppReal() {
+            let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+            let telefone = document.getElementById("display-telefone-salvo").innerText.trim();
+            let endereco = document.getElementById("display-endereco-salvo").innerText.trim();
+            let total = document.getElementById("total-val").innerText;
+
+            let mensagem = "*NOVO PEDIDO — NEVES STORE*\n\n*Itens:* \n";
+            carrinho.forEach(item => {
+                mensagem += `- ${item.title} (Tam: ${item.tamanho || 'Único'}) - R$ ${item.price}\n`;
+            });
+
+            mensagem += `\n*Telefone:* ${telefone}`;
+            mensagem += `\n*Endereço de Entrega:* ${endereco}`;
+            mensagem += `\n\n*Valor Total (Frete Grátis):* ${total}`;
+
+            let numeroWhatsApp = "5519999728998"; 
+            let url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>

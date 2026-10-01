@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Neves Store</title>
+  <link rel="stylesheet" href="assets/css/nevesStore.css">
+  <link rel="stylesheet" href="assets/css/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body class="login-body">
+
+  <div class="login-card">
+    <div class="login-header">
+      <a href="index.html"><img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store" class="login-logo"></a>
+      <h2>NEVES STORE</h2>
+      <p>Acesse sua conta para continuar</p>
+    </div>
+
+    <div class="login-tabs">
+      <button id="btn-login" class="tab-btn active">Entrar</button>
+      <button id="btn-register" class="tab-btn">Criar Conta</button>
+    </div>
+
+    <!-- Login -->
+    <form id="form-login" class="auth-form active">
+      <div class="input-group">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="login-email" placeholder="Seu e-mail" required>
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="login-senha" placeholder="Sua senha" required>
+      </div>
+      
+      <!-- Mensagem de erro de login -->
+      <div id="erro-login-msg" style="color: #ef4444; font-size: 0.85rem; margin-bottom: 10px; display: none;"></div>
+
+      <button type="submit" class="btn-submit">Entrar</button>
+
+      <!-- Botão Esqueci a Palavra-passe (Fica escondido até ocorrer um erro de login) -->
+      <button type="button" id="btn-esqueci-senha" style="display: none; width: 100%; background: none; border: none; color: var(--purple-primary, #a855f7); cursor: pointer; font-size: 0.85rem; margin-top: 12px; font-weight: bold;" onclick="pedirRecuperacaoSenha()">
+        Esqueceu-se da palavra-passe? Clique aqui
+      </button>
+
+      <button type="button" class="btn-secondary" onclick="window.location.href='index.html'" style="margin-top: 10px;">Continuar sem login</button>
+    </form>
+
+    <!-- Cadastro Completo -->
+    <form id="form-register" class="auth-form">
+      <div class="input-group">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="nome" placeholder="Nome completo" required>
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="register-email" placeholder="E-mail" required>
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="register-senha" placeholder="Senha" required>
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-map-pin"></i>
+        <input type="text" id="cep" placeholder="CEP (Busca Automática)" maxlength="9" required>
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-house"></i>
+        <input type="text" id="rua" placeholder="Rua / Avenida" required readonly>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <div class="input-group" style="flex: 1;">
+          <input type="text" id="numero" placeholder="Nº da Casa" required>
+        </div>
+        <div class="input-group" style="flex: 2;">
+          <input type="text" id="bairro" placeholder="Bairro" required readonly>
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <div class="input-group" style="flex: 2;">
+          <input type="text" id="cidade" placeholder="Cidade" required readonly>
+        </div>
+        <div class="input-group" style="flex: 1;">
+          <input type="text" id="estado" placeholder="UF" required readonly>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit">Criar Conta</button>
+    </form>
+  </div>
+
+  <script src="assets/js/login.js"></script>
+</body>
+</html>

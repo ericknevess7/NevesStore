@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neves Store — Streetwear & Sneakers</title>
+  <link rel="stylesheet" href="assets/css/nevesStore.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Topbar Anúncio Roxo Grafite -->
+  <div class="announcement-bar">
+     ANIVERSÁRIO NEVES STORE: SNEAKERS COM ATÉ 50% OFF + FRETE GRÁTIS!
+  </div>
+
+  <!-- Header Escuro -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store" class="logo-img">
+        </a>
+      </div>
+
+      <div class="search-bar">
+        <form id="searchForm">
+          <input type="text" id="searchInput" placeholder="Buscar camisetas, tênis, moletons..." />
+          <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+
+      <div class="header-icons">
+        <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Modo Claro/Escuro" type="button">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+        <a href="perfil.html" id="user-profile-link" title="Minha Conta"><i class="fa-solid fa-user"></i></a>
+        <a href="carrinho.html" id="cart-button">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navegação Categorias Streetwear -->
+  <nav class="navbar-categorias">
+    <ul class="navbar-nav">
+      <li><a href="tenis.html" class="nav-link">Tênis</a></li>
+      <li><a href="camisetas.html" class="nav-link">Camisetas</a></li>
+      <li><a href="blusasecnjs.html" class="nav-link">Conjuntos Dry-Fit</a></li>
+      <li><a href="blusasecnjs.html" class="nav-link">Moletom</a></li>
+      <li><a href="acesorrios.html" class="nav-link">Acessórios</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Banner Principal -->
+  <section class="hero-streetwear">
+    <div class="hero-banner-content">
+      <span class="hero-tag-purple">ESPECIAL DE ANIVERSÁRIO</span>
+      <h1>DRIP & <br><span class="highlight-cyan">STREETWEAR</span></h1>
+      <p>FRETE POR NOSSA CONTA NAS COMPRAS ENTRE OS DIAS 05/10 a 10/10<strong> </strong></p>
+    </div>
+  </section>
+
+<!-- Grid Banners de Marcas (Filtro na Página de Tênis) -->
+<section class="brands-section">
+  <div class="brands-grid">
+
+    <a href="tenis.html?busca=nike" class="brand-card">
+      <img src="assets/imgs tenis/nike/12mola/12molabranco.jpg" alt="nike collection">
+      <div class="brand-overlay">
+        <span>NIKE</span>
+      </div>
+    </a>
+
+    <a href="tenis.html?busca=adidas" class="brand-card">
+      <img src="assets/imgs tenis/adidas/grandcourt2.0/adidasgrandcourtpretoebranco.jpg" alt="adidas collection">
+      <div class="brand-overlay">
+        <span>ADIDAS</span>
+      </div>
+    </a>
+
+    <a href="tenis.html?busca=mizuno" class="brand-card">
+      <img src="assets/imgs tenis/mizuno/pro14/mizunopro14branco.jpg" alt="mizuno collection">
+      <div class="brand-overlay">
+        <span>MIZUNO</span>
+      </div>
+    </a>
+
+    <a href="tenis.html?busca=puma" class="brand-card">
+      <img src="assets/imgs tenis/puma/pumaAMGpretoeverde.jpg" alt="puma collection">
+      <div class="brand-overlay">
+        <span>PUMA</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+  <!-- Seção Mais Vendidos -->
+  <section class="products-section">
+    <div class="section-title text-center">
+      <h2>TOP 10 MAIS VENDIDOS DA LOJA</h2>
+    </div>
+
+    <div class="produtos-grid">
+
+     <div class="product-card">
+        <span class="badge-discount">-40%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs tenis/nike/tn/tnpreto.jpg" alt="Tênis Nike TN">
+        </div>
+        <div class="product-info">
+          <h3>Tênis Nike TN</h3>
+          <div class="prices">
+            <span class="old-price">R$ 499,90</span>
+            <span class="current-price">R$ 299,90</span>
+          </div>
+        </div>
+        <button class="btn-buy" type="button" data-sizes="38, 39, 40, 41, 42, 43" data-variants='[
+          {"cor": "Amarelo e Laranja", "img": "assets/imgs tenis/nike/tn/tnamareloelaranja.jpg"},
+          {"cor": "Azul e Amarelo", "img": "assets/imgs tenis/nike/tn/tnazuleamarelo.jpg"},
+          {"cor": "Azul e Preto", "img": "assets/imgs tenis/nike/tn/tnazulepreto.jpg"},
+          {"cor": "Barcelona", "img": "assets/imgs tenis/nike/tn/tnbarcelona.jpg"},
+          {"cor": "Branco, Azul e Verde Mar", "img": "assets/imgs tenis/nike/tn/tnbrancoazuleverdemar.jpg"},
+          {"cor": "Branco e Azul", "img": "assets/imgs tenis/nike/tn/tnbrancoeazul.jpg"},
+          {"cor": "Brave Blue", "img": "assets/imgs tenis/nike/tn/tnbraveblue.jpg"},
+          {"cor": "Brazil", "img": "assets/imgs tenis/nike/tn/tnbrazil.jpg"},
+          {"cor": "Cinza e Branco", "img": "assets/imgs tenis/nike/tn/tncinzaebranco.jpg"},
+          {"cor": "Lacoste", "img": "assets/imgs tenis/nike/tn/tnlacoste.jpg"},
+          {"cor": "Laranja", "img": "assets/imgs tenis/nike/tn/tnlaranja.jpg"},
+          {"cor": "Preto", "img": "assets/imgs tenis/nike/tn/tnpreto.jpg"},
+          {"cor": "Preto, Branco e Dourado", "img": "assets/imgs tenis/nike/tn/tnpretobrancoedourado.jpg"},
+          {"cor": "Preto e Azul", "img": "assets/imgs tenis/nike/tn/tnpretoeazul.jpg"},
+          {"cor": "Preto e Rosa", "img": "assets/imgs tenis/nike/tn/tnpretoerosa.jpg"},
+          {"cor": "Preto e Vermelho", "img": "assets/imgs tenis/nike/tn/tnpretoevermelho.jpg"},
+          {"cor": "Vermelho e Preto", "img": "assets/imgs tenis/nike/tn/tnvermelhoepreto.jpg"}
+        ]'>Ver Detalhes</button>
+      </div>
+
+
+    
+      <div class="product-card">
+        <span class="badge-discount">-40%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs tenis/puma/pumaAMGpretoeazul.jpg" alt="Tênis PUMA AMG">
+        </div>
+        <div class="product-info">
+          <h3>Tênis PUMA AMG</h3>
+          <div class="prices">
+            <span class="old-price">R$ 499,90</span>
+            <span class="current-price">R$ 299,90</span>
+          </div>
+        </div>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Preto e Azul ", "img": "assets/imgs tenis/puma/pumaAMGpretoeazul.jpg"},
+          {"cor": "Preto e Verde", "img": "assets/imgs tenis/puma/pumaAMGpretoeverde.jpg"},
+          {"cor": "Branco e Verde", "img": "assets/imgs tenis/puma/pumaAMGbrancoeverde.jpg"}
+        ]'>Ver Detalhes</button>
+      </div>
+
+
+         <div class="product-card">
+        <span class="badge-discount">-40%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs tenis/louis vuitton/tenislvbrancoepreto.jpg" alt="Tênis Louis Vuitton">
+        </div>
+        <div class="product-info">
+          <h3>Tênis Louis Vuitton</h3>
+          <div class="prices">
+            <span class="old-price">R$ 499,90</span>
+            <span class="current-price">R$ 299,90</span>
+          </div>
+        </div>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Branco e Preto", "img": "assets/imgs tenis/louis vuitton/tenislvbrancoepreto.jpg"},
+          {"cor": "Preto e Branco", "img": "assets/imgs tenis/louis vuitton/tenislvpretoebranco.jpg"},
+          {"cor": "Branco e Bege", "img": "assets/imgs tenis/louis vuitton/tenislvbrancoebege.jpg"},
+          {"cor": "Branco e Cinza", "img": "assets/imgs tenis/louis vuitton/tenislvbrancoecinza.jpg"},
+          {"cor": "Preto", "img": "assets/imgs tenis/louis vuitton/tenisluisvuittontodopreto.jpg"}
+        ]'>Ver Detalhes</button>
+      </div>
+
+<div class="product-card">
+        <span class="badge-discount">-40%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs tenis/adidas/campus/adidascampuspreto.png" alt="Tênis adidas campus">
+        </div>
+        <div class="product-info">
+          <h3>Tênis Adidas Campus</h3>
+          <div class="prices">
+            <span class="old-price">R$ 499,90</span>
+            <span class="current-price">R$ 299,90</span>
+          </div>
+        </div>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Preto", "img": "assets/imgs tenis/adidas/campus/adidascampuspreto.png"},
+          {"cor": "Bege", "img": "assets/imgs tenis/adidas/campus/adidascampusbege.jpg"},
+           {"cor": "Cinza", "img": "assets/imgs tenis/adidas/campus/adidascampusciza.jpg"}
+        ]'>Ver Detalhes</button>
+      </div>
+
+         <div class="product-card">
+        <span class="badge-discount">-40%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs tenis/mizuno/pro15/mizunopro15pretocomprata.jpg" alt="Tênis Mizuno Pro 15">
+        </div>
+        <div class="product-info">
+          <h3>Tênis Mizuno Pro 15</h3>
+          <div class="prices">
+            <span class="old-price">R$ 499,90</span>
+            <span class="current-price">R$ 299,90</span>
+          </div>
+        </div>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Preto e Prata", "img": "assets/imgs tenis/mizuno/pro15/mizunopro15pretocomprata.jpg"},
+          {"cor": "Azul e Roxo", "img": "assets/imgs tenis/mizuno/pro15/mizunopro15azulcomroxo.jpg"},
+          {"cor": "Branco e Prata", "img": "assets/imgs tenis/mizuno/pro15/mizunopro15brancocomprata.jpg"},
+          {"cor": "Branco e Dourado", "img": "assets/imgs tenis/mizuno/pro15/mizunopro15brancoedourado.jpg"},
+          {"cor": "Preto e Dourado", "img": "assets/imgs tenis/mizuno/pro15/mizunopro15pretocomdourado.jpg"},
+          {"cor": "Preto e Verde", "img": "assets/imgs tenis/mizuno/pro15/mizunopro15pretocomverde.jpg"}
+        ]'>Ver Detalhes</button>
+      </div>
+
+  <div class="product-card">
+        <span class="badge-discount">-35%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs tenis/mizuno/coolride/mizunocoolridepreto.jpg" alt="Tênis Mizuno cool ride">
+        </div>
+        <div class="product-info">
+          <h3>Tênis Mizuno cool ride</h3>
+          <div class="prices">
+            <span class="old-price">R$ 459,90</span>
+            <span class="current-price">R$ 299,90</span>
+          </div>
+        </div>
+        <button class="btn-buy" type="button" data-sizes="34, 35, 36, 37, 38, 39, 40, 41, 42, 43" data-variants='[
+          {"cor": "Preto", "img": "assets/imgs tenis/mizuno/coolride/mizunocoolridepreto.jpg"},
+          {"cor": "Branco", "img": "assets/imgs tenis/mizuno/coolride/mizunocoolridebranco.jpg"},
+          {"cor": "Rosa", "img": "assets/imgs tenis/mizuno/coolride/mizunocoolriderosa.jpg", "tamanhos": "34, 35, 36, 37, 38, 39"}
+        ]'>Ver Detalhes</button>
+      </div>
+
+       
+      <div class="product-card">
+        <span class="badge-discount">-40%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs tenis/adidas/grandcourt2.0/adidasgrandcourtpretoebranco.jpg" alt="Tênis adidas grand court 2.0">
+        </div>
+        <div class="product-info">
+          <h3>Tênis Adidas Grand Court 2.0</h3>
+          <div class="prices">
+            <span class="old-price">R$ 499,90</span>
+            <span class="current-price">R$ 299,90</span>
+          </div>
+        </div>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Preto e Branco", "img": "assets/imgs tenis/adidas/grandcourt2.0/adidasgrandcourtpretoebranco.jpg"},
+          {"cor": "Branco e azul", "img": "assets/imgs tenis/adidas/grandcourt2.0/adidadgrandcourtbrancoeazul.jpg"},
+          {"cor": "Azul e Branco", "img": "assets/imgs tenis/adidas/grandcourt2.0/adidasgrandcourtazulebranco.jpg"},
+          {"cor": "Cinza e Vermelho", "img": "assets/imgs tenis/adidas/grandcourt2.0/adidasgrandcourtcinzaevermelho.jpg"}
+        ]'>Ver Detalhes</button>
+      </div>
+
+        <div class="product-card">
+        <span class="badge-discount">-40%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs tenis/alexander/alexsanderbranco.jpg" alt="Tênis Alexander McQueen">
+        </div>
+        <div class="product-info">
+          <h3>Tênis Alexander McQueen</h3>
+          <div class="prices">
+            <span class="old-price">R$ 499,90</span>
+            <span class="current-price">R$ 299,90</span>
+          </div>
+        </div>
+        <button class="btn-buy" type="button" data-variants='[
+          {"cor": "Branco com Preto", "img": "assets/imgs tenis/alexander/alexsanderbranco.jpg"},
+          {"cor": "Preto com Branco", "img": "assets/imgs tenis/alexander/alexanderpreto.jpg"},
+           {"cor": "Preto Camurça", "img": "assets/imgs tenis/alexander/alexsanderpretocamurça.jpg"},
+            {"cor": "Branco", "img": "assets/imgs tenis/alexander/alexsandertodobranco.jpg"},
+             {"cor": "Preto", "img": "assets/imgs tenis/alexander/alexsandertodopreto.jpg"}
+        ]'>Ver Detalhes</button>
+      </div>
+
+      <div class="product-card">
+        <span class="badge-discount">-40%</span>
+        <div class="product-image-box">
+          <!-- Imagem principal corrigida -->
+          <img src="assets/imgs tenis/nike/journey run/jouneyrunpretoebranco.jpg" alt="Tênis Nike Journey Run">
+        </div>
+        <div class="product-info">
+          <h3>Tênis Nike Journey Run</h3>
+          <div class="prices">
+            <span class="old-price">R$ 499,90</span>
+            <span class="current-price">R$ 299,90</span>
+          </div>
+        </div>
+        <!-- data-sizes geral com todos os tamanhos, restrição inserida apenas no JSON da cor específica -->
+        <button class="btn-buy" type="button" data-sizes="34, 35, 36, 37, 38, 39, 40, 41, 42, 43" data-variants='[
+          {"cor": "Preto e Branco", "img": "assets/imgs tenis/nike/journey run/jouneyrunpretoebranco.jpg", "tamanhos": "34, 35, 36, 37"},
+          {"cor": "Branco, Azul e Vermelho", "img": "assets/imgs tenis/nike/journey run/jouneyrunbrancoazulevermelho.jpg"},
+          {"cor": "Branco e Creme", "img": "assets/imgs tenis/nike/journey run/journeyrunbrancoecreme.jpg"},
+          {"cor": "Branco e Vermelho", "img": "assets/imgs tenis/nike/journey run/journeyrunbrancoevermelho.jpg"},
+          {"cor": "Branco e Verde Limão", "img": "assets/imgs tenis/nike/journey run/nikejourneyrunbrancoeverdelimao.jpg"}
+        ]'>Ver Detalhes</button>
+      </div>
+
+    <div class="product-card">
+        <span class="badge-discount">-40%</span>
+        <div class="product-image-box">
+          <img src="assets/imgs tenis/nike/air force/airforcebranco.jpg" alt="Tênis Nike Air Force">
+        </div>
+        <div class="product-info">
+          <h3>Tênis Nike Air Force</h3>
+          <div class="prices">
+            <span class="old-price">R$ 499,90</span>
+            <span class="current-price">R$ 299,90</span>
+          </div>
+        </div>
+        <button class="btn-buy" type="button" data-sizes="34, 35, 36, 37, 38, 39, 40, 41, 42, 43" data-variants='[
+          {"cor": "Azul Escuro e Cinza", "img": "assets/imgs tenis/nike/air force/airforceazulescuroecinza.jpg"},
+          {"cor": "Branco", "img": "assets/imgs tenis/nike/air force/airforcebranco.jpg"},
+          {"cor": "Branco, Azul e Preto", "img": "assets/imgs tenis/nike/air force/airforcebrancoazulepreto.jpg"},
+          {"cor": "Branco e Bege", "img": "assets/imgs tenis/nike/air force/airforcebrancoebege.jpg"},
+          {"cor": "Branco e Cinza", "img": "assets/imgs tenis/nike/air force/airforcebrancoecinza.jpg"},
+          {"cor": "Branco e Preto", "img": "assets/imgs tenis/nike/air force/airforcebrancoepreto.jpg"},
+          {"cor": "Branco e Rosa", "img": "assets/imgs tenis/nike/air force/airforcebrancoerosa.jpg"},
+          {"cor": "Branco, Preto e Dourado", "img": "assets/imgs tenis/nike/air force/airforcebrancopretoedourado.jpg"},
+          {"cor": "Preto", "img": "assets/imgs tenis/nike/air force/airforcepreto.jpg"},
+          {"cor": "Preto com Cadarço Corda", "img": "assets/imgs tenis/nike/air force/airforcepretocomcadarçocorda.jpg"},
+          {"cor": "Preto e Branco", "img": "assets/imgs tenis/nike/air force/airforcepretoebranco.jpg"},
+          {"cor": "Preto Sola Marrom", "img": "assets/imgs tenis/nike/air force/airforcepretosolamarrom.jpg"}
+        ]'>Ver Detalhes</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Modal Seleção de Categorias -->
+  <div id="catalog-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-store"></i> Escolha uma Categoria</h3>
+        <button id="btn-close-modal" class="modal-close" type="button">&times;</button>
+      </div>
+      <p class="modal-subtitle">Selecione o que você deseja explorar no catálogo:</p>
+      <div class="category-options-grid">
+        <a href="tenis.html" class="category-card-item">
+          <i class="fa-solid fa-socks"></i>
+          <span>Tênis & Sneakers</span>
+        </a>
+        <a href="camisetas.html" class="category-card-item">
+          <i class="fa-solid fa-shirt"></i>
+          <span>Camisetas</span>
+        </a>
+        <a href="blusasecnjs.html" class="category-card-item">
+          <i class="fa-solid fa-mitten"></i>
+          <span>Blusas & Conjuntos</span>
+        </a>
+        <a href="acesorrios.html" class="category-card-item">
+          <i class="fa-solid fa-glasses"></i>
+          <span>Acessórios</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>NEVES STORE</h4>
+        <p>A sua loja referência em moda masculina streetwear. Qualidade e o melhor atendimento da região.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="tenis.html">Tênis</a></li>
+          <li><a href="camisetas.html">Camisetas</a></li>
+          <li><a href="blusasecnjs.html">Moletom & Conjuntos</a></li>
+          <li><a href="acesorrios.html">Acessórios</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Atendimento</h4>
+        <p>E-mail: contato@nevesstore.com</p>
+        <p>WhatsApp: (19) 99997-2899</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 NEVES STORE — Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Modal Controls
+      const btnOpenModal = document.getElementById('btn-open-catalog');
+      const btnCloseModal = document.getElementById('btn-close-modal');
+      const catalogModal = document.getElementById('catalog-modal');
+
+      if (btnOpenModal && catalogModal) {
+        btnOpenModal.addEventListener('click', (e) => {
+          e.preventDefault();
+          catalogModal.classList.add('active');
+        });
+      }
+
+      if (btnCloseModal && catalogModal) {
+        btnCloseModal.addEventListener('click', () => {
+          catalogModal.classList.remove('active');
+        });
+      }
+
+      if (catalogModal) {
+        catalogModal.addEventListener('click', (e) => {
+          if (e.target === catalogModal) {
+            catalogModal.classList.remove('active');
+          }
+        });
+      }
+
+      // User Profile Check
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      const userLink = document.getElementById("user-profile-link");
+      if (usuario && usuario.nome && userLink) {
+        userLink.innerHTML = `<span style="font-size: 13px; font-weight: 700; color: var(--accent-cyan);">👤 ${usuario.nome}</span>`;
+      }
+    });
+  </script>
+  <script src="assets/js/produtos.js"></script>
+</body>
+</html>

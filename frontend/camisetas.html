@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Camisetas — Neves Store</title>
+  <link rel="stylesheet" href="assets/css/nevesStore.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="index.html"><img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store"></a>
+      </div>
+
+      <div class="search-bar">
+        <form id="searchForm">
+          <input type="text" id="searchInput" placeholder="Buscar tênis, marcas..." />
+          <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+
+      <div class="header-icons">
+        <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Modo Claro/Escuro">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+        <a href="perfil.html" id="user-profile-link" title="Minha Conta"><i class="fa-solid fa-user"></i></a>
+        <a href="carrinho.html" id="cart-button">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+ <section class="products-section">
+    <div class="section-title">
+      <h2>Coleção de Camisetas</h2>
+      <p>Nova coleção a caminho. Fique ligado no próximo drop.</p>
+    </div>
+
+    <div class="locked-grid">
+      <div class="locked-card">
+        <div class="locked-content">
+          <span class="lock-icon">🔒</span>
+          <h3>Camisetas Dry Fit</h3>
+          <p>Em breve...</p>
+        </div>
+      </div>
+
+      <div class="locked-card">
+        <div class="locked-content">
+          <span class="lock-icon">🔒</span>
+          <h3>Camisetas Oversized</h3>
+          <p>Aguarde o lançamento.</p>
+        </div>
+      </div>
+
+      <div class="locked-card">
+        <div class="locked-content">
+          <span class="lock-icon">🔒</span>
+          <h3>Peças Exclusivas</h3>
+          <p>Loading...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mensagem de Redirecionamento -->
+    <div style="text-align: center; margin-top: 50px; padding: 20px;">
+      <p style="color: #b3b3b3; font-size: 18px; line-height: 1.5; margin-bottom: 20px;">
+        Estamos trazendo as melhores peças de streetwear para você. Aguarde o drop em 2027... <br>
+        <span style="color: #fff; font-weight: bold;">Por enquanto, aproveite nossas promoções exclusivas de tênis!</span>
+      </p>
+      <a href="tenis.html" class="btn-buy" style="display: inline-block; padding: 15px 40px; text-decoration: none; font-size: 16px; border-radius: 8px;">
+        🔥 Ver Promoções de Tênis
+      </a>
+    </div>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>NEVES STORE</h4>
+        <p>A sua loja referência em sneakers e moda streetwear.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Categorias</h4>
+        <ul>
+          <li><a href="tenis.html">Tênis</a></li>
+          <li><a href="camisetas.html">Camisetas</a></li>
+          <li><a href="blusasecnjs.html">Blusas & Conjuntos</a></li>
+          <li><a href="acesorrios.html">Acessórios</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Atendimento</h4>
+        <p>E-mail: contato@nevesstore.com</p>
+        <p>WhatsApp: (19) 999972-8998</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 NEVES STORE — Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/produtos.js"></script>
+</body>
+</html>
