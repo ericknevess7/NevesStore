@@ -39,6 +39,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 # Libera todas as origens para requisições do frontend
@@ -121,3 +123,7 @@ DEFAULT_FROM_EMAIL = 'Neves Store <nevesstoreoficial01@gmail.com>'
 
 # Configuração do Mercado Pago (Produção)
 MERCADOPAGO_ACCESS_TOKEN = 'APP_USR-4982447558090758-100116-8c1742fddb0ef80ae6cfaa881373c0c0-263301634'
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

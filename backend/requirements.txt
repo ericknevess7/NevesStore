@@ -5,3 +5,4 @@ django-cors-headers
 requests
 sqlparse
 tzdata
+whitenoise
