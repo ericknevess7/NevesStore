@@ -13,8 +13,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 
-# Configuração do Mercado Pago
-ACCESS_TOKEN = os.environ.get("MERCADOPAGO_ACCESS_TOKEN", "TEST-1234567890-SIMULACAO")
+# Configuração do Mercado Pago puxando direto do settings.py
+ACCESS_TOKEN = getattr(settings, 'MERCADOPAGO_ACCESS_TOKEN', os.environ.get("MERCADOPAGO_ACCESS_TOKEN", ""))
 sdk = mercadopago.SDK(ACCESS_TOKEN)
 
 # ==========================================

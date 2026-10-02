@@ -118,3 +118,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'nevesstoreoficial01@gmail.com'
 EMAIL_HOST_PASSWORD = 'cnpm kvgh tulj wael'
 DEFAULT_FROM_EMAIL = 'Neves Store <nevesstoreoficial01@gmail.com>'
+
+# Configuração do Mercado Pago (Produção)
+MERCADOPAGO_ACCESS_TOKEN = 'APP_USR-4982447558090758-100116-8c1742fddb0ef80ae6cfaa881373c0c0-263301634'
