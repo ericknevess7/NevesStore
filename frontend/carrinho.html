@@ -1,3 +1,5 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -275,7 +277,7 @@
     <header>
         <a href="index.html" style="text-decoration: none;">
             <div class="logo-box">
-                <img src="assets/imgs tenis/logoneves store.jpg" alt="Neves Store">
+                 <img src="{% static 'imgs tenis/logoneves store.jpg' %}" alt="Neves Store" class="logo-img">
             </div>
         </a>
         <nav class="nav-links">
