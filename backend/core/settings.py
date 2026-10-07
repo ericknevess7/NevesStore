@@ -5,12 +5,12 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ox(j!8!bxn$8nl^zqu084#i9#(yblq)5)_2tbs@%puh9(%ae1v'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ox(j!8!bxn$8nl^zqu084#i9#(yblq)5)_2tbs@%puh9(%ae1v')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -31,7 +31,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # CORS deve ser o primeiro
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -42,15 +42,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Libera todas as origens para requisições do frontend
 CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Mapeia a pasta frontend na raiz do projeto para renderizar os arquivos HTML
+        'BACKEND': 'django.template.backends.DjangoTemplates',
         'DIRS': [BASE_DIR.parent / 'frontend'],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -113,14 +111,17 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# Configuração de E-mail Oficial da Loja
+# Configuração de E-mail Oficial da Loja (SMTP Gmail)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'nevesstoreoficial01@gmail.com'
-EMAIL_HOST_PASSWORD = 'cnpm kvgh tulj wael'
-DEFAULT_FROM_EMAIL = 'Neves Store <nevesstoreoficial01@gmail.com>'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'nevesstoreoficial01@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'cnpm kvgh tulj wael')
+DEFAULT_FROM_EMAIL = f"Neves Store <{EMAIL_HOST_USER}>"
+
+# E-mail que recebe os avisos de vendas
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', '01erickneves01@gmail.com')
 
 # Configuração do Mercado Pago (Produção)
-MERCADOPAGO_ACCESS_TOKEN = 'APP_USR-4982447558090758-100116-8c1742fddb0ef80ae6cfaa881373c0c0-263301634'
+MERCADOPAGO_ACCESS_TOKEN = os.environ.get('MERCADOPAGO_ACCESS_TOKEN', 'APP_USR-4982447558090758-100116-8c1742fddb0ef80ae6cfaa881373c0c0-263301634')
