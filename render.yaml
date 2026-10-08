@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: neves-store
+    env: python
+    region: ohio
+    plan: free
+    buildCommand: pip install --no-cache-dir -r backend/requirements.txt && python backend/manage.py collectstatic --noinput
+    startCommand: gunicorn --chdir backend core.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
