@@ -55,19 +55,31 @@ def produtos_view(request):
 
 @csrf_exempt
 def create_preference(request):
+    """Cria a preferência no Mercado Pago com redirecionamento automático de volta para a loja"""
     if request.method == "POST":
         try:
             data = json.loads(request.body)
             
+            # Detecta o domínio atual do site dinamicamente
+            host = request.get_host()
+            protocol = 'https' if 'onrender.com' in host or request.is_secure() else 'http'
+            site_url = f"{protocol}://{host}"
+
             preference_data = {
                 "items": [
                     {
-                        "title": data.get("title", "Produto NevesStore"),
+                        "title": data.get("title", "Produto Neves Store"),
                         "quantity": int(data.get("quantity", 1)),
                         "unit_price": float(data.get("price", 10.0)),
                         "currency_id": "BRL"
                     }
-                ]
+                ],
+                "back_urls": {
+                    "success": f"{site_url}/carrinho.html?status=success",
+                    "failure": f"{site_url}/carrinho.html?status=failure",
+                    "pending": f"{site_url}/carrinho.html?status=pending"
+                },
+                "auto_return": "approved"
             }
 
             preference_response = sdk.preference().create(preference_data)
@@ -96,7 +108,7 @@ def enviar_email_pedido(request):
             if not email_cliente:
                 return JsonResponse({'error': 'Email do cliente não fornecido.'}, status=400)
 
-            # 1. Monta texto para o cliente
+            # 1. Monta texto de confirmação para o cliente
             itens_cliente_texto = "\n".join([
                 f"- {item.get('title')} | Cor/Modelo: {item.get('cor', 'Padrão')} | Tam: {item.get('tamanho', 'Único')} — {item.get('price')}"
                 for item in itens
@@ -113,7 +125,7 @@ def enviar_email_pedido(request):
                 f"Obrigado por comprar com a Neves Store!"
             )
 
-            # E-mail para o cliente
+            # Envia e-mail para o cliente
             send_mail(
                 assunto_cliente,
                 mensagem_cliente,
@@ -152,7 +164,7 @@ def enviar_email_pedido(request):
                 mensagem_admin,
                 getattr(settings, 'DEFAULT_FROM_EMAIL', 'Neves Store <nevesstoreoficial01@gmail.com>'),
                 [admin_email],
-                fail_silently=True, # Para não travar a resposta ao cliente se falhar o envio interno
+                fail_silently=True,
             )
 
             return JsonResponse({'message': 'E-mails enviados com sucesso!'})
@@ -321,7 +333,6 @@ def api_esqueci_senha(request):
                 token = default_token_generator.make_token(user)
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
                 
-                # Detecta dinamicamente se está no Render (https) ou local (http)
                 protocol = 'https' if request.is_secure() or 'onrender.com' in request.get_host() else 'http'
                 host = request.get_host()
                 link_recuperacao = f"{protocol}://{host}/login/?uid={uid}&token={token}"
