@@ -386,12 +386,12 @@
         let metodoDestino = '';
 
         document.addEventListener("DOMContentLoaded", async () => {
-            // Processa o retorno do Mercado Pago antes de renderizar a página
+            // Processa o retorno do Mercado Pago antes de carregar o resto da página
             await processarRetornoMercadoPago();
             verificarSessaoECarrinho();
         });
 
-        // PROCESSA O RETORNO DO MERCADO PAGO E DISPARA E-MAILS / SALVA COMPRA
+        // PROCESSA O RETORNO DO MERCADO PAGO E DISPARA E-MAILS COM DADOS REAIS DA API
         async function processarRetornoMercadoPago() {
             const urlParams = new URLSearchParams(window.location.search);
             const paymentId = urlParams.get('payment_id') || urlParams.get('collection_id');
@@ -404,6 +404,23 @@
 
                 const emailUser = usuarioData ? usuarioData.email : (localStorage.getItem("userEmail") || "01erickneves01@gmail.com");
                 const nomeUser = usuarioData ? usuarioData.nome : "Cliente Neves Store";
+
+                // Procura telefone e endereço diretamente na API do perfil antes de enviar o e-mail
+                let telefoneCliente = "Não informado no perfil";
+                let enderecoCliente = "Não informado no perfil";
+
+                try {
+                    const perfResp = await fetch(`/api/auth/perfil/?email=${encodeURIComponent(emailUser)}`);
+                    const perfData = await perfResp.json();
+                    if (perfResp.ok) {
+                        if (perfData.telefone) telefoneCliente = perfData.telefone;
+                        if (perfData.rua) {
+                            enderecoCliente = `${perfData.rua}, Nº ${perfData.numero || 'S/N'}, ${perfData.bairro || ''} - ${perfData.cidade || ''}/${perfData.estado || ''} (CEP: ${perfData.cep || ''})`;
+                        }
+                    }
+                } catch (e) {
+                    console.error("Erro ao procurar dados do perfil para o e-mail:", e);
+                }
 
                 let carrinho = JSON.parse(localStorage.getItem("carrinho")) || JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -443,19 +460,16 @@
                     localStorage.setItem("pedidos", JSON.stringify(pedidosAnteriores));
                 }
 
-                // Dispara confirmação para a API de e-mail do Django
+                // Dispara confirmação para a API de e-mail do Django com os dados reais
                 try {
-                    const telDom = document.getElementById("display-telefone-salvo") ? document.getElementById("display-telefone-salvo").innerText.trim() : "Não informado";
-                    const endDom = document.getElementById("display-endereco-salvo") ? document.getElementById("display-endereco-salvo").innerText.trim() : "Não informado";
-
                     await fetch('/api/enviar-confirmacao/', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             email: emailUser,
                             nome: nomeUser,
-                            telefone: telDom,
-                            endereco: endDom,
+                            telefone: telefoneCliente,
+                            endereco: enderecoCliente,
                             itens: carrinho,
                             total: totalVal
                         })
