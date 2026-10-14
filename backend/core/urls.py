@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from store.views import (
     create_preference, 
+    webhook_mercadopago,
     api_login, 
     api_cadastro, 
     api_atualizar_perfil,
@@ -25,7 +26,7 @@ urlpatterns = [
     path('login/', login_view, name='login_page'),
     path('login.html', login_view, name='login_html'),
 
-    # Páginas de Categorias e Navegação (Incluindo Produtos)
+    # Páginas de Categorias e Navegação
     path('tenis.html', tenis_view, name='tenis'),
     path('camisetas.html', camisetas_view, name='camisetas'),
     path('blusasecnjs.html', blusas_view, name='blusas'),
@@ -37,11 +38,12 @@ urlpatterns = [
     # Painel Administrativo
     path('admin/', admin.site.urls),
 
-    # Endpoints da API (Alinhados com o Frontend)
+    # Endpoints da API
     path('api/login/', api_login, name='api_login'),
     path('api/cadastro/', api_cadastro, name='api_cadastro'),
     path('api/auth/perfil/', api_atualizar_perfil, name='api_atualizar_perfil'),
     path('api/create-preference/', create_preference, name='create_preference'),
+    path('api/webhook/mercadopago/', webhook_mercadopago, name='webhook_mercadopago'),
     path('api/enviar-confirmacao/', enviar_email_pedido, name='enviar_email_pedido'),
     path('api/esqueci-senha/', api_esqueci_senha, name='api_esqueci_senha'),
 ]
