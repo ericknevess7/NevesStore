@@ -386,12 +386,11 @@
         let metodoDestino = '';
 
         document.addEventListener("DOMContentLoaded", async () => {
-            // Processa o retorno do Mercado Pago antes de carregar o resto da página
             await processarRetornoMercadoPago();
             verificarSessaoECarrinho();
         });
 
-        // PROCESSA O RETORNO DO MERCADO PAGO E DISPARA E-MAILS COM DADOS REAIS DA API
+        // PROCESSA O RETORNO DO MERCADO PAGO, DISPARA E-MAIL E ABRE O WHATSAPP AUTOMATICAMENTE
         async function processarRetornoMercadoPago() {
             const urlParams = new URLSearchParams(window.location.search);
             const paymentId = urlParams.get('payment_id') || urlParams.get('collection_id');
@@ -405,7 +404,7 @@
                 const emailUser = usuarioData ? usuarioData.email : (localStorage.getItem("userEmail") || "01erickneves01@gmail.com");
                 const nomeUser = usuarioData ? usuarioData.nome : "Cliente Neves Store";
 
-                // Procura telefone e endereço diretamente na API do perfil antes de enviar o e-mail
+                // 1. Procura telefone e endereço diretamente na API do perfil
                 let telefoneCliente = "Não informado no perfil";
                 let enderecoCliente = "Não informado no perfil";
 
@@ -419,18 +418,13 @@
                         }
                     }
                 } catch (e) {
-                    console.error("Erro ao procurar dados do perfil para o e-mail:", e);
+                    console.error("Erro ao buscar perfil:", e);
                 }
 
                 let carrinho = JSON.parse(localStorage.getItem("carrinho")) || JSON.parse(localStorage.getItem("cart")) || [];
 
                 if (carrinho.length === 0) {
-                    carrinho = [{
-                        title: "Produto Neves Store",
-                        price: "0.01",
-                        quantity: 1,
-                        size: "Padrão"
-                    }];
+                    carrinho = [{ title: "Produto Neves Store", price: "0.01", quantity: 1, size: "Padrão" }];
                 }
 
                 let subtotal = carrinho.reduce((acc, item) => {
@@ -442,6 +436,7 @@
 
                 let totalVal = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
 
+                // 2. Grava nas compras do perfil
                 const novoPedido = {
                     id: paymentId || Math.floor(100000 + Math.random() * 900000),
                     data: new Date().toLocaleDateString('pt-BR'),
@@ -460,7 +455,7 @@
                     localStorage.setItem("pedidos", JSON.stringify(pedidosAnteriores));
                 }
 
-                // Dispara confirmação para a API de e-mail do Django com os dados reais
+                // 3. ENVIO 1: E-mail automático no servidor
                 try {
                     await fetch('/api/enviar-confirmacao/', {
                         method: 'POST',
@@ -475,17 +470,35 @@
                         })
                     });
                 } catch (err) {
-                    console.error("Erro ao enviar e-mail de confirmação:", err);
+                    console.error("Erro ao enviar e-mail:", err);
                 }
 
-                // Esvazia o carrinho
+                // 4. ENVIO 2: Monta mensagem formatada para o WhatsApp do dono da loja
+                let msgZap = `*🔥 NOVO PEDIDO CONFIRMADO — NEVES STORE*\n\n`;
+                msgZap += `*👤 CLIENTE:* ${nomeUser}\n`;
+                msgZap += `*📧 E-mail:* ${emailUser}\n`;
+                msgZap += `*📱 Telefone:* ${telefoneCliente}\n`;
+                msgZap += `*📍 Endereço:* ${enderecoCliente}\n\n`;
+                msgZap += `*📦 ITENS COMPRADOS:*\n`;
+                carrinho.forEach(item => {
+                    msgZap += `- ${item.title || item.nome} (Tam: ${item.tamanho || item.size || 'Único'}) — R$ ${item.price}\n`;
+                });
+                msgZap += `\n*💰 VALOR TOTAL:* ${totalVal}\n`;
+                msgZap += `*🆔 ID Pagamento:* ${paymentId || 'Pix'}`;
+
+                const numeroWhatsStore = "5519999728998";
+                const urlWhatsApp = `https://wa.me/${numeroWhatsStore}?text=${encodeURIComponent(msgZap)}`;
+
+                // Limpa o carrinho do localStorage
                 localStorage.removeItem("carrinho");
                 localStorage.removeItem("cart");
 
                 window.history.replaceState({}, document.title, window.location.pathname);
 
-                alert("🎉 Pagamento processado com sucesso! O teu pedido foi gravado em 'Minhas Compras'.");
-                window.location.href = "perfil.html";
+                alert("🎉 Pagamento processado com sucesso! Vamos abrir o WhatsApp para confirmar os detalhes do envio.");
+                
+                // Redireciona para o WhatsApp com o pedido pronto
+                window.location.href = urlWhatsApp;
             }
         }
 
