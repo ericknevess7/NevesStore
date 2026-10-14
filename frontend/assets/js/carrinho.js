@@ -1,17 +1,21 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    // 0. Processa o retorno do Mercado Pago se o pagamento tiver sido aprovado
+    // 0. Processa o retorno do Mercado Pago quando o cliente volta para a loja
     await processarRetornoMercadoPago();
 
     carregarCarrinho();
     carregarEnderecoPerfil();
 });
 
-// 0. Captura o sucesso do pagamento do Mercado Pago
+// 0. Captura o retorno do Mercado Pago (Pix / Cartão / Boleto)
 async function processarRetornoMercadoPago() {
     const urlParams = new URLSearchParams(window.location.search);
-    const statusPagamento = urlParams.get('status');
+    
+    // Captura qualquer um dos parâmetros que o Mercado Pago costuma enviar
+    const status = urlParams.get('status') || urlParams.get('collection_status');
+    const paymentId = urlParams.get('payment_id') || urlParams.get('collection_id');
 
-    if (statusPagamento === 'success') {
+    // Se o pagamento foi aprovado/sucesso ou veio um ID de pagamento
+    if (status === 'success' || status === 'approved' || paymentId) {
         const usuario = JSON.parse(localStorage.getItem("usuario")) || {
             email: localStorage.getItem("userEmail") || localStorage.getItem("email") || "01erickneves01@gmail.com",
             nome: "Cliente Neves Store"
@@ -26,23 +30,25 @@ async function processarRetornoMercadoPago() {
                 return acc + (preco * qtd);
             }, 0);
 
-            let totalVal = `R$ ${(subtotal + 15.00).toFixed(2).replace('.', ',')}`;
+            let totalVal = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
 
             const novoPedido = {
-                id: Math.floor(100000 + Math.random() * 900000),
+                id: paymentId || Math.floor(100000 + Math.random() * 900000),
                 data: new Date().toLocaleDateString('pt-BR'),
                 itens: carrinho,
                 total: totalVal,
                 status: "Aprovado"
             };
 
-            // Guarda o pedido no histórico do perfil do cliente
+            // Guarda o pedido nas duas chaves possíveis do localStorage para garantir exibição em perfil.html
             const historicoChave = `pedidos_${usuario.email}`;
-            const pedidosAnteriores = JSON.parse(localStorage.getItem(historicoChave)) || [];
+            const pedidosAnteriores = JSON.parse(localStorage.getItem(historicoChave)) || JSON.parse(localStorage.getItem("pedidos")) || [];
             pedidosAnteriores.unshift(novoPedido);
+            
             localStorage.setItem(historicoChave, JSON.stringify(pedidosAnteriores));
+            localStorage.setItem("pedidos", JSON.stringify(pedidosAnteriores));
 
-            // Dispara o e-mail de confirmação para o cliente e notificação para o dono da loja
+            // Dispara e-mail de confirmação ao cliente e aviso de venda ao administrador
             try {
                 await fetch('/api/enviar-confirmacao/', {
                     method: 'POST',
@@ -51,7 +57,7 @@ async function processarRetornoMercadoPago() {
                         email: usuario.email,
                         nome: usuario.nome || "Cliente",
                         telefone: usuario.telefone || 'Não informado',
-                        endereco: usuario.rua ? `${usuario.rua}, Nº ${usuario.numero || ''}` : 'Endereço de perfil',
+                        endereco: usuario.rua ? `${usuario.rua}, Nº ${usuario.numero || ''}` : 'Endereço cadastrado no perfil',
                         itens: carrinho,
                         total: totalVal
                     })
@@ -60,11 +66,14 @@ async function processarRetornoMercadoPago() {
                 console.error("Erro ao enviar e-mail de confirmação:", err);
             }
 
-            // Limpa o carrinho
+            // Apaga o carrinho definitivamente
             localStorage.removeItem("carrinho");
             localStorage.removeItem("cart");
 
-            alert("🎉 Pagamento aprovado com sucesso! O teu pedido foi registado na tua conta.");
+            // Limpa os parâmetros da URL para evitar loops
+            window.history.replaceState({}, document.title, window.location.pathname);
+
+            alert("🎉 Pagamento aprovado com sucesso! O teu pedido foi registrado em 'Minhas Compras'.");
             window.location.href = "perfil.html";
         }
     }
@@ -80,6 +89,7 @@ function carregarCarrinho() {
     if (carrinho.length === 0) {
         container.innerHTML = "<p style='color: #888; text-align: center; padding: 20px;'>O teu carrinho está vazio.</p>";
         if (document.getElementById("subtotal-val")) document.getElementById("subtotal-val").innerText = "R$ 0,00";
+        if (document.getElementById("frete-val")) document.getElementById("frete-val").innerText = "R$ 0,00";
         if (document.getElementById("total-val")) document.getElementById("total-val").innerText = "R$ 0,00";
         return;
     }
@@ -131,7 +141,7 @@ function calcularTotal() {
     let subtotal = parseFloat(subtotalText.replace("R$", "").replace(".", "").replace(",", ".").trim()) || 0;
     
     let freteRadios = document.getElementsByName("frete");
-    let freteValor = 15.00;
+    let freteValor = 0.00;
     for (let radio of freteRadios) {
         if (radio.checked) {
             freteValor = parseFloat(radio.value);
