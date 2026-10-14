@@ -22,8 +22,8 @@ sdk = mercadopago.SDK(ACCESS_TOKEN)
 # FUNÇÃO AUXILIAR: ENVIO DE E-MAIL EM SEGUNDO PLANO
 # ==========================================
 
-def enviar_email_async(assunto, mensagem, destinatarios, fail_silently=True):
-    """Dispara o e-mail numa thread separada para não causar WORKER TIMEOUT no Render"""
+def enviar_email_async(assunto, mensagem, destinatarios, fail_silently=False):
+    """Dispara o e-mail em segundo plano com log de sucesso/erro para o Render"""
     def _enviar():
         try:
             send_mail(
@@ -33,8 +33,9 @@ def enviar_email_async(assunto, mensagem, destinatarios, fail_silently=True):
                 destinatarios if isinstance(destinatarios, list) else [destinatarios],
                 fail_silently=fail_silently,
             )
+            print(f"✅ E-mail enviado com sucesso para: {destinatarios}")
         except Exception as e:
-            print(f"Erro ao enviar e-mail em segundo plano: {e}")
+            print(f"❌ ERRO CRÍTICO NO ENVIO DE E-MAIL: {str(e)}")
 
     threading.Thread(target=_enviar).start()
 
@@ -174,7 +175,7 @@ def enviar_email_pedido(request):
 
             # 1. Monta texto para o cliente
             itens_cliente_texto = "\n".join([
-                f"- {item.get('title')} | Cor/Modelo: {item.get('cor', 'Padrão')} | Tam: {item.get('tamanho', 'Único')} — {item.get('price')}"
+                f"- {item.get('title')} | Tam: {item.get('tamanho') or item.get('size') or 'Único'} — {item.get('price')}"
                 for item in itens
             ])
             
@@ -193,9 +194,8 @@ def enviar_email_pedido(request):
             # 2. Monta e-mail para o ADMIN
             itens_admin_texto = "\n".join([
                 f"• Produto: {item.get('title')}\n"
-                f"  - Cor/Modelo: {item.get('cor', 'Não especificado')}\n"
-                f"  - Tamanho: {item.get('tamanho', 'Único')}\n"
-                f"  - Qtd: {item.get('quantidade', 1)}\n"
+                f"  - Tamanho: {item.get('tamanho') or item.get('size') or 'Único'}\n"
+                f"  - Qtd: {item.get('quantity') or item.get('quantidade') or 1}\n"
                 f"  - Preço: {item.get('price')}\n"
                 f"----------------------------------------"
                 for item in itens
@@ -217,7 +217,7 @@ def enviar_email_pedido(request):
 
             enviar_email_async(assunto_admin, mensagem_admin, admin_email)
 
-            return JsonResponse({'message': 'E-mails enviados com sucesso!'})
+            return JsonResponse({'message': 'E-mails iniciados em segundo plano!'})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
 
