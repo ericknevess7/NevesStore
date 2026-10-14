@@ -55,12 +55,10 @@ def produtos_view(request):
 
 @csrf_exempt
 def create_preference(request):
-    """Cria a preferência no Mercado Pago com redirecionamento automático de volta para a loja"""
     if request.method == "POST":
         try:
             data = json.loads(request.body)
             
-            # Detecta o domínio atual do site dinamicamente
             host = request.get_host()
             protocol = 'https' if 'onrender.com' in host or request.is_secure() else 'http'
             site_url = f"{protocol}://{host}"
@@ -68,7 +66,7 @@ def create_preference(request):
             preference_data = {
                 "items": [
                     {
-                        "title": data.get("title", "Produto Neves Store"),
+                        "title": data.get("title", "Compra - Neves Store"),
                         "quantity": int(data.get("quantity", 1)),
                         "unit_price": float(data.get("price", 10.0)),
                         "currency_id": "BRL"
@@ -79,7 +77,8 @@ def create_preference(request):
                     "failure": f"{site_url}/carrinho.html?status=failure",
                     "pending": f"{site_url}/carrinho.html?status=pending"
                 },
-                "auto_return": "approved"
+                "auto_return": "approved",
+                "notification_url": f"{site_url}/api/webhook/mercadopago/"
             }
 
             preference_response = sdk.preference().create(preference_data)
@@ -93,8 +92,56 @@ def create_preference(request):
 
 
 @csrf_exempt
+def webhook_mercadopago(request):
+    """Notificação automática do Mercado Pago quando o Pix é pago"""
+    if request.method in ["POST", "GET"]:
+        try:
+            data = json.loads(request.body) if request.body else {}
+            payment_id = (
+                request.GET.get("id") or 
+                request.GET.get("data.id") or 
+                data.get("data", {}).get("id")
+            )
+            topic = request.GET.get("topic") or data.get("type") or request.GET.get("type")
+
+            if payment_id and topic in ["payment", "payment.updated"]:
+                payment_info = sdk.payment().get(payment_id)
+                payment_data = payment_info.get("response", {})
+                
+                status = payment_data.get("status")
+
+                if status == "approved":
+                    payer_email = payment_data.get("payer", {}).get("email", "Cliente")
+                    transaction_amount = payment_data.get("transaction_amount", 0.0)
+                    
+                    admin_email = getattr(settings, 'ADMIN_EMAIL', '01erickneves01@gmail.com')
+                    assunto_admin = f"🔥 NOVO PIX RECEBIDO AUTOMATICAMENTE — R$ {transaction_amount:.2f}"
+                    mensagem_admin = (
+                        f"PAGAMENTO CONFIRMADO PELO MERCADO PAGO!\n\n"
+                        f"💰 Valor: R$ {transaction_amount:.2f}\n"
+                        f"📧 E-mail do Pagador: {payer_email}\n"
+                        f"🆔 ID da Transação: {payment_id}\n"
+                        f"Status: APROVADO VIA WEBHOOK ✅\n\n"
+                        f"O valor já caiu na tua conta do Mercado Pago!"
+                    )
+
+                    send_mail(
+                        assunto_admin,
+                        mensagem_admin,
+                        getattr(settings, 'DEFAULT_FROM_EMAIL', 'Neves Store <nevesstoreoficial01@gmail.com>'),
+                        [admin_email],
+                        fail_silently=True,
+                    )
+
+            return JsonResponse({"status": "ok"}, status=200)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=200)
+
+    return JsonResponse({"status": "ignored"}, status=200)
+
+
+@csrf_exempt
 def enviar_email_pedido(request):
-    """Envia o e-mail de confirmação para o cliente E o aviso de venda detalhado para o dono da loja"""
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -108,7 +155,6 @@ def enviar_email_pedido(request):
             if not email_cliente:
                 return JsonResponse({'error': 'Email do cliente não fornecido.'}, status=400)
 
-            # 1. Monta texto de confirmação para o cliente
             itens_cliente_texto = "\n".join([
                 f"- {item.get('title')} | Cor/Modelo: {item.get('cor', 'Padrão')} | Tam: {item.get('tamanho', 'Único')} — {item.get('price')}"
                 for item in itens
@@ -125,7 +171,6 @@ def enviar_email_pedido(request):
                 f"Obrigado por comprar com a Neves Store!"
             )
 
-            # Envia e-mail para o cliente
             send_mail(
                 assunto_cliente,
                 mensagem_cliente,
@@ -134,7 +179,6 @@ def enviar_email_pedido(request):
                 fail_silently=False,
             )
 
-            # 2. Monta e-mail detalhado de notificação para o ADMIN (Você)
             itens_admin_texto = "\n".join([
                 f"• Produto: {item.get('title')}\n"
                 f"  - Cor/Modelo: {item.get('cor', 'Não especificado')}\n"
