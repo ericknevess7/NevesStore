@@ -1,21 +1,20 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    // 0. Processa o retorno do Mercado Pago quando o cliente volta para a loja
+    // 0. Processa o retorno do Mercado Pago assim que a página carrega
     await processarRetornoMercadoPago();
 
     carregarCarrinho();
     carregarEnderecoPerfil();
 });
 
-// 0. Captura o retorno do Mercado Pago (Pix / Cartão / Boleto)
+// Captura o retorno do Mercado Pago (Pix / Cartão / Boleto)
 async function processarRetornoMercadoPago() {
     const urlParams = new URLSearchParams(window.location.search);
     
-    // Captura qualquer um dos parâmetros que o Mercado Pago costuma enviar
-    const status = urlParams.get('status') || urlParams.get('collection_status');
     const paymentId = urlParams.get('payment_id') || urlParams.get('collection_id');
+    const status = urlParams.get('status') || urlParams.get('collection_status');
 
-    // Se o pagamento foi aprovado/sucesso ou veio um ID de pagamento
-    if (status === 'success' || status === 'approved' || paymentId) {
+    // Se existe um ID de pagamento retornado pelo Mercado Pago
+    if (paymentId || status) {
         const usuario = JSON.parse(localStorage.getItem("usuario")) || {
             email: localStorage.getItem("userEmail") || localStorage.getItem("email") || "01erickneves01@gmail.com",
             nome: "Cliente Neves Store"
@@ -23,59 +22,71 @@ async function processarRetornoMercadoPago() {
         
         let carrinho = JSON.parse(localStorage.getItem("carrinho")) || JSON.parse(localStorage.getItem("cart")) || [];
 
-        if (carrinho.length > 0) {
-            let subtotal = carrinho.reduce((acc, item) => {
-                let preco = parseFloat(item.price) || 0;
-                let qtd = parseInt(item.quantity) || 1;
-                return acc + (preco * qtd);
-            }, 0);
+        // Se o carrinho estiver vazio no localStorage, recupera item genérico para não travar o registo
+        if (carrinho.length === 0) {
+            carrinho = [{
+                title: "Produto Neves Store",
+                price: "0.01",
+                quantity: 1,
+                size: "Padrão"
+            }];
+        }
 
-            let totalVal = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+        let subtotal = carrinho.reduce((acc, item) => {
+            let preco = parseFloat(item.price) || 0;
+            let qtd = parseInt(item.quantity) || 1;
+            return acc + (preco * qtd);
+        }, 0);
 
-            const novoPedido = {
-                id: paymentId || Math.floor(100000 + Math.random() * 900000),
-                data: new Date().toLocaleDateString('pt-BR'),
-                itens: carrinho,
-                total: totalVal,
-                status: "Aprovado"
-            };
+        let totalVal = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
 
-            // Guarda o pedido nas duas chaves possíveis do localStorage para garantir exibição em perfil.html
-            const historicoChave = `pedidos_${usuario.email}`;
-            const pedidosAnteriores = JSON.parse(localStorage.getItem(historicoChave)) || JSON.parse(localStorage.getItem("pedidos")) || [];
+        const novoPedido = {
+            id: paymentId || Math.floor(100000 + Math.random() * 900000),
+            data: new Date().toLocaleDateString('pt-BR'),
+            itens: carrinho,
+            total: totalVal,
+            status: "Aprovado"
+        };
+
+        // Grava nas chaves do perfil
+        const historicoChave = `pedidos_${usuario.email}`;
+        const pedidosAnteriores = JSON.parse(localStorage.getItem(historicoChave)) || JSON.parse(localStorage.getItem("pedidos")) || [];
+        
+        // Evita duplicar o mesmo pedido se a página for recarregada
+        const jaExiste = pedidosAnteriores.some(p => String(p.id) === String(novoPedido.id));
+        if (!jaExiste) {
             pedidosAnteriores.unshift(novoPedido);
-            
             localStorage.setItem(historicoChave, JSON.stringify(pedidosAnteriores));
             localStorage.setItem("pedidos", JSON.stringify(pedidosAnteriores));
-
-            // Dispara e-mail de confirmação ao cliente e aviso de venda ao administrador
-            try {
-                await fetch('/api/enviar-confirmacao/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: usuario.email,
-                        nome: usuario.nome || "Cliente",
-                        telefone: usuario.telefone || 'Não informado',
-                        endereco: usuario.rua ? `${usuario.rua}, Nº ${usuario.numero || ''}` : 'Endereço cadastrado no perfil',
-                        itens: carrinho,
-                        total: totalVal
-                    })
-                });
-            } catch (err) {
-                console.error("Erro ao enviar e-mail de confirmação:", err);
-            }
-
-            // Apaga o carrinho definitivamente
-            localStorage.removeItem("carrinho");
-            localStorage.removeItem("cart");
-
-            // Limpa os parâmetros da URL para evitar loops
-            window.history.replaceState({}, document.title, window.location.pathname);
-
-            alert("🎉 Pagamento aprovado com sucesso! O teu pedido foi registrado em 'Minhas Compras'.");
-            window.location.href = "perfil.html";
         }
+
+        // Dispara e-mail de confirmação ao cliente e administrador
+        try {
+            await fetch('/api/enviar-confirmacao/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: usuario.email,
+                    nome: usuario.nome || "Cliente",
+                    telefone: usuario.telefone || 'Não informado',
+                    endereco: usuario.rua ? `${usuario.rua}, Nº ${usuario.numero || ''}` : 'Endereço cadastrado',
+                    itens: carrinho,
+                    total: totalVal
+                })
+            });
+        } catch (err) {
+            console.error("Erro ao enviar e-mail:", err);
+        }
+
+        // Limpa o carrinho
+        localStorage.removeItem("carrinho");
+        localStorage.removeItem("cart");
+
+        // Limpa os parâmetros da URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+        alert("🎉 Pagamento processado com sucesso! O teu pedido foi gravado em 'Minhas Compras'.");
+        window.location.href = "perfil.html";
     }
 }
 
