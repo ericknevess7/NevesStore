@@ -1,5 +1,6 @@
 import os
 import json
+import threading
 import mercadopago
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -15,6 +16,27 @@ from django.utils.encoding import force_bytes
 
 ACCESS_TOKEN = getattr(settings, 'MERCADOPAGO_ACCESS_TOKEN', os.environ.get("MERCADOPAGO_ACCESS_TOKEN", ""))
 sdk = mercadopago.SDK(ACCESS_TOKEN)
+
+
+# ==========================================
+# FUNÇÃO AUXILIAR: ENVIO DE E-MAIL EM SEGUNDO PLANO
+# ==========================================
+
+def enviar_email_async(assunto, mensagem, destinatarios, fail_silently=True):
+    """Dispara o e-mail numa thread separada para não causar WORKER TIMEOUT no Render"""
+    def _enviar():
+        try:
+            send_mail(
+                assunto,
+                mensagem,
+                getattr(settings, 'DEFAULT_FROM_EMAIL', 'Neves Store <nevesstoreoficial01@gmail.com>'),
+                destinatarios if isinstance(destinatarios, list) else [destinatarios],
+                fail_silently=fail_silently,
+            )
+        except Exception as e:
+            print(f"Erro ao enviar e-mail em segundo plano: {e}")
+
+    threading.Thread(target=_enviar).start()
 
 
 # ==========================================
@@ -125,13 +147,7 @@ def webhook_mercadopago(request):
                         f"O valor já caiu na tua conta do Mercado Pago!"
                     )
 
-                    send_mail(
-                        assunto_admin,
-                        mensagem_admin,
-                        getattr(settings, 'DEFAULT_FROM_EMAIL', 'Neves Store <nevesstoreoficial01@gmail.com>'),
-                        [admin_email],
-                        fail_silently=True,
-                    )
+                    enviar_email_async(assunto_admin, mensagem_admin, admin_email)
 
             return JsonResponse({"status": "ok"}, status=200)
         except Exception as e:
@@ -142,6 +158,7 @@ def webhook_mercadopago(request):
 
 @csrf_exempt
 def enviar_email_pedido(request):
+    """Envia o e-mail de confirmação para o cliente E para o administrador"""
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -155,6 +172,7 @@ def enviar_email_pedido(request):
             if not email_cliente:
                 return JsonResponse({'error': 'Email do cliente não fornecido.'}, status=400)
 
+            # 1. Monta texto para o cliente
             itens_cliente_texto = "\n".join([
                 f"- {item.get('title')} | Cor/Modelo: {item.get('cor', 'Padrão')} | Tam: {item.get('tamanho', 'Único')} — {item.get('price')}"
                 for item in itens
@@ -166,19 +184,13 @@ def enviar_email_pedido(request):
                 f"Recebemos o seu pedido na Neves Store e já estamos a preparar tudo com muito cuidado!\n\n"
                 f"📦 Itens comprados:\n{itens_cliente_texto}\n\n"
                 f"💰 Valor Total: {total}\n\n"
-                f"🚚 Importante: O seu produto será enviado com prazo estimado de 2 a 4 dias úteis. "
-                f"Assim que for despachado, o código de rastreio será enviado para o seu telemóvel cadastrado!\n\n"
+                f"🚚 Importante: O seu produto será enviado com prazo estimado de 2 a 4 dias úteis.\n\n"
                 f"Obrigado por comprar com a Neves Store!"
             )
 
-            send_mail(
-                assunto_cliente,
-                mensagem_cliente,
-                getattr(settings, 'DEFAULT_FROM_EMAIL', 'Neves Store <nevesstoreoficial01@gmail.com>'),
-                [email_cliente],
-                fail_silently=False,
-            )
+            enviar_email_async(assunto_cliente, mensagem_cliente, email_cliente, fail_silently=False)
 
+            # 2. Monta e-mail para o ADMIN
             itens_admin_texto = "\n".join([
                 f"• Produto: {item.get('title')}\n"
                 f"  - Cor/Modelo: {item.get('cor', 'Não especificado')}\n"
@@ -203,13 +215,7 @@ def enviar_email_pedido(request):
                 f"💰 VALOR TOTAL: {total}\n"
             )
 
-            send_mail(
-                assunto_admin,
-                mensagem_admin,
-                getattr(settings, 'DEFAULT_FROM_EMAIL', 'Neves Store <nevesstoreoficial01@gmail.com>'),
-                [admin_email],
-                fail_silently=True,
-            )
+            enviar_email_async(assunto_admin, mensagem_admin, admin_email)
 
             return JsonResponse({'message': 'E-mails enviados com sucesso!'})
         except Exception as e:
@@ -391,13 +397,7 @@ def api_esqueci_senha(request):
                     f"Atenciosamente,\nEquipe Neves Store"
                 )
 
-                send_mail(
-                    assunto,
-                    mensagem,
-                    getattr(settings, 'DEFAULT_FROM_EMAIL', 'Neves Store <nevesstoreoficial01@gmail.com>'),
-                    [email],
-                    fail_silently=False,
-                )
+                enviar_email_async(assunto, mensagem, email, fail_silently=False)
 
             return JsonResponse({'message': 'Se o e-mail estiver cadastrado, enviaremos as instruções de recuperação.'})
         except Exception as e:
